@@ -8,6 +8,7 @@
             "DOM",
             "DOM.Iterable"
         ],
+        "baseUrl": ".",
         "skipLibCheck": true,
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
@@ -21,6 +22,9 @@
         "paths": {
             "@/*": [
                 "./src/*"
+            ],
+            "@components/*": [
+                "./src/components/*"
             ]
         },
         "types": [

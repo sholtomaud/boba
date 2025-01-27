@@ -1,3 +1,5 @@
+import { COMPONENT_PATHS } from '../../components';
+
 type Route = {
     path: string;
     component: string; // Component tag name (e.g., 'home-page')
@@ -42,22 +44,37 @@ export class Router {
         const outlet = document.querySelector('#router-outlet');
         if (!outlet) return;
 
+
         try {
-            const componentPath = `../../components/${tagName}/${tagName}.ts`;
-            // Import the component first
-            await import(/* @vite-ignore */ componentPath);
+            const loader = COMPONENT_PATHS[tagName as keyof typeof COMPONENT_PATHS];
+            if (!loader) throw new Error('Component not registered');
 
-            // Clear previous content
-            outlet.innerHTML = '';
-
-            // Create and append the web component
-            const component = document.createElement(tagName);
-            outlet.appendChild(component);
-
+            await loader();
+            outlet.innerHTML = `<${tagName}></${tagName}>`;
         } catch (error) {
             console.error(`Failed to load component: ${tagName}`, error);
             this.show404();
         }
+
+        // try {
+        //     const componentPath = import.meta.env.MODE === 'development'
+        //         ? `../../components/${tagName}/${tagName}.ts` // Dev: raw TS
+        //         : `/assets/${tagName}.js`; // Prod: compiled JS
+
+        //     // Import the component first
+        //     await import(/* @vite-ignore */ componentPath);
+
+        //     // Clear previous content
+        //     outlet.innerHTML = '';
+
+        //     // Create and append the web component
+        //     const component = document.createElement(tagName);
+        //     outlet.appendChild(component);
+
+        // } catch (error) {
+        //     console.error(`Failed to load component: ${tagName}`, error);
+        //     this.show404();
+        // }
     }
 
     private show404(): void {

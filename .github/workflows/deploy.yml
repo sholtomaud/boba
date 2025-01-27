@@ -35,7 +35,16 @@ jobs:
         run: npm test
 
       - name: Build project
-        run: npm run build
+        run: |
+          npm run build
+          # Add CNAME if using custom domain
+          echo 'yourdomain.com' > dist/CNAME    
+
+      - name: Verify build output
+        run: |
+          ls -la dist/
+          echo "Checking index.html exists:"
+          test -f dist/index.html || exit 
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

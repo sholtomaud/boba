@@ -1,13 +1,24 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import componentManifest from './vite-plugin-component-manifest';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+    base: mode === 'production' ? '/ts-wc-templater/' : '/',
+    plugins: [componentManifest()],
     build: {
-        target: 'esnext',
         outDir: 'dist',
+        assetsDir: 'assets',
+        emptyOutDir: true,
+        target: 'esnext',
+        modulePreload: false, // Add this
         rollupOptions: {
             input: {
-                main: resolve(__dirname, 'index.html')
+                main: './index.html'
+            },
+            output: {
+                entryFileNames: 'assets/[name].js',
+                chunkFileNames: 'assets/[name].js',
+                assetFileNames: 'assets/[name][extname]'
             }
         }
     },
@@ -25,7 +36,5 @@ export default defineConfig({
         alias: {
             '@': resolve(__dirname, './src')
         }
-    },
-    assetsInclude: ['**/*.html',],
-    plugins: []
-});
+    }
+}));

@@ -4,9 +4,9 @@
   "main": "./src/main.ts",
   "homepage": "https://sholtomaud.github.io/ts-wc-template/",
   "scripts": {
-    "dev": "vite",
+    "dev": "NODE_ENV=development vite",
     "dev:host": "vite --host",
-    "build": "vite build",
+    "build": "NODE_ENV=production vite build",
     "preview": "vite preview",
     "test": "vite build",
     "test:ui": "vitest --ui",

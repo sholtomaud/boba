@@ -1,13 +1,14 @@
 {
   "name": "ts-wc-templater",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/main.ts",
+  "homepage": "https://sholtomaud.github.io/ts-wc-template/",
   "scripts": {
     "dev": "vite",
     "dev:host": "vite --host",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run",

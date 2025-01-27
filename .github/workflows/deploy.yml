@@ -3,8 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -35,21 +33,16 @@ jobs:
         run: npm test
 
       - name: Build project
-        run: |
-          npm run build
-          # Add CNAME if using custom domain
-          echo 'yourdomain.com' > dist/CNAME    
+        run: npm run build
 
-      - name: Verify build output
-        run: |
-          ls -la dist/
-          echo "Checking index.html exists:"
-          test -f dist/index.html || exit 
+      - name: Add .nojekyll
+        run: touch dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
+          # Remove CNAME unless you're using a custom domain
 
   deploy:
     environment:

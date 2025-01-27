@@ -55,26 +55,6 @@ export class Router {
             console.error(`Failed to load component: ${tagName}`, error);
             this.show404();
         }
-
-        // try {
-        //     const componentPath = import.meta.env.MODE === 'development'
-        //         ? `../../components/${tagName}/${tagName}.ts` // Dev: raw TS
-        //         : `/assets/${tagName}.js`; // Prod: compiled JS
-
-        //     // Import the component first
-        //     await import(/* @vite-ignore */ componentPath);
-
-        //     // Clear previous content
-        //     outlet.innerHTML = '';
-
-        //     // Create and append the web component
-        //     const component = document.createElement(tagName);
-        //     outlet.appendChild(component);
-
-        // } catch (error) {
-        //     console.error(`Failed to load component: ${tagName}`, error);
-        //     this.show404();
-        // }
     }
 
     private show404(): void {

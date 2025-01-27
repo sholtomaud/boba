@@ -78,3 +78,6 @@ dist/
 
 # IntelliJ IDEA
 *.iml
+
+# Domains
+DOMAIN_NAME_QUOTES.md

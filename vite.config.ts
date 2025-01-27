@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import componentManifest from './vite-plugin-component-manifest';
 
 export default defineConfig(({ mode }) => ({
-    base: mode === 'production' ? '/ts-wc-templater/' : '/',
+    base: mode === 'production' ? '/' : '/',
     plugins: [componentManifest()],
     build: {
         outDir: 'dist',

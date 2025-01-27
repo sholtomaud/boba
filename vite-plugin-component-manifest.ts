@@ -27,7 +27,7 @@ export default function componentManifest(): PluginOption {
                 // Development: Use direct TS imports
                 const imports = components.map(name => {
                     const importPath = isProduction
-                        ? `"/ts-wc-templater/assets/${name}.js"` // Production path
+                        ? `"/assets/${name}.js"` // Production path
                         : `"./components/${name}/${name}.ts"`;  // Development path
 
                     return `"${name}": () => import(${importPath})`;

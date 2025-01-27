@@ -3,16 +3,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 80vh;
     padding: var(--spacing-large);
-    animation: slideIn 0.5s ease-out;
+    color: var(--primary-color);
 }
 
 .title {
     color: var(--primary-color);
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-large);
-    animation: fadeIn 0.5s ease-in;
+    font-size: 4.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 100;
+    margin-bottom: 0px;
+    animation: fadeIn 1.0s ease-in;
 }
 
 .content {

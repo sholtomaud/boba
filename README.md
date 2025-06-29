@@ -12,12 +12,13 @@ This template is designed with the following principles in mind:
 *   **Type Safety:** Utilizes TypeScript for robust and maintainable code.
 *   **Developer Experience:** Aims to provide a clean and efficient structure for component development, prioritizing simplicity in the core template.
 
+
 ## Key Features
 
 *   **Web Component-Based Architecture:** True encapsulation with Shadow DOM.
 *   **`BaseComponent` (`src/core/base-component.ts`):** A foundational abstract class that simplifies component creation by handling Shadow DOM setup, HTML templating, and CSS scoping.
 *   **Client-Side Router (`src/core/router/router.ts`):** A lightweight, singleton router that dynamically loads and renders components based on the URL.
-*   **Automatic Component Manifest (`vite-plugin-component-manifest.ts` & `src/components.ts`):** A custom Vite plugin automatically discovers components in `src/components` and generates a manifest for lazy loading.
+*   **Automatic Component Manifest (`vite-plugin-component-manifest.ts` & `src/components.ts`):** A custom Vite plugin automatically discovers components in `src/components` and generates a manifest for lazy loading
 *   **TypeScript First:** Full support for TypeScript.
 *   **Vite Powered:** Fast HMR, optimized builds, and easy configuration.
 *   **Vitest for Testing:** A modern testing framework compatible with Vite.
@@ -25,8 +26,6 @@ This template is designed with the following principles in mind:
 *   **GitHub Actions CI/CD:** Basic deployment workflow to GitHub Pages is included.
 
 ## Getting Started
-
-(Content remains the same as previous version - installation, scripts etc.)
 
 ### Using as a Template
 
@@ -64,8 +63,6 @@ This template is designed with the following principles in mind:
 *   **`npm run type-check` or `yarn type-check`**: Performs a TypeScript type check without emitting files.
 
 ## Developing Your Own Application
-
-(Content remains the same as previous version - project structure, creating components, routing, styling)
 
 ### Project Structure Overview
 
@@ -167,8 +164,6 @@ Now, navigating to `/profile` will render your `user-profile` component.
 
 ## Architectural Deep Dive
 
-(Content remains the same as previous version)
-
 ### `BaseComponent`
 
 The `BaseComponent` class is the cornerstone of component creation. When a component extends it:
@@ -192,6 +187,7 @@ The `Router` (`src/core/router/router.ts`) works in tandem with the `vite-plugin
 6.  Once the module is loaded (which includes the `customElements.define(...)` call), the router creates an instance of your component by setting the `innerHTML` of the `<div id="router-outlet"></div>` to `<your-component-tag></your-component-tag>`.
 
 This system allows for efficient code splitting and on-demand loading of components.
+
 
 ## Future Vision & Potential Enhancements
 

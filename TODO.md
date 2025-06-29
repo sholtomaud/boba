@@ -1,5 +1,6 @@
 # TODO List for ts-wc-template Improvements
 
+
 This list tracks potential improvements and fixes for the `ts-wc-template` repository. Items are categorized and prioritized. The overall philosophy is to maintain simplicity in the core template while enhancing developer experience and robustness.
 
 ## Immediate Priorities (Core Template Health)
@@ -70,3 +71,4 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
     *   This would be a significant undertaking, pursued if the template ecosystem matures and there's clear demand for such deep AI integration.
 
 Please prioritize items starting from "Immediate Priorities".
+

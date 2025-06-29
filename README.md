@@ -6,24 +6,23 @@ A modern, opinionated template for building fast, modular, and maintainable web 
 
 This template is designed with the following principles in mind:
 
-*   **Modularity:** Build your application as a collection of encapsulated Web Components.
-*   **Lazy Loading:** Components are loaded on demand, improving initial application load times.
-*   **Modern Tooling:** Leverages Vite for a blazing fast development experience and optimized builds, with Vitest for testing.
-*   **Type Safety:** Utilizes TypeScript for robust and maintainable code.
-*   **Developer Experience:** Aims to provide a clean and efficient structure for component development, prioritizing simplicity in the core template.
-
+- **Modularity:** Build your application as a collection of encapsulated Web Components.
+- **Lazy Loading:** Components are loaded on demand, improving initial application load times.
+- **Modern Tooling:** Leverages Vite for a blazing fast development experience and optimized builds, with Vitest for testing.
+- **Type Safety:** Utilizes TypeScript for robust and maintainable code.
+- **Developer Experience:** Aims to provide a clean and efficient structure for component development, prioritizing simplicity in the core template.
 
 ## Key Features
 
-*   **Web Component-Based Architecture:** True encapsulation with Shadow DOM.
-*   **`BaseComponent` (`src/core/base-component.ts`):** A foundational abstract class that simplifies component creation by handling Shadow DOM setup, HTML templating, and CSS scoping.
-*   **Client-Side Router (`src/core/router/router.ts`):** A lightweight, singleton router that dynamically loads and renders components based on the URL.
-*   **Automatic Component Manifest (`vite-plugin-component-manifest.ts` & `src/components.ts`):** A custom Vite plugin automatically discovers components in `src/components` and generates a manifest for lazy loading
-*   **TypeScript First:** Full support for TypeScript.
-*   **Vite Powered:** Fast HMR, optimized builds, and easy configuration.
-*   **Vitest for Testing:** A modern testing framework compatible with Vite.
-*   **Scoped CSS:** Styles defined in component CSS files are automatically scoped to the component via Shadow DOM.
-*   **GitHub Actions CI/CD:** Basic deployment workflow to GitHub Pages is included.
+- **Web Component-Based Architecture:** True encapsulation with Shadow DOM.
+- **`BaseComponent` (`src/core/base-component.ts`):** A foundational abstract class that simplifies component creation by handling Shadow DOM setup, HTML templating, and CSS scoping.
+- **Client-Side Router (`src/core/router/router.ts`):** A lightweight, singleton router that dynamically loads and renders components based on the URL.
+- **Automatic Component Manifest (`vite-plugin-component-manifest.ts` & `src/components.ts`):** A custom Vite plugin automatically discovers components in `src/components` and generates a manifest for lazy loading
+- **TypeScript First:** Full support for TypeScript.
+- **Vite Powered:** Fast HMR, optimized builds, and easy configuration.
+- **Vitest for Testing:** A modern testing framework compatible with Vite.
+- **Scoped CSS:** Styles defined in component CSS files are automatically scoped to the component via Shadow DOM.
+- **GitHub Actions CI/CD:** Basic deployment workflow to GitHub Pages is included.
 
 ## Getting Started
 
@@ -34,8 +33,8 @@ This template is designed with the following principles in mind:
 
 ### Prerequisites
 
-*   Node.js (LTS version recommended)
-*   npm (comes with Node.js) or yarn
+- Node.js (LTS version recommended)
+- npm (comes with Node.js) or yarn
 
 ### Installation
 
@@ -52,87 +51,92 @@ This template is designed with the following principles in mind:
 
 ### Available Scripts
 
-*   **`npm run dev` or `yarn dev`**: Starts the development server with Hot Module Replacement (HMR).
-*   **`npm run dev:host` or `yarn dev:host`**: Starts the development server and exposes it to your local network.
-*   **`npm run build` or `yarn build`**: Builds the application for production in the `dist` folder.
-*   **`npm run preview` or `yarn preview`**: Serves the production build locally for previewing.
-*   **`npm test` or `yarn test`**: (Currently misconfigured, see `TODO.md`) Ideally, runs the test suite.
-*   **`npm run test:ui` or `yarn test:ui`**: Runs tests with the Vitest UI.
-*   **`npm run test:coverage` or `yarn test:coverage`**: Runs tests and generates a coverage report.
-*   **`npm run test:ci` or `yarn test:ci`**: Runs tests in CI mode (headless).
-*   **`npm run type-check` or `yarn type-check`**: Performs a TypeScript type check without emitting files.
+- **`npm run dev` or `yarn dev`**: Starts the development server with Hot Module Replacement (HMR).
+- **`npm run dev:host` or `yarn dev:host`**: Starts the development server and exposes it to your local network.
+- **`npm run build` or `yarn build`**: Builds the application for production in the `dist` folder.
+- **`npm run preview` or `yarn preview`**: Serves the production build locally for previewing.
+- **`npm test` or `yarn test`**: (Currently misconfigured, see `TODO.md`) Ideally, runs the test suite.
+- **`npm run test:ui` or `yarn test:ui`**: Runs tests with the Vitest UI.
+- **`npm run test:coverage` or `yarn test:coverage`**: Runs tests and generates a coverage report.
+- **`npm run test:ci` or `yarn test:ci`**: Runs tests in CI mode (headless).
+- **`npm run type-check` or `yarn type-check`**: Performs a TypeScript type check without emitting files.
 
 ## Developing Your Own Application
 
 ### Project Structure Overview
 
-*   **`src/components/`**: Contains your application's web components. Each component typically resides in its own subdirectory (e.g., `src/components/my-component/`).
-    *   `my-component.ts`: The component's TypeScript logic (extends `BaseComponent`).
-    *   `my-component.html`: The component's HTML template.
-    *   `my-component.css`: The component's scoped styles.
-    *   `my-component.test.ts`: (Recommended) Unit tests for the component.
-*   **`src/core/`**: Core modules of the template.
-    *   `base-component.ts`: The base class for all components.
-    *   `router/router.ts`: The client-side router.
-*   **`src/services/`**: For business logic, API interactions, etc.
-*   **`src/styles/`**: Global styles and CSS variables.
-*   **`src/main.ts`**: The main entry point of the application where the router is initialized and global settings are applied.
-*   **`index.html`**: The main HTML file, containing the `<div id="router-outlet"></div>` where components are rendered.
-*   **`vite-plugin-component-manifest.ts`**: The custom Vite plugin that generates `src/components.ts`. You generally won't need to modify this.
-*   **`src/components.ts`**: Auto-generated by the Vite plugin. **Do not edit this file directly.**
+- **`src/components/`**: Contains your application's web components. Each component typically resides in its own subdirectory (e.g., `src/components/my-component/`).
+  - `my-component.ts`: The component's TypeScript logic (extends `BaseComponent`).
+  - `my-component.html`: The component's HTML template.
+  - `my-component.css`: The component's scoped styles.
+  - `my-component.test.ts`: (Recommended) Unit tests for the component.
+- **`src/core/`**: Core modules of the template.
+  - `base-component.ts`: The base class for all components.
+  - `router/router.ts`: The client-side router.
+- **`src/services/`**: For business logic, API interactions, etc.
+- **`src/styles/`**: Global styles and CSS variables.
+- **`src/main.ts`**: The main entry point of the application where the router is initialized and global settings are applied.
+- **`index.html`**: The main HTML file, containing the `<div id="router-outlet"></div>` where components are rendered.
+- **`vite-plugin-component-manifest.ts`**: The custom Vite plugin that generates `src/components.ts`. You generally won't need to modify this.
+- **`src/components.ts`**: Auto-generated by the Vite plugin. **Do not edit this file directly.**
 
 ### Creating a New Component
 
 1.  **Create a new directory** for your component under `src/components/`, e.g., `src/components/user-profile/`.
 2.  **Create the component files:**
-    *   `user-profile.ts`
-    *   `user-profile.html`
-    *   `user-profile.css`
+    - `user-profile.ts`
+    - `user-profile.html`
+    - `user-profile.css`
 3.  **Implement the component logic (`user-profile.ts`):**
+
     ```typescript
     import html from './user-profile.html?raw'; // Import HTML as a raw string
-    import css from './user-profile.css?raw';   // Import CSS as a raw string
+    import css from './user-profile.css?raw'; // Import CSS as a raw string
     import { BaseComponent } from '../../core/base-component';
 
     export class UserProfileComponent extends BaseComponent {
-        static readonly tagName = 'user-profile'; // Unique tag name for your component
+      static readonly tagName = 'user-profile'; // Unique tag name for your component
 
-        constructor() {
-            super(html, css); // Pass HTML and CSS to the base class
-        }
+      constructor() {
+        super(html, css); // Pass HTML and CSS to the base class
+      }
 
-        // Called after the component's shadow DOM is populated
-        protected init(): void {
-            console.log(`${UserProfileComponent.tagName} initialized`);
-            // Add your component-specific logic, event listeners, etc.
-            const titleElement = this.shadowRoot?.querySelector('h1');
-            if (titleElement) {
-                titleElement.textContent = 'User Profile Page';
-            }
+      // Called after the component's shadow DOM is populated
+      protected init(): void {
+        console.log(`${UserProfileComponent.tagName} initialized`);
+        // Add your component-specific logic, event listeners, etc.
+        const titleElement = this.shadowRoot?.querySelector('h1');
+        if (titleElement) {
+          titleElement.textContent = 'User Profile Page';
         }
+      }
     }
 
     // Register the component with the browser
     if (!customElements.get(UserProfileComponent.tagName)) {
-        customElements.define(UserProfileComponent.tagName, UserProfileComponent);
+      customElements.define(UserProfileComponent.tagName, UserProfileComponent);
     }
     ```
+
 4.  **Add HTML structure (`user-profile.html`):**
     ```html
     <div>
-        <h1>Default Title</h1>
-        <p>This is the user profile component.</p>
+      <h1>Default Title</h1>
+      <p>This is the user profile component.</p>
     </div>
     ```
 5.  **Add styles (`user-profile.css`):**
     ```css
     div {
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
     h1 {
-        color: var(--primary-color, navy); /* Example using a global variable with fallback */
+      color: var(
+        --primary-color,
+        navy
+      ); /* Example using a global variable with fallback */
     }
     ```
     The `vite-plugin-component-manifest` will automatically detect this new component directory and update `src/components.ts`, making it available to the router.
@@ -158,15 +162,16 @@ Now, navigating to `/profile` will render your `user-profile` component.
 
 ### Styling
 
-*   **Component-Scoped Styles:** Styles defined in a component's CSS file (e.g., `user-profile.css`) are automatically scoped to that component by `BaseComponent` placing them within the Shadow DOM.
-*   **Global Styles:** Use `src/styles/global.css` for application-wide styles.
-*   **CSS Variables:** Define global CSS variables in `src/styles/variables.css` (or a similar file imported into `global.css`) and use them in your components for theming and consistency.
+- **Component-Scoped Styles:** Styles defined in a component's CSS file (e.g., `user-profile.css`) are automatically scoped to that component by `BaseComponent` placing them within the Shadow DOM.
+- **Global Styles:** Use `src/styles/global.css` for application-wide styles.
+- **CSS Variables:** Define global CSS variables in `src/styles/variables.css` (or a similar file imported into `global.css`) and use them in your components for theming and consistency.
 
 ## Architectural Deep Dive
 
 ### `BaseComponent`
 
 The `BaseComponent` class is the cornerstone of component creation. When a component extends it:
+
 1.  The constructor of `BaseComponent` receives the HTML and CSS strings.
 2.  It creates an HTML `<template>` element.
 3.  It populates this template with the provided CSS (wrapped in `<style>` tags) and the HTML content.
@@ -179,6 +184,7 @@ This ensures that your component's styles and structure are encapsulated.
 ### Router & Component Manifest
 
 The `Router` (`src/core/router/router.ts`) works in tandem with the `vite-plugin-component-manifest.ts`.
+
 1.  The Vite plugin scans `src/components/` for directories (each assumed to be a component).
 2.  It generates `src/components.ts`, which exports an object `COMPONENT_PATHS`. This object maps component names (derived from directory names, e.g., `home-page`) to dynamic import functions: `() => import('./components/home-page/home-page.ts')`.
 3.  When you navigate, the `Router` finds the route matching the current path.
@@ -188,23 +194,22 @@ The `Router` (`src/core/router/router.ts`) works in tandem with the `vite-plugin
 
 This system allows for efficient code splitting and on-demand loading of components.
 
-
 ## Future Vision & Potential Enhancements
 
 This template aims to provide a solid, simple foundation. Future enhancements will focus on improving developer experience and robustness, while maintaining this core philosophy.
 
-*   **CLI Tool for Code Generation:**
-    A key planned enhancement is a Node.js CLI tool (e.g., `npx ts-wc-cli generate component <name>`) to scaffold new components, services, and manage routes. This will enforce conventions and speed up development.
-    *   The CLI could also generate/maintain structured "context files" (e.g., `project-manifest.json`) describing the project's layout. This "MCP-Lite" (Model Context Protocol - Lite) approach could provide essential context for external tools or AI-assisted development, facilitating more advanced integrations in the future without overburdening the core template.
+- **CLI Tool for Code Generation:**
+  A key planned enhancement is a Node.js CLI tool (e.g., `npx ts-wc-cli generate component <name>`) to scaffold new components, services, and manage routes. This will enforce conventions and speed up development.
+  - The CLI could also generate/maintain structured "context files" (e.g., `project-manifest.json`) describing the project's layout. This "MCP-Lite" (Model Context Protocol - Lite) approach could provide essential context for external tools or AI-assisted development, facilitating more advanced integrations in the future without overburdening the core template.
 
-*   **PWA Capabilities:** Integrating PWA features (via `vite-plugin-pwa` or similar) to enable offline functionality and installability is a high-value next step.
+- **PWA Capabilities:** Integrating PWA features (via `vite-plugin-pwa` or similar) to enable offline functionality and installability is a high-value next step.
 
-*   **Enhanced State Management:** For more complex applications, guidance or integration options for lightweight state management solutions will be explored.
+- **Enhanced State Management:** For more complex applications, guidance or integration options for lightweight state management solutions will be explored.
 
-*   **Advanced Theming Engine:** Building upon CSS variables for more sophisticated theming.
+- **Advanced Theming Engine:** Building upon CSS variables for more sophisticated theming.
 
-*   **Long-Term Vision - Advanced AI/LLM Tooling:**
-    Building on the CLI and "Context Files", future evolutions could explore a more comprehensive "Model Context Protocol" (MCP) server. This would provide a rich, real-time API for AI development assistants to understand and interact with the codebase deeply, enabling highly compliant and intelligent code generation. This remains a long-term vision, contingent on the template's evolution and the demand for such advanced tooling.
+- **Long-Term Vision - Advanced AI/LLM Tooling:**
+  Building on the CLI and "Context Files", future evolutions could explore a more comprehensive "Model Context Protocol" (MCP) server. This would provide a rich, real-time API for AI development assistants to understand and interact with the codebase deeply, enabling highly compliant and intelligent code generation. This remains a long-term vision, contingent on the template's evolution and the demand for such advanced tooling.
 
 ## Contributing
 

@@ -1,4 +1,7 @@
-<nav>
-    <a href="/" > Home </a>
-        < a href = "/about" > About </a>
-            </nav>
+import { describe, it, expect } from 'vitest';
+
+describe('NavPage', () => {
+  it('should have a placeholder test', () => {
+    expect(true).toBe(true);
+  });
+});

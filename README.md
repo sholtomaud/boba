@@ -10,14 +10,15 @@ This template is designed with the following principles in mind:
 *   **Lazy Loading:** Components are loaded on demand, improving initial application load times.
 *   **Modern Tooling:** Leverages Vite for a blazing fast development experience and optimized builds, with Vitest for testing.
 *   **Type Safety:** Utilizes TypeScript for robust and maintainable code.
-*   **Developer Experience:** Aims to provide a clean and efficient structure for component development.
+*   **Developer Experience:** Aims to provide a clean and efficient structure for component development, prioritizing simplicity in the core template.
+
 
 ## Key Features
 
 *   **Web Component-Based Architecture:** True encapsulation with Shadow DOM.
 *   **`BaseComponent` (`src/core/base-component.ts`):** A foundational abstract class that simplifies component creation by handling Shadow DOM setup, HTML templating, and CSS scoping.
 *   **Client-Side Router (`src/core/router/router.ts`):** A lightweight, singleton router that dynamically loads and renders components based on the URL.
-*   **Automatic Component Manifest (`vite-plugin-component-manifest.ts` & `src/components.ts`):** A custom Vite plugin automatically discovers components in `src/components` and generates a manifest for lazy loading. This means new components are automatically available to the router without manual registration in a central file.
+*   **Automatic Component Manifest (`vite-plugin-component-manifest.ts` & `src/components.ts`):** A custom Vite plugin automatically discovers components in `src/components` and generates a manifest for lazy loading
 *   **TypeScript First:** Full support for TypeScript.
 *   **Vite Powered:** Fast HMR, optimized builds, and easy configuration.
 *   **Vitest for Testing:** A modern testing framework compatible with Vite.
@@ -187,26 +188,24 @@ The `Router` (`src/core/router/router.ts`) works in tandem with the `vite-plugin
 
 This system allows for efficient code splitting and on-demand loading of components.
 
-## Speculative Ideas / Future Vision
 
-This template provides a solid foundation. Here are some ideas for how it could be extended or what kind of applications it's well-suited for:
+## Future Vision & Potential Enhancements
+
+This template aims to provide a solid, simple foundation. Future enhancements will focus on improving developer experience and robustness, while maintaining this core philosophy.
 
 *   **CLI Tool for Code Generation:**
-    Imagine a simple Node.js CLI tool (e.g., `npx ts-wc-template-cli generate component <name>`) that scaffolds new components, services, or even new projects based on this template. This could be a single executable Node.js application, making it highly portable. The CLI could:
-    *   Create the necessary component files (`.ts`, `.html`, `.css`, `.test.ts`).
-    *   Optionally add a route for the new component in `main.ts`.
-    *   Generate boilerplate for services.
+    A key planned enhancement is a Node.js CLI tool (e.g., `npx ts-wc-cli generate component <name>`) to scaffold new components, services, and manage routes. This will enforce conventions and speed up development.
+    *   The CLI could also generate/maintain structured "context files" (e.g., `project-manifest.json`) describing the project's layout. This "MCP-Lite" (Model Context Protocol - Lite) approach could provide essential context for external tools or AI-assisted development, facilitating more advanced integrations in the future without overburdening the core template.
 
-*   **Enhanced State Management:** For more complex applications, integrating a lightweight state management solution (like Zustand, Jotai, or even a simple custom solution using RxJS or Signals) could be beneficial for managing shared state between components.
+*   **PWA Capabilities:** Integrating PWA features (via `vite-plugin-pwa` or similar) to enable offline functionality and installability is a high-value next step.
 
-*   **Advanced Theming Engine:** While CSS variables provide a good start, a more sophisticated theming engine could be built on top, allowing users to easily switch between themes or customize them.
+*   **Enhanced State Management:** For more complex applications, guidance or integration options for lightweight state management solutions will be explored.
 
-*   **UI Component Library:** This template is an excellent starting point for building a reusable library of UI components.
+*   **Advanced Theming Engine:** Building upon CSS variables for more sophisticated theming.
 
-*   **Progressive Web Apps (PWAs):** With the addition of a service worker and a manifest file, applications built with this template can easily be turned into PWAs.
-
-*   **Micro-Frontends:** The component-based nature and lazy loading make it suitable for scenarios where parts of a larger application are developed as independent web components.
+*   **Long-Term Vision - Advanced AI/LLM Tooling:**
+    Building on the CLI and "Context Files", future evolutions could explore a more comprehensive "Model Context Protocol" (MCP) server. This would provide a rich, real-time API for AI development assistants to understand and interact with the codebase deeply, enabling highly compliant and intelligent code generation. This remains a long-term vision, contingent on the template's evolution and the demand for such advanced tooling.
 
 ## Contributing
 
-Contributions are welcome! If you have ideas for improvements or find bugs, please open an issue or submit a pull request. (Further contribution guidelines can be added here).
+Contributions are welcome! Please see `TODO.md` for current priorities. If you have ideas for improvements or find bugs, please open an issue or submit a pull request.

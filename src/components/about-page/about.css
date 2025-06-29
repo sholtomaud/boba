@@ -1,45 +1,44 @@
 .about-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    padding: var(--spacing-large);
-    color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: var(--spacing-large);
+  color: var(--primary-color);
 }
 
 .title {
-    color: var(--primary-color);
-    font-size: 4.5rem;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 100;
-    margin-bottom: 0px;
-    animation: fadeIn 1.0s ease-in;
+  color: var(--primary-color);
+  font-size: 4.5rem;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 100;
+  margin-bottom: 0px;
+  animation: fadeIn 1s ease-in;
 }
 
 .content {
-    text-align: center;
+  text-align: center;
 }
 
-
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
-    from {
-        transform: translateY(5px);
-        opacity: 0;
-    }
+  from {
+    transform: translateY(5px);
+    opacity: 0;
+  }
 
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

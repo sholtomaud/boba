@@ -1,6 +1,7 @@
 {
   "name": "ts-wc-templater",
   "version": "1.0.0",
+  "type": "module",
   "main": "./src/main.ts",
   "homepage": "https://sholtomaud.github.io/ts-wc-template/",
   "scripts": {
@@ -12,15 +13,25 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.js",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@eslint/js": "^9.30.0",
     "@types/node": "^22.10.10",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint": "^9.30.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
+    "globals": "^16.2.0",
     "happy-dom": "^16.7.3",
+    "prettier": "^3.6.2",
     "typescript": "^5.7.3",
     "vite": "^6.3.4",
     "vitest": "^3.0.5"

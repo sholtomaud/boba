@@ -54,10 +54,125 @@ The build is done during deployment:
 
 ### Git Workflow & Project Management
 
-1. **Before Committing:** Ensure all NON-NEGOTIABLE requirements above are met
-2. **After Pushing:** Wait for Pull Request approval before proceeding
-3. **Post-Approval:** Update your TODO item status to "done" and push the status update
-4. **Next Steps:** Move on to the next TODO item or request new assignments
+#### 🚨 MANDATORY GIT WORKFLOW 🚨
+
+**For Every New Task:**
+
+1. **Sync with Main Branch:**
+   ```bash
+   git checkout main
+   git fetch origin
+   git pull origin main
+   ```
+
+2. **Create Feature Branch:**
+   ```bash
+   git checkout -b feature/ISSUE-NUMBER-brief-description
+   # Example: git checkout -b feature/123-add-user-profile-component
+   ```
+
+3. **Branch Naming Convention:**
+   - `feature/ISSUE-NUMBER-brief-description` - For new features
+   - `bugfix/ISSUE-NUMBER-brief-description` - For bug fixes
+   - `hotfix/ISSUE-NUMBER-brief-description` - For urgent production fixes
+   - `docs/ISSUE-NUMBER-brief-description` - For documentation updates
+   - `refactor/ISSUE-NUMBER-brief-description` - For code refactoring
+
+4. **Development Cycle:**
+   - Make your changes on the feature branch
+   - **BEFORE COMMITTING:** Run all NON-NEGOTIABLE requirements
+   - Commit with meaningful messages (see Commit Message Standards below)
+   - Push feature branch: `git push origin feature/ISSUE-NUMBER-brief-description`
+
+5. **Pull Request Process:**
+   - Create PR from feature branch to main
+   - Wait for PR approval before proceeding to next task
+   - **Do NOT merge your own PRs**
+   - After approval, update TODO item status to "done"
+
+6. **Post-Merge Cleanup:**
+   - Return to main: `git checkout main`
+   - Pull latest: `git pull origin main`
+   - Delete local feature branch: `git branch -d feature/ISSUE-NUMBER-brief-description`
+
+#### Commit Message Standards
+
+**Format:**
+```
+type(scope): brief description
+
+Longer explanation if needed
+
+- List specific changes
+- Include any breaking changes
+- Reference issue numbers
+
+Closes #ISSUE-NUMBER
+```
+
+**Types:**
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation changes
+- `style:` - Formatting changes (no code logic changes)
+- `refactor:` - Code refactoring
+- `test:` - Adding or updating tests
+- `chore:` - Maintenance tasks, dependency updates
+
+**Examples:**
+```bash
+git commit -m "feat(components): add user profile component
+
+- Add UserProfile web component with shadow DOM
+- Include responsive CSS styling
+- Add unit tests for component rendering
+- Integrate with existing router system
+
+Closes #123"
+
+git commit -m "fix(router): resolve navigation issue on page refresh
+
+- Fix base URL handling in router.ts
+- Update route matching logic for deep links
+- Add error handling for invalid routes
+
+Closes #456"
+
+git commit -m "docs(readme): update installation instructions
+
+- Add Node.js version requirements
+- Include troubleshooting section
+- Fix broken links in documentation
+
+Closes #789"
+```
+
+#### Emergency Procedures
+
+**If You Need to Switch Tasks Mid-Development:**
+```bash
+# Stash current work
+git stash push -m "WIP: describe current work"
+
+# Switch to main and create new branch for urgent task
+git checkout main
+git pull origin main
+git checkout -b hotfix/URGENT-ISSUE-NUMBER-description
+
+# After urgent work is complete, return to previous work
+git checkout feature/ORIGINAL-ISSUE-NUMBER-description
+git stash pop
+```
+
+**If Main Branch Has Updates While You're Working:**
+```bash
+# From your feature branch
+git checkout main
+git pull origin main
+git checkout feature/YOUR-BRANCH-NAME
+git rebase main
+# Resolve any conflicts, then continue
+```
 
 ## 5. Deployment (GitHub Pages)
 
@@ -102,12 +217,13 @@ You MUST propose an update to this AGENTS.md file when you encounter any of the 
 - **Configuration Issues:** Problems with ESLint, Prettier, TypeScript, or Vite configurations
 - **CI/CD Problems:** GitHub Actions workflow failures or deployment issues
 
-#### Workflow & Process Improvements
+#### Git Workflow & Process Improvements
 - **Development Inefficiencies:** Patterns that slow down the development cycle
 - **Missing Best Practices:** Better approaches to common development tasks
 - **Tool Integration Problems:** Development tools not working optimally together
 - **Testing Gaps:** Areas where testing could be improved or streamlined
-- **Git Workflow Issues:** Problems with the PR/commit process
+- **Git Workflow Issues:** Problems with the PR/commit process, branching strategies, or merge conflicts
+- **Branch Management:** Issues with branch naming, cleanup, or synchronization
 
 #### Documentation & Knowledge Management
 - **Outdated Information:** Sections that have become obsolete or incorrect
@@ -168,12 +284,14 @@ When proposing a self-update to AGENTS.md, use this structured format:
 #### ❌ FORBIDDEN UPDATES:
 - Modifying the NON-NEGOTIABLE PRE-COMMIT REQUIREMENTS
 - Changing the mandatory pre-commit workflow (install, type-check, lint, test)
+- **Altering the MANDATORY GIT WORKFLOW** without explicit approval
 - Altering core project architecture without explicit approval
 - Removing essential sections or safety guardrails
 - Changing deployment configuration without authorization
 - **Security Regression:** Any changes that weaken existing security measures
 - **Security Bypass:** Instructions that circumvent security tools or processes
 - **Workflow Shortcuts:** Removing quality gates or safety checks
+- **Git Safety Bypasses:** Instructions to skip branch creation, PR process, or merge protections
 
 ### Self-Improvement Mindset
 

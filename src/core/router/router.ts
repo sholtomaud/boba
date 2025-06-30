@@ -1,4 +1,4 @@
-import { COMPONENT_PATHS } from '../../components';
+import { COMPONENT_PATHS } from 'virtual:component-manifest';
 
 const BASE_URL = import.meta.env.BASE_URL; // Provided by Vite, e.g., "/ts-wc-templater/" or "/"
 

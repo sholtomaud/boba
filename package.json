@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "main": "./src/main.ts",
-  "homepage": "https://sholtomaud.github.io/ts-wc-template/",
+  "homepage": "https://sholtomaud.github.io/ts-wc-templater/",
   "scripts": {
     "dev": "NODE_ENV=development vite",
     "dev:host": "vite --host",

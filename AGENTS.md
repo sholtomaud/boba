@@ -31,7 +31,7 @@ This is a template repository for building modern web applications using Web Com
 
 ## 4. Development Workflow
 
-### 🚨 NON-NEGOTIABLE REQUIREMENTS 🚨
+### 🚨 NON-NEGOTIABLE PRE-COMMIT REQUIREMENTS 🚨
 
 The following commands MUST be run and MUST pass before pushing any commit to GitHub. This is mandatory and cannot be skipped or modified:
 
@@ -51,6 +51,13 @@ The following can be run during development:
 
 The build is done during deployment:
 *   **Build for Production:** `npm run build` (output goes to `dist/`)
+
+### Git Workflow & Project Management
+
+1. **Before Committing:** Ensure all NON-NEGOTIABLE requirements above are met
+2. **After Pushing:** Wait for Pull Request approval before proceeding
+3. **Post-Approval:** Update your TODO item status to "done" and push the status update
+4. **Next Steps:** Move on to the next TODO item or request new assignments
 
 ## 5. Deployment (GitHub Pages)
 
@@ -77,9 +84,10 @@ This project is configured for deployment to GitHub Pages under a repository-nam
 
 ## 8. Coding Style & Conventions
 
-*   Follow existing code style.
+*   Follow existing code style and maintain consistency.
 *   Code is formatted using Prettier and linted using ESLint. Ensure changes pass these checks.
 *   Use kebab-case for custom element tag names (e.g., `app-root`, `home-page`).
+*   Write meaningful commit messages that describe the change and its purpose.
 
 ## 9. SELF-UPDATE PROTOCOL FOR AI AGENTS
 
@@ -87,91 +95,116 @@ This project is configured for deployment to GitHub Pages under a repository-nam
 
 You MUST propose an update to this AGENTS.md file when you encounter any of the following scenarios:
 
-#### Persistent Build/Test Errors
-- **Pattern Recognition:** If you encounter the same build, lint, or test errors repeatedly across multiple interactions
-- **Missing Documentation:** When errors could be prevented by better documentation of common pitfalls
-- **Dependency Issues:** When package installation or version conflicts require specific workarounds
-- **Configuration Problems:** When ESLint, Prettier, TypeScript, or Vite configurations cause recurring issues
+#### Build/Test/Deployment Issues
+- **Persistent Errors:** Recurring build, lint, or test errors across multiple interactions
+- **Missing Documentation:** Errors that could be prevented with better documentation
+- **Dependency Conflicts:** Package installation or version conflicts requiring workarounds
+- **Configuration Issues:** Problems with ESLint, Prettier, TypeScript, or Vite configurations
+- **CI/CD Problems:** GitHub Actions workflow failures or deployment issues
 
-#### Workflow Improvements
-- **Inefficient Development Cycles:** When you identify patterns that slow down development
-- **Missing Best Practices:** When you discover better approaches to common tasks
-- **Tool Integration Issues:** When development tools don't work optimally together
-- **Testing Gaps:** When you identify areas where testing could be improved or streamlined
+#### Workflow & Process Improvements
+- **Development Inefficiencies:** Patterns that slow down the development cycle
+- **Missing Best Practices:** Better approaches to common development tasks
+- **Tool Integration Problems:** Development tools not working optimally together
+- **Testing Gaps:** Areas where testing could be improved or streamlined
+- **Git Workflow Issues:** Problems with the PR/commit process
 
-#### Knowledge Gaps
-- **Outdated Information:** When any section of this document becomes outdated
-- **Missing Context:** When important project details are not documented
-- **Unclear Instructions:** When existing instructions are ambiguous or incomplete
-- **New Patterns:** When new coding patterns or architectural decisions emerge
+#### Documentation & Knowledge Management
+- **Outdated Information:** Sections that have become obsolete or incorrect
+- **Missing Context:** Important project details not adequately documented
+- **Unclear Instructions:** Ambiguous or incomplete guidance
+- **New Patterns:** Emerging coding patterns or architectural decisions
+- **Knowledge Gaps:** Information that would benefit future AI agents
 
-#### DevSecOps & Security Issues
-- **Security Vulnerabilities:** When you identify instructions that could introduce security risks
-- **Insecure Practices:** When documented workflows or code patterns have security implications
-- **Dependency Security:** When package installations or configurations pose security threats
-- **Build/Deploy Security:** When CI/CD processes or deployment strategies create attack vectors
-- **Well-Intentioned Bad Practices:** When instructions added with good intentions inadvertently compromise security
-- **Missing Security Guidelines:** When security best practices are absent from the development workflow
+#### DevSecOps & Security Concerns
+- **Security Vulnerabilities:** Instructions that could introduce security risks
+- **Insecure Practices:** Documented workflows with security implications
+- **Dependency Security:** Package installations or configurations posing threats
+- **Build/Deploy Security:** CI/CD processes creating potential attack vectors
+- **Well-Intentioned Security Issues:** Changes made with good intentions that compromise security
+- **Missing Security Guidelines:** Absence of security best practices in workflows
 
 ### How to Propose Updates
 
-When proposing a self-update to AGENTS.md, follow this format:
+When proposing a self-update to AGENTS.md, use this structured format:
 
 ```
 ## PROPOSED AGENTS.MD UPDATE
 
 ### Reason for Update:
-[Describe the issue/improvement that prompted this update]
+[Clearly describe the issue, pattern, or improvement that prompted this update]
 
 ### Section(s) to Modify:
-[Specify which sections need changes]
+[Specify which sections need changes - be specific with section numbers/names]
 
 ### Proposed Changes:
-[Provide the specific text changes or additions]
+[Provide the exact text changes, additions, or removals needed]
 
 ### Security Impact Assessment (if applicable):
-[If the update relates to security, assess the impact and provide mitigation strategies]
+[For security-related updates: assess impact and provide mitigation strategies]
 
-### Justification:
-[Explain how this change will improve the AI agent workflow]
+### Expected Benefits:
+[Explain how this change will improve AI agent workflow, prevent issues, or enhance security]
+
+### Testing/Validation:
+[If applicable, describe how the proposed changes can be validated]
 ```
 
 ### Update Guidelines
 
 #### ✅ ALLOWED UPDATES:
 - Adding troubleshooting sections for common errors
-- Clarifying existing instructions
-- Adding new sections for discovered patterns
+- Clarifying existing instructions and removing ambiguity
+- Documenting new patterns and best practices discovered
 - Updating tool versions or commands (with security review)
-- Adding performance tips
+- Adding performance optimization tips
 - Expanding component structure guidelines
-- Adding debugging strategies
-- **SECURITY IMPROVEMENTS:** Adding or updating security best practices
-- **VULNERABILITY FIXES:** Removing or modifying instructions that introduce security risks
-- **DevSecOps ENHANCEMENTS:** Integrating security into development workflows
+- Adding debugging strategies and techniques
+- **Security Enhancements:** Adding or updating security best practices
+- **Vulnerability Remediation:** Removing or modifying risky instructions
+- **DevSecOps Integration:** Embedding security into development workflows
+- **Process Improvements:** Streamlining workflows based on learned patterns
 
 #### ❌ FORBIDDEN UPDATES:
-- Modifying the NON-NEGOTIABLE REQUIREMENTS in Section 4
-- Changing the mandatory pre-commit workflow (type-check, lint, test)
-- Altering core project architecture decisions
-- Removing essential sections
-- Changing deployment configuration without explicit approval
-- **SECURITY REGRESSION:** Any changes that would weaken existing security measures
-- **BYPASSING SECURITY:** Instructions that circumvent security tools or processes
+- Modifying the NON-NEGOTIABLE PRE-COMMIT REQUIREMENTS
+- Changing the mandatory pre-commit workflow (install, type-check, lint, test)
+- Altering core project architecture without explicit approval
+- Removing essential sections or safety guardrails
+- Changing deployment configuration without authorization
+- **Security Regression:** Any changes that weaken existing security measures
+- **Security Bypass:** Instructions that circumvent security tools or processes
+- **Workflow Shortcuts:** Removing quality gates or safety checks
 
 ### Self-Improvement Mindset
 
-As an AI agent working with this codebase:
-- **Learn from Patterns:** Track what errors occur frequently
-- **Document Solutions:** When you solve a problem, consider if it should be documented
-- **Think Proactively:** Anticipate issues that future AI agents might encounter
-- **Continuous Improvement:** Seek out opportunities to improve the AI agent workflow and the application stack
-- **Optimize Workflows:** Look for ways to make the development process more efficient
-- **Maintain Quality:** Ensure all updates maintain the high standards of this project
-- **Security First:** Always consider the security implications of any proposed changes
-- **DevSecOps Mindset:** Integrate security considerations into all development practices
-- **Question Well-Intentioned Changes:** Evaluate whether past additions might have unintended security consequences
+As an AI agent working with this codebase, embody these principles:
+
+**Learning & Pattern Recognition:**
+- Track recurring errors and their solutions
+- Identify inefficiencies in development workflows
+- Document successful problem-solving approaches
+
+**Proactive Problem-Solving:**
+- Anticipate issues that future AI agents might encounter
+- Think beyond immediate fixes to systematic improvements
+- Consider the long-term maintainability of solutions
+
+**Quality & Security First:**
+- Maintain high code quality standards in all contributions
+- Always evaluate security implications of proposed changes
+- Integrate DevSecOps thinking into all development practices
+- Question whether past "helpful" additions might have unintended consequences
+
+**Continuous Improvement:**
+- Seek opportunities to enhance both the application and the development process
+- Balance innovation with stability and reliability
+- Share knowledge through clear documentation and examples
+
+**Collaboration & Communication:**
+- Write clear, actionable update proposals
+- Provide context and justification for all suggested changes
+- Consider the impact on other developers and future AI agents
 
 ---
 
-Please adhere to these guidelines when making changes to the repository. Remember: the goal is continuous improvement while maintaining stability and reliability.
+**Remember:** The goal is continuous improvement while maintaining stability, security, and reliability. Every change should make the development experience better for future AI agents and human developers.

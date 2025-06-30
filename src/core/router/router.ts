@@ -26,9 +26,14 @@ export class Router {
     const pathname = window.location.pathname;
     // Ensure BASE_URL ends with a slash for correct comparison and substringing,
     // unless it's the root path "/".
-    const normalizedBaseUrl = BASE_URL.endsWith('/') || BASE_URL === '/' ? BASE_URL : BASE_URL + '/';
+    const normalizedBaseUrl =
+      BASE_URL.endsWith('/') || BASE_URL === '/' ? BASE_URL : BASE_URL + '/';
 
-    if (pathname.startsWith(normalizedBaseUrl) && normalizedBaseUrl.length > 1) { // Don't strip if base is '/'
+    if (
+      pathname.startsWith(normalizedBaseUrl) &&
+      normalizedBaseUrl.length > 1
+    ) {
+      // Don't strip if base is '/'
       let appPath = pathname.substring(normalizedBaseUrl.length);
       // Ensure it starts with a leading slash for consistency (e.g. / or /about)
       if (!appPath.startsWith('/')) {
@@ -43,7 +48,9 @@ export class Router {
 
   public registerRoute(route: Route): void {
     // Ensure routes are registered with a leading slash for consistency
-    const normalizedPath = route.path.startsWith('/') ? route.path : '/' + route.path;
+    const normalizedPath = route.path.startsWith('/')
+      ? route.path
+      : '/' + route.path;
     this.routes.push({ ...route, path: normalizedPath });
   }
 
@@ -52,13 +59,17 @@ export class Router {
    * The router will handle prepending the BASE_URL for history.
    * @param appPath The application-specific path.
    */
-  public navigate(appPath: string): void { // appPath is like "/" or "/about"
+  public navigate(appPath: string): void {
+    // appPath is like "/" or "/about"
     const normalizedAppPath = appPath.startsWith('/') ? appPath : '/' + appPath;
 
     // Construct the full public URL path.
     // The base for new URL must be an absolute URL.
     const dummyAbsoluteBase = 'http://dummy';
-    const publicPath = new URL(normalizedAppPath.substring(1), dummyAbsoluteBase + (BASE_URL.endsWith('/') ? BASE_URL : BASE_URL + '/')).pathname;
+    const publicPath = new URL(
+      normalizedAppPath.substring(1),
+      dummyAbsoluteBase + (BASE_URL.endsWith('/') ? BASE_URL : BASE_URL + '/')
+    ).pathname;
 
     if (window.location.pathname !== publicPath) {
       window.history.pushState({}, '', publicPath);

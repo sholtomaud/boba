@@ -10,9 +10,11 @@ function getInitialAppPath(): string {
   const pathname = window.location.pathname;
   // Ensure BASE_URL ends with a slash for correct comparison and substringing,
   // unless it's the root path "/".
-  const normalizedBaseUrl = BASE_URL.endsWith('/') || BASE_URL === '/' ? BASE_URL : BASE_URL + '/';
+  const normalizedBaseUrl =
+    BASE_URL.endsWith('/') || BASE_URL === '/' ? BASE_URL : BASE_URL + '/';
 
-  if (pathname.startsWith(normalizedBaseUrl) && normalizedBaseUrl.length > 1) { // Don't strip if base is '/'
+  if (pathname.startsWith(normalizedBaseUrl) && normalizedBaseUrl.length > 1) {
+    // Don't strip if base is '/'
     let appPath = pathname.substring(normalizedBaseUrl.length);
     if (!appPath.startsWith('/')) {
       appPath = '/' + appPath;

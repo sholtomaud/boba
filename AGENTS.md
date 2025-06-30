@@ -42,11 +42,6 @@ The following commands MUST be run and MUST pass before pushing any commit to Gi
 
 **ALL of these must complete successfully with zero errors before any git push.**
 
-### Development Commands
-
-The following can be run during development:
-*   **Run Development Server:** `npm run dev` (typically available at `http://localhost:3000`)
-
 ### Build Command
 
 The build is done during deployment:

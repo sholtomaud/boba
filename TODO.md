@@ -48,6 +48,26 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
   - This CLI is a key step in standardizing development workflows and improving developer experience.
   - **Sub-Task `[IDEA/MEDIUM]`:** `[ ]` Investigate CLI generating/maintaining "Context Files" (MCP-Lite). For example, a `project-manifest.json` file listing components, routes, services. This structured data could be used by external tools or provide context for AI code generation assistants.
 
+## High Priority Feature Additions
+
+- **`[HIGH]`** `[ ]` New Example Homepage:
+  - Completely redesign the homepage.
+  - Showcase the template's capabilities.
+  - Use Tailwind CSS for styling.
+  - Implement an appropriate professional oss CSS compiler for Tailwind (e.g., PostCSS).
+  - Aim for a professional look and feel.
+
+- **`[HIGH]`** `[ ]` New TODO App Page:
+  - Create a new page that functions as a TODO application.
+  - This will demonstrate more complex component interaction and state management.
+
+- **`[HIGH]`** `[ ]` Add Playwright Tests:
+  - Initialize Playwright with `npm init playwright@latest`.
+  - Choose TypeScript as the language.
+  - Name of your Tests folder (default is tests or e2e if you already have a tests folder in your project).
+  - Add a GitHub Actions workflow to easily run tests on CI.
+  - Write Playwright tests for the example app.
+
 ## Future Enhancements (Ecosystem & Features)
 
 - **`[LOW]`** `[ ]` Enhance `vite-plugin-component-manifest` flexibility:

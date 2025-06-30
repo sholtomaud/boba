@@ -25,9 +25,15 @@ export class TodoPageComponent extends BaseComponent {
   }
 
   protected init(): void {
-    this.taskInput = this.shadowRoot!.getElementById('new-task-input') as HTMLInputElement;
-    this.addTaskButton = this.shadowRoot!.getElementById('add-task-btn') as HTMLButtonElement;
-    this.taskList = this.shadowRoot!.getElementById('task-list') as HTMLUListElement;
+    this.taskInput = this.shadowRoot!.getElementById(
+      'new-task-input'
+    ) as HTMLInputElement;
+    this.addTaskButton = this.shadowRoot!.getElementById(
+      'add-task-btn'
+    ) as HTMLButtonElement;
+    this.taskList = this.shadowRoot!.getElementById(
+      'task-list'
+    ) as HTMLUListElement;
 
     this.addTaskButton.addEventListener('click', () => this.addTask());
     this.taskInput.addEventListener('keypress', (event) => {
@@ -59,7 +65,7 @@ export class TodoPageComponent extends BaseComponent {
   }
 
   private toggleTaskComplete(taskId: number): void {
-    const task = this.tasks.find(t => t.id === taskId);
+    const task = this.tasks.find((t) => t.id === taskId);
     if (task) {
       task.completed = !task.completed;
       this.saveTasks();
@@ -68,7 +74,7 @@ export class TodoPageComponent extends BaseComponent {
   }
 
   private deleteTask(taskId: number): void {
-    this.tasks = this.tasks.filter(t => t.id !== taskId);
+    this.tasks = this.tasks.filter((t) => t.id !== taskId);
     this.saveTasks();
     this.renderTasks();
   }
@@ -90,10 +96,10 @@ export class TodoPageComponent extends BaseComponent {
     }
     // Ensure nextTaskId is at least the max existing ID + 1 if tasks were loaded
     if (this.tasks.length > 0) {
-        const maxId = Math.max(...this.tasks.map(t => t.id), 0);
-        this.nextTaskId = Math.max(this.nextTaskId, maxId + 1);
+      const maxId = Math.max(...this.tasks.map((t) => t.id), 0);
+      this.nextTaskId = Math.max(this.nextTaskId, maxId + 1);
     } else {
-        this.nextTaskId = 1; // Reset if no tasks
+      this.nextTaskId = 1; // Reset if no tasks
     }
   }
 
@@ -101,24 +107,26 @@ export class TodoPageComponent extends BaseComponent {
     this.taskList.innerHTML = ''; // Clear existing tasks
 
     if (this.tasks.length === 0) {
-        // Handled by CSS :empty pseudo-class with ::after
-        // Or you can add a specific message here:
-        // const emptyMsg = document.createElement('p');
-        // emptyMsg.textContent = "No tasks yet! Add some above.";
-        // emptyMsg.className = 'empty-list-message'; // Style this class in CSS
-        // this.taskList.appendChild(emptyMsg);
+      // Handled by CSS :empty pseudo-class with ::after
+      // Or you can add a specific message here:
+      // const emptyMsg = document.createElement('p');
+      // emptyMsg.textContent = "No tasks yet! Add some above.";
+      // emptyMsg.className = 'empty-list-message'; // Style this class in CSS
+      // this.taskList.appendChild(emptyMsg);
     } else {
-        this.tasks.forEach(task => {
+      this.tasks.forEach((task) => {
         const listItem = document.createElement('li');
         listItem.dataset.taskId = task.id.toString();
         if (task.completed) {
-            listItem.classList.add('completed');
+          listItem.classList.add('completed');
         }
 
         const taskTextSpan = document.createElement('span');
         taskTextSpan.classList.add('task-text');
         taskTextSpan.textContent = task.text;
-        taskTextSpan.addEventListener('click', () => this.toggleTaskComplete(task.id));
+        taskTextSpan.addEventListener('click', () =>
+          this.toggleTaskComplete(task.id)
+        );
 
         const actionsDiv = document.createElement('div');
         actionsDiv.classList.add('task-actions');
@@ -133,7 +141,7 @@ export class TodoPageComponent extends BaseComponent {
         listItem.appendChild(taskTextSpan);
         listItem.appendChild(actionsDiv);
         this.taskList.appendChild(listItem);
-        });
+      });
     }
   }
 }

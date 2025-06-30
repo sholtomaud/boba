@@ -27,7 +27,8 @@ function getInitialAppPath(): string {
 // Initialize router and register routes
 const router = Router.getInstance();
 router.registerRoute({ path: '/', component: 'home-page' });
-router.registerRoute({ path: '/about', component: 'about-page' });
+router.registerRoute({ path: '/about', component: 'about-page' }); // Keeping about page for now
+router.registerRoute({ path: '/todo', component: 'todo-page' }); // New To-Do page route
 
 // Initial load
 router.navigate(getInitialAppPath());

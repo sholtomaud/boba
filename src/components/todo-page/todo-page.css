@@ -1,0 +1,139 @@
+/* Inherit global variables if needed, or define component-specific ones */
+:host {
+  --todo-background: var(--background-color, #F7F9FA);
+  --todo-text-color: var(--text-color, #363636);
+  --todo-primary-color: var(--primary-color, #48D1CC);
+  --todo-secondary-color: var(--secondary-color, #FF85A1);
+  --todo-accent-color: var(--accent-color, #FFDD57);
+  --todo-white-color: var(--white-color, #ffffff);
+  --todo-completed-color: #b0bec5; /* A muted grey for completed tasks */
+  --todo-danger-color: #ef5350; /* For delete buttons */
+
+  --main-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 1.5rem; /* Adjusted for tighter layout in todo */
+}
+
+.todo-container {
+  max-width: 600px;
+  margin: var(--spacing-large) auto;
+  padding: var(--spacing-large);
+  background-color: var(--todo-white-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  font-family: var(--main-font-family);
+  color: var(--todo-text-color);
+}
+
+.todo-container h1 {
+  color: var(--todo-primary-color);
+  text-align: center;
+  margin-bottom: var(--spacing-large);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.input-area {
+  display: flex;
+  gap: var(--spacing-small);
+  margin-bottom: var(--spacing-large);
+}
+
+#new-task-input {
+  flex-grow: 1;
+  padding: var(--spacing-medium);
+  border: 2px solid var(--light-grey-color, #f0f0f0);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#new-task-input:focus {
+  outline: none;
+  border-color: var(--todo-primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--todo-primary-color), 0.2);
+}
+
+#add-task-btn {
+  padding: var(--spacing-medium) var(--spacing-large);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--todo-white-color);
+  background-color: var(--todo-primary-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#add-task-btn:hover {
+  background-color: var(--todo-secondary-color); /* Fun hover effect */
+  transform: translateY(-2px);
+}
+
+#task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#task-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-medium);
+  background-color: var(--todo-background);
+  border-radius: 8px;
+  margin-bottom: var(--spacing-small);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+#task-list li.completed {
+  background-color: #e8f5e9; /* Light green for completed */
+}
+
+#task-list li.completed .task-text {
+  text-decoration: line-through;
+  color: var(--todo-completed-color);
+  opacity: 0.7;
+}
+
+.task-text {
+  flex-grow: 1;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-right: var(--spacing-small);
+}
+
+.task-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-small);
+  font-size: 1.2rem; /* Slightly larger icons/text for buttons */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.task-actions button:hover {
+  transform: scale(1.1);
+}
+
+.delete-btn {
+  color: var(--todo-danger-color);
+}
+
+.delete-btn:hover {
+  color: #c62828; /* Darker red on hover */
+}
+
+/* Optional: Style for when the list is empty */
+#task-list:empty::after {
+  content: "No tasks yet! Add some above.";
+  display: block;
+  text-align: center;
+  padding: var(--spacing-large);
+  color: var(--todo-completed-color);
+  font-style: italic;
+}

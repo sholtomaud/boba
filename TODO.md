@@ -4,10 +4,11 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
 
 ## Immediate Priorities (Core Template Health)
 
-- **`[CRITICAL]`** `[ ]` Fix `vite-plugin-component-manifest` production paths:
+- **`[CRITICAL]`** `[x]` Fix `vite-plugin-component-manifest` production paths:
   - Currently, the dynamic imports generated for production builds in `vite-plugin-component-manifest.ts` (within the `buildStart` hook) seem to point to `.ts` files (e.g., `() => import('./components/${name}/${name}.ts')`).
   - This **must** be corrected to point to the compiled JavaScript assets that Vite produces in the `dist` (or `assets`) directory, including any hashing Vite applies (e.g., `() => import('/assets/component-name.hash.js')`).
   - Reference the `isProduction` flag or `config.command === 'build'` and Vite's `ResolvedConfig` to determine correct output paths.
+  - _Verified: Plugin correctly generates production paths with hashes and base path. Issue likely outdated._
 
 - **`[MEDIUM]`** `[x]` Correct `npm test` script:
   - The `test` script in `package.json` currently runs `vite build`.

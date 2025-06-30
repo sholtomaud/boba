@@ -24,6 +24,7 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
   - Integrate `vite-plugin-pwa` or similar to add Service Worker generation and a Web App Manifest.
   - Configure basic pre-caching for core assets and on-demand caching for lazy-loaded routes to enable offline functionality.
 
+
 - **`[LOW]`** `[x]` Add Linting and Formatting:
   - Integrate ESLint for TypeScript linting.
   - Integrate Prettier for code formatting.
@@ -36,6 +37,7 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
   - Ensure it correctly builds and deploys the example application from the template.
   - Update actions, build steps, and configurations as necessary to align with current project structure and best practices.
   - Confirm successful deployment of a working example to GitHub Pages.
+
 
 - **`[IDEA/HIGH]`** `[ ]` Design and Implement a Core CLI Tool:
   - Scope out essential features for a Node.js CLI (e.g., `ts-wc-cli` or similar).

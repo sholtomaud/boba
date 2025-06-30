@@ -3,6 +3,7 @@ import './core/router/router'; // Remove .ts extension
 import { Router } from './core/router/router';
 import './components/nav-page/nav-page.ts';
 import './styles/global.css'; // Path relative to your main.ts file
+import './styles/tailwind.css'; // Import Tailwind CSS
 
 const BASE_URL = import.meta.env.BASE_URL; // Provided by Vite
 
@@ -26,7 +27,7 @@ function getInitialAppPath(): string {
 
 // Initialize router and register routes
 const router = Router.getInstance();
-router.registerRoute({ path: '/', component: 'home-page' });
+router.registerRoute({ path: '/', component: 'app-home' }); // Use the new app-home component
 router.registerRoute({ path: '/about', component: 'about-page' }); // Keeping about page for now
 router.registerRoute({ path: '/todo', component: 'todo-page' }); // New To-Do page route
 

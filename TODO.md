@@ -4,10 +4,11 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
 
 ## Immediate Priorities (Core Template Health)
 
-- **`[CRITICAL]`** `[ ]` Fix `vite-plugin-component-manifest` production paths:
+- **`[CRITICAL]`** `[x]` Fix `vite-plugin-component-manifest` production paths:
   - Currently, the dynamic imports generated for production builds in `vite-plugin-component-manifest.ts` (within the `buildStart` hook) seem to point to `.ts` files (e.g., `() => import('./components/${name}/${name}.ts')`).
   - This **must** be corrected to point to the compiled JavaScript assets that Vite produces in the `dist` (or `assets`) directory, including any hashing Vite applies (e.g., `() => import('/assets/component-name.hash.js')`).
   - Reference the `isProduction` flag or `config.command === 'build'` and Vite's `ResolvedConfig` to determine correct output paths.
+  - _Investigation concluded this is working as expected; paths are to JS assets._
 
 - **`[MEDIUM]`** `[x]` Correct `npm test` script:
   - The `test` script in `package.json` currently runs `vite build`.
@@ -17,6 +18,25 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
 - **`[MEDIUM]`** `[ ]` Add detailed JSDoc/TSDoc comments:
   - Improve inline documentation for core modules like `src/core/base-component.ts` and `src/core/router/router.ts`.
   - Explain parameters, return types, and general purpose of key classes and methods. This serves as a form of "context" for developers and potentially tools.
+
+## High Priority Features (Showcasing & Examples)
+
+- **`[HIGH]`** `[ ]` Implement New Example Homepage with Tailwind CSS:
+  - Completely redesign the current `home-page` component.
+  - Showcase the template's capabilities with a modern, professional design.
+  - Integrate Tailwind CSS for styling. This will involve:
+    - Adding Tailwind CSS and PostCSS dependencies.
+    - Configuring PostCSS to process Tailwind directives.
+    - Setting up Tailwind configuration (`tailwind.config.js`) to scan component HTML/TS files for class usage.
+    - Updating the build process in `vite.config.ts` to include PostCSS.
+    - Ensuring global styles and component-specific styles work harmoniously.
+  - The new homepage should be visually appealing and demonstrate common UI patterns.
+
+- **`[HIGH]`** `[ ]` Develop a TODO Application Page:
+  - Create a new route and component (e.g., `todo-page`).
+  - Implement full CRUD (Create, Read, Update, Delete) functionality for TODO items.
+  - Manage TODO list state within the component or a simple service.
+  - This will serve as a practical example of a more complex web component, including form handling, event handling, and dynamic list rendering.
 
 ## Near-Term Enhancements (Developer Experience & Standardization)
 

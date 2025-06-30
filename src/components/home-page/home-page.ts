@@ -1,28 +1,20 @@
-import html from './home.html?raw'; // Use ?raw instead of ?inline
-import css from './home.css?raw'; // Use ?raw instead of ?inline
+import html from './home.html?raw';
+import css from './home.css?raw'; // Keep this import even if home.css is minimal
 
 import { BaseComponent } from '../../core/base-component';
 
 export class HomeComponent extends BaseComponent {
-  static readonly tagName = 'home-page'; // Match the element name
+  static readonly tagName = 'home-page';
 
   constructor() {
+    // Pass HTML content and CSS (which might be minimal or empty if all styles are via Tailwind in HTML)
     super(html, css);
   }
 
-  protected init(): void {
-    this.setupEventListeners();
-  }
-
-  private setupEventListeners(): void {
-    // Setup component-specific event listeners
-    this.onclick = () => {
-      const currentDateTime = new Date().toLocaleString();
-      console.log('hello world' + currentDateTime);
-      // this.shadowRoot!.querySelector('.title')!.textContent = 'W';
-      // this.shadowRoot!.querySelector('.message')!.textContent = 'Welcome!' + currentDateTime;
-    };
-  }
+  // No specific init logic needed for this version of the homepage
+  // protected init(): void {
+  //   console.log('Home component initialized');
+  // }
 }
 
 if (!customElements.get(HomeComponent.tagName)) {

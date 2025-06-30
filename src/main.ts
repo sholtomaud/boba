@@ -2,6 +2,7 @@ import './core/base-component';
 import './core/router/router'; // Remove .ts extension
 import { Router } from './core/router/router';
 import './components/nav-page/nav-page.ts';
+import './styles/tailwind.css'; // Import Tailwind CSS
 import './styles/global.css'; // Path relative to your main.ts file
 
 const BASE_URL = import.meta.env.BASE_URL; // Provided by Vite

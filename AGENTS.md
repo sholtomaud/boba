@@ -31,16 +31,25 @@ This is a template repository for building modern web applications using Web Com
 
 ## 4. Development Workflow
 
-The following MUST be run before pushing a commit to GitHub:
-*   **Install Dependencies:** `npm ci`
-*   **Run Type Check:** `npm run type-check` 
-*   **Run Lint:** `npm run lint` 
-*   **Run Tests:** `npm test` (uses Vitest)
+### 🚨 NON-NEGOTIABLE REQUIREMENTS 🚨
+
+The following commands MUST be run and MUST pass before pushing any commit to GitHub. This is mandatory and cannot be skipped or modified:
+
+1. **Install Dependencies:** `npm ci`
+2. **Run Type Check:** `npm run type-check` 
+3. **Run Lint:** `npm run lint` 
+4. **Run Tests:** `npm test` (uses Vitest)
+
+**ALL of these must complete successfully with zero errors before any git push.**
+
+### Development Commands
 
 The following can be run during development:
 *   **Run Development Server:** `npm run dev` (typically available at `http://localhost:3000`)
 
-The build is done during deploement:
+### Build Command
+
+The build is done during deployment:
 *   **Build for Production:** `npm run build` (output goes to `dist/`)
 
 ## 5. Deployment (GitHub Pages)
@@ -72,6 +81,96 @@ This project is configured for deployment to GitHub Pages under a repository-nam
 *   Code is formatted using Prettier and linted using ESLint. Ensure changes pass these checks.
 *   Use kebab-case for custom element tag names (e.g., `app-root`, `home-page`).
 
+## 9. SELF-UPDATE PROTOCOL FOR AI AGENTS
+
+### When to Propose AGENTS.md Updates
+
+You MUST propose an update to this AGENTS.md file when you encounter any of the following scenarios:
+
+#### Persistent Build/Test Errors
+- **Pattern Recognition:** If you encounter the same build, lint, or test errors repeatedly across multiple interactions
+- **Missing Documentation:** When errors could be prevented by better documentation of common pitfalls
+- **Dependency Issues:** When package installation or version conflicts require specific workarounds
+- **Configuration Problems:** When ESLint, Prettier, TypeScript, or Vite configurations cause recurring issues
+
+#### Workflow Improvements
+- **Inefficient Development Cycles:** When you identify patterns that slow down development
+- **Missing Best Practices:** When you discover better approaches to common tasks
+- **Tool Integration Issues:** When development tools don't work optimally together
+- **Testing Gaps:** When you identify areas where testing could be improved or streamlined
+
+#### Knowledge Gaps
+- **Outdated Information:** When any section of this document becomes outdated
+- **Missing Context:** When important project details are not documented
+- **Unclear Instructions:** When existing instructions are ambiguous or incomplete
+- **New Patterns:** When new coding patterns or architectural decisions emerge
+
+#### DevSecOps & Security Issues
+- **Security Vulnerabilities:** When you identify instructions that could introduce security risks
+- **Insecure Practices:** When documented workflows or code patterns have security implications
+- **Dependency Security:** When package installations or configurations pose security threats
+- **Build/Deploy Security:** When CI/CD processes or deployment strategies create attack vectors
+- **Well-Intentioned Bad Practices:** When instructions added with good intentions inadvertently compromise security
+- **Missing Security Guidelines:** When security best practices are absent from the development workflow
+
+### How to Propose Updates
+
+When proposing a self-update to AGENTS.md, follow this format:
+
+```
+## PROPOSED AGENTS.MD UPDATE
+
+### Reason for Update:
+[Describe the issue/improvement that prompted this update]
+
+### Section(s) to Modify:
+[Specify which sections need changes]
+
+### Proposed Changes:
+[Provide the specific text changes or additions]
+
+### Security Impact Assessment (if applicable):
+[If the update relates to security, assess the impact and provide mitigation strategies]
+
+### Justification:
+[Explain how this change will improve the AI agent workflow]
+```
+
+### Update Guidelines
+
+#### ✅ ALLOWED UPDATES:
+- Adding troubleshooting sections for common errors
+- Clarifying existing instructions
+- Adding new sections for discovered patterns
+- Updating tool versions or commands (with security review)
+- Adding performance tips
+- Expanding component structure guidelines
+- Adding debugging strategies
+- **SECURITY IMPROVEMENTS:** Adding or updating security best practices
+- **VULNERABILITY FIXES:** Removing or modifying instructions that introduce security risks
+- **DevSecOps ENHANCEMENTS:** Integrating security into development workflows
+
+#### ❌ FORBIDDEN UPDATES:
+- Modifying the NON-NEGOTIABLE REQUIREMENTS in Section 4
+- Changing the mandatory pre-commit workflow (type-check, lint, test)
+- Altering core project architecture decisions
+- Removing essential sections
+- Changing deployment configuration without explicit approval
+- **SECURITY REGRESSION:** Any changes that would weaken existing security measures
+- **BYPASSING SECURITY:** Instructions that circumvent security tools or processes
+
+### Self-Improvement Mindset
+
+As an AI agent working with this codebase:
+- **Learn from Patterns:** Track what errors occur frequently
+- **Document Solutions:** When you solve a problem, consider if it should be documented
+- **Think Proactively:** Anticipate issues that future AI agents might encounter
+- **Optimize Workflows:** Look for ways to make the development process more efficient
+- **Maintain Quality:** Ensure all updates maintain the high standards of this project
+- **Security First:** Always consider the security implications of any proposed changes
+- **DevSecOps Mindset:** Integrate security considerations into all development practices
+- **Question Well-Intentioned Changes:** Evaluate whether past additions might have unintended security consequences
+
 ---
 
-Please adhere to these guidelines when making changes to the repository.
+Please adhere to these guidelines when making changes to the repository. Remember: the goal is continuous improvement while maintaining stability and reliability.

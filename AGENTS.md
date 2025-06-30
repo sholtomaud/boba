@@ -31,10 +31,17 @@ This is a template repository for building modern web applications using Web Com
 
 ## 4. Development Workflow
 
+The following MUST be run before pushing a commit to GitHub:
 *   **Install Dependencies:** `npm ci`
-*   **Run Development Server:** `npm run dev` (typically available at `http://localhost:3000`)
-*   **Build for Production:** `npm run build` (output goes to `dist/`)
+*   **Run Type Check:** `npm run type-check` 
+*   **Run Lint:** `npm run lint` 
 *   **Run Tests:** `npm test` (uses Vitest)
+
+The following can be run during development:
+*   **Run Development Server:** `npm run dev` (typically available at `http://localhost:3000`)
+
+The build is done during deploement:
+*   **Build for Production:** `npm run build` (output goes to `dist/`)
 
 ## 5. Deployment (GitHub Pages)
 

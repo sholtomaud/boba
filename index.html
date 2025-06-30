@@ -1,29 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maud & Wiley</title>
 
     <script type="module" src="/src/main.ts"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <app-root>
-        <div id="router-outlet"></div>
+      <div id="router-outlet"></div>
     </app-root>
 
     <script>
-        // Minimal DOM implementation for testing if needed
-        if (!window.customElements) {
-            window.customElements = {
-                define: () => { },
-                get: () => { },
-                upgrade: () => { }
-            };
-        }
+      // Minimal DOM implementation for testing if needed
+      if (!window.customElements) {
+        window.customElements = {
+          define: () => {},
+          get: () => {},
+          upgrade: () => {},
+        };
+      }
     </script>
-</body>
-
+  </body>
 </html>

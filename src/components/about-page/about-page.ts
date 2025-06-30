@@ -4,18 +4,17 @@ import html from './about.html?raw';
 import css from './about.css?raw';
 
 export class AboutComponent extends BaseComponent {
-    static readonly tagName = 'about-page';
+  static readonly tagName = 'about-page';
 
-    constructor() {
-        super(html, css);
-    }
+  constructor() {
+    super(html, css);
+  }
 
-    protected init(): void {
-        // this.shadowRoot!.querySelector('h1')!.textContent = 'About Page';
-    }
+  protected init(): void {
+    // this.shadowRoot!.querySelector('h1')!.textContent = 'About Page';
+  }
 }
 
-
 if (!customElements.get(AboutComponent.tagName)) {
-    customElements.define(AboutComponent.tagName, AboutComponent);
+  customElements.define(AboutComponent.tagName, AboutComponent);
 }

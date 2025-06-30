@@ -165,6 +165,7 @@ As an AI agent working with this codebase:
 - **Learn from Patterns:** Track what errors occur frequently
 - **Document Solutions:** When you solve a problem, consider if it should be documented
 - **Think Proactively:** Anticipate issues that future AI agents might encounter
+- **Continuous Improvement:** Seek out opportunities to improve the AI agent workflow and the application stack
 - **Optimize Workflows:** Look for ways to make the development process more efficient
 - **Maintain Quality:** Ensure all updates maintain the high standards of this project
 - **Security First:** Always consider the security implications of any proposed changes

@@ -1,6 +1,8 @@
-# TypeScript Web Component Template (ts-wc-template)
+# Boba Templates - A Fresh Web Component Framework
 
-A modern, opinionated template for building fast, modular, and maintainable web applications using TypeScript and Web Components, powered by Vite.
+**Boba** is a modern, opinionated template for building fast, modular, and maintainable web applications using TypeScript and Web Components, powered by Vite. It's designed to be intuitive, "bubbly" in its developer experience, and easy to get started with.
+
+The example application showcases a simple To-Do list, demonstrating core concepts.
 
 ## Core Philosophy
 
@@ -152,13 +154,14 @@ import { Router } from './core/router/router';
 
 const router = Router.getInstance();
 router.registerRoute({ path: '/', component: 'home-page' });
-router.registerRoute({ path: '/about', component: 'about-page' });
-router.registerRoute({ path: '/profile', component: 'user-profile' }); // New route
+router.registerRoute({ path: '/about', component: 'about-page' }); // Example existing route
+router.registerRoute({ path: '/todo', component: 'todo-page' }); // New route for the To-Do List
+// router.registerRoute({ path: '/profile', component: 'user-profile' }); // Example for another new route
 
 // ... rest of the file
 ```
 
-Now, navigating to `/profile` will render your `user-profile` component.
+Now, navigating to `/todo` will render your `todo-page` component.
 
 ### Styling
 

@@ -1,9 +1,12 @@
 :root {
-  --primary-color: #42b983; /* Keep this for now, or use a more modern green */
-  --secondary-color: #35495e; /* Dark blue-grey */
-  --accent-color: #f39c12; /* Snappy orange for accents */
-  --background-color: #fdfdfd; /* Very light grey or white */
-  --text-color: #333;
+  /* Boba Theme - Bright & Bubbly */
+  --primary-color: #48D1CC; /* Vibrant Aqua/Teal */
+  --secondary-color: #FF85A1; /* Playful Pink/Coral */
+  --accent-color: #FFDD57; /* Sunny Yellow */
+  --background-color: #F7F9FA; /* Very Light Pastel Blue/Grey */
+  --text-color: #363636; /* Dark Grey */
+  --white-color: #ffffff;
+  --light-grey-color: #f0f0f0; /* For subtle borders or backgrounds */
 
   --spacing-small: 0.5rem;
   --spacing-medium: 1rem;
@@ -20,6 +23,7 @@
   justify-content: center;
   min-height: 80vh; /* Use viewport height to fill screen */
   padding: var(--spacing-large);
+  background-color: var(--background-color); /* Use new background color */
   color: var(--text-color); /* Use general text color */
   text-align: center;
   overflow: hidden; /* Prevent scrollbars during animation */
@@ -27,19 +31,20 @@
 
 .title {
   font-family: var(--main-font-family);
-  color: var(--secondary-color); /* Darker color for title */
-  font-size: clamp(2.5rem, 8vw, 4.5rem); /* Responsive font size */
+  color: var(--primary-color); /* Use primary color for title */
+  font-size: clamp(3rem, 10vw, 6rem); /* Larger, more impactful */
   font-weight: 700; /* Bolder for modern feel */
   margin-bottom: var(--spacing-small);
   animation: slideUpFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
   opacity: 0; /* Start hidden for animation */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
 }
 
 .subtitle {
   font-family: var(--main-font-family);
-  color: var(--primary-color); /* Use primary color for subtitle */
-  font-size: clamp(1.25rem, 4vw, 2rem); /* Responsive font size */
-  font-weight: 400;
+  color: var(--secondary-color); /* Use secondary color for subtitle */
+  font-size: clamp(1.5rem, 5vw, 2.5rem); /* Responsive font size */
+  font-weight: 500; /* Slightly bolder than before */
   margin-bottom: var(--spacing-large);
   margin-top: 0;
   animation: slideUpFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
@@ -54,29 +59,29 @@
 
 .greet-button {
   font-family: var(--main-font-family);
-  padding: var(--spacing-medium) var(--spacing-large);
-  font-size: 1.1rem;
+  padding: calc(var(--spacing-medium) * 1.2) calc(var(--spacing-large) * 1.5); /* Larger padding */
+  font-size: 1.2rem; /* Slightly larger font */
   font-weight: 600;
-  color: white;
-  background-color: var(--primary-color);
-  border: none; /* Remove existing border */
-  border-radius: 8px; /* Slightly more rounded corners */
+  color: var(--white-color); /* White text for better contrast on vibrant buttons */
+  background-color: var(--primary-color); /* Use primary color */
+  border: none;
+  border-radius: 30px; /* More rounded, "bubbly" corners */
   cursor: pointer;
   text-decoration: none;
-  display: inline-block; /* For transform to work correctly */
+  display: inline-block;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) 1.2s forwards;
-  opacity: 0; /* Start hidden for animation */
-  transform: scale(0.5); /* Start smaller for popIn animation */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: scale(0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow */
 }
 
 .greet-button:hover,
-.greet-button:focus { /* Added focus for accessibility */
-  background-color: var(--secondary-color); /* Darker on hover */
-  transform: translateY(-3px) scale(1.05); /* Lift and slightly grow */
-  box-shadow: 0 6px 20px rgba(53, 73, 94, 0.3); /* Stronger shadow */
-  outline: none; /* Remove default focus outline if custom styles are sufficient */
+.greet-button:focus {
+  background-color: var(--secondary-color); /* Change to secondary on hover for a fun effect */
+  transform: translateY(-4px) scale(1.08); /* More pronounced lift and grow */
+  box-shadow: 0 8px 25px rgba(var(--secondary-color), 0.4); /* Shadow matches hover color */
+  outline: none;
 }
 
 /* General Fade-In (can be reused) */
@@ -88,7 +93,7 @@
 /* Slide Up and Fade In */
 @keyframes slideUpFadeIn {
   from {
-    transform: translateY(30px); /* Start further down */
+    transform: translateY(40px); /* Start further down */
     opacity: 0;
   }
   to {
@@ -105,12 +110,10 @@
   }
   70% {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.15); /* Slightly larger pop */
   }
   100% {
     opacity: 1;
     transform: scale(1);
   }
 }
-
-/* Removed unused slideIn and enterButtonIn keyframes */

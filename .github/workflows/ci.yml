@@ -39,12 +39,16 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Start dev server for Playwright tests
-        run: npm run dev &
+        run: |
+          echo "Attempting to start Vite dev server in background..."
+          npm run dev &
+          echo "Vite dev server process initiated."
+          sleep 5 # Give it a moment to spawn before wait-on checks
         env:
           NODE_ENV: development # Ensure dev server starts
 
       - name: Wait for dev server
-        run: npx wait-on http://localhost:5173 -t 60000 # Wait for 60 seconds
+        run: npx wait-on http://localhost:5173 -t 120000 # Wait for 120 seconds
 
       - name: Run Playwright tests
         run: npx playwright test

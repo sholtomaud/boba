@@ -70,11 +70,13 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'DEBUG=vite:* npm run dev:host',
-    url: 'http://localhost:5173',
-    timeout: 120 * 1000, // 120 seconds
-    reuseExistingServer: !process.env.CI,
-  },
+  /* webServer block is now commented out as start-server-and-test will manage the server in CI.
+     For local development, users can run `npm run dev:host` in a separate terminal,
+     or uncomment the webServer block if they prefer Playwright to manage it locally. */
+  // webServer: {
+  //   command: 'DEBUG=vite:* npm run dev:host',
+  //   url: 'http://localhost:5173',
+  //   timeout: 120 * 1000, // 120 seconds
+  //   reuseExistingServer: !process.env.CI, // Recommended to be true for local, false for CI
+  // },
 });

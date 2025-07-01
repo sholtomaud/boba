@@ -1,19 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-// Base URL for the application. Assuming dev server runs on localhost:5173.
-// Vite's default port is 5173. If your project uses a different port, update this.
-const APP_BASE_URL = 'http://localhost:5173';
-// Vite's default base path in this project is /ts-wc-templates/ for prod, but / for dev.
-// Playwright tests will run against the dev server, so base is '/'.
-const PROJECT_BASE_PATH = '/';
+// Constants APP_BASE_URL and PROJECT_BASE_PATH are removed as baseURL is now set in playwright.config.ts
 
 test.describe('App Navigation and Content', () => {
   test('should navigate to Home page and verify content', async ({ page }) => {
-    await page.goto(`${APP_BASE_URL}${PROJECT_BASE_PATH}`);
+    await page.goto('/'); // Navigates to baseURL + '/'
 
     // Check that the URL is correct for the home page
-    // For dev server, this will be APP_BASE_URL + '/'
-    await expect(page).toHaveURL(`${APP_BASE_URL}/`);
+    await expect(page).toHaveURL('/'); // Path is relative to baseURL
 
     // Verify that the nav-page component is present
     await expect(page.locator('nav-page')).toBeVisible();
@@ -28,14 +22,14 @@ test.describe('App Navigation and Content', () => {
 
   test('should navigate to About page and verify content', async ({ page }) => {
     // Start at the home page
-    await page.goto(`${APP_BASE_URL}${PROJECT_BASE_PATH}`);
+    await page.goto('/'); // Navigates to baseURL + '/'
 
     // Click navigation link to About page
     // Assumes nav-page has a link with text "About"
     await page.locator('nav-page').getByRole('link', { name: 'About' }).click();
 
     // Check that the URL is correct for the about page
-    await expect(page).toHaveURL(`${APP_BASE_URL}/about`);
+    await expect(page).toHaveURL('/about'); // Path is relative to baseURL
 
     // Verify that the about-page component is loaded
     await expect(page.locator('about-page')).toBeVisible();
@@ -47,14 +41,14 @@ test.describe('App Navigation and Content', () => {
 
   test('should navigate to TODO page and verify content', async ({ page }) => {
     // Start at the home page
-    await page.goto(`${APP_BASE_URL}${PROJECT_BASE_PATH}`);
+    await page.goto('/'); // Navigates to baseURL + '/'
 
     // Click navigation link to TODO page
     // Assumes nav-page has a link with text "TODO"
     await page.locator('nav-page').getByRole('link', { name: 'TODO' }).click();
 
     // Check that the URL is correct for the todo page
-    await expect(page).toHaveURL(`${APP_BASE_URL}/todo`);
+    await expect(page).toHaveURL('/todo'); // Path is relative to baseURL
 
     // Verify that the todo-page component is loaded
     await expect(page.locator('todo-page')).toBeVisible();
@@ -65,10 +59,10 @@ test.describe('App Navigation and Content', () => {
   });
 
   test('should show 404 for an unknown route', async ({ page }) => {
-    await page.goto(`${APP_BASE_URL}${PROJECT_BASE_PATH}unknown-route`);
+    await page.goto('/unknown-route'); // Navigates to baseURL + '/unknown-route'
 
     // Check that the URL remains what was navigated to
-    await expect(page).toHaveURL(`${APP_BASE_URL}/unknown-route`);
+    await expect(page).toHaveURL('/unknown-route'); // Path is relative to baseURL
 
     // Assuming the 404 content is within the main app outlet and not a full browser 404
     // And that a specific element/text indicates the 404 page, e.g., an h1 with "404" or "Page Not Found"

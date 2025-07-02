@@ -38,10 +38,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests with start-server-and-test
-        run: npx start-server-and-test "npm run dev:host" http://localhost:5173 "npx playwright test"
-        env:
-          DEBUG: vite:* # Propagate Vite debug logs if needed
+      # The webServer configuration in playwright.config.ts will now handle starting the dev server.
+      - name: Run Playwright tests
+        run: npx playwright test
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4

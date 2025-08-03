@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import componentManifest from './vite-plugin-component-manifest';
 
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/ts-wc-templates/' : '/',
+  base: command === 'build' ? '/boba/' : '/',
   plugins: [componentManifest()],
   build: {
     outDir: 'dist',

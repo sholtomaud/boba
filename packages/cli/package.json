@@ -1,0 +1,27 @@
+{
+  "name": "create-boba-app",
+  "version": "0.0.1",
+  "description": "CLI to create a new Boba project",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "create-boba-app": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node .",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "cli",
+    "boba",
+    "web-components",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "name": "ts-wc-templater",
+  "name": "boba",
   "version": "1.0.0",
   "type": "module",
   "main": "./src/main.ts",
-  "homepage": "https://sholtomaud.github.io/ts-wc-templater/",
+  "homepage": "https://sholtomaud.github.io/boba/",
   "scripts": {
     "dev": "NODE_ENV=development vite",
     "dev:host": "vite --host",

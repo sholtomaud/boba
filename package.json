@@ -12,10 +12,11 @@
     "dev:host": "vite --host",
     "build": "NODE_ENV=production vite build",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run src/ test/",
+    "test:cli": "vitest run test/",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "test:ci": "vitest run",
+    "test:ci": "vitest run src/ test/",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.js",
     "format": "prettier --write ."

@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import componentManifest from './vite-plugin-component-manifest';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/ts-wc-templates/' : '/',
-  plugins: [componentManifest(), tailwindcss()],
+  plugins: [componentManifest()],
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

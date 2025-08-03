@@ -1,19 +1,16 @@
-<div class="bg-gray-900 text-white min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center p-6">
-  <header class="text-center mb-12">
-    <h1 class="text-5xl font-bold mb-4 text-sky-400">ts-wc-template</h1>
-    <p class="text-xl text-gray-300 mb-8">
-      A modern starting point for building TypeScript Web Components with Vite.
-    </p>
-    <a href="/todo"
-      class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105">
+<div class="home-container">
+  <header class="main-header">
+    <h1>ts-wc-template</h1>
+    <p>A modern starting point for building TypeScript Web Components with Vite.</p>
+    <a href="/todo" class="cta-button">
       View To-Do List Demo
     </a>
   </header>
 
-  <main class="w-full max-w-4xl grid md:grid-cols-2 gap-8 mb-12">
-    <div class="bg-gray-800 p-6 rounded-lg shadow-xl">
-      <h2 class="text-2xl font-semibold mb-3 text-sky-400">Key Features</h2>
-      <ul class="list-disc list-inside space-y-2 text-gray-300">
+  <main class="features-grid">
+    <div class="feature-card">
+      <h2>Key Features</h2>
+      <ul>
         <li>Vite for Fast Development</li>
         <li>TypeScript Ready</li>
         <li>Web Component Based</li>
@@ -22,24 +19,24 @@
         <li>Unit Testing with Vitest</li>
       </ul>
     </div>
-    <div class="bg-gray-800 p-6 rounded-lg shadow-xl">
-      <h2 class="text-2xl font-semibold mb-3 text-sky-400">Get Started</h2>
-      <p class="text-gray-300 mb-4">
+    <div class="feature-card">
+      <h2>Get Started</h2>
+      <p>
         Clone the repository and start building your next web application:
       </p>
-      <code class="block bg-gray-700 text-sky-300 p-3 rounded-md text-sm mb-4 overflow-x-auto">
+      <code class="code-block">
         git clone https://github.com/sholtomaud/ts-wc-template.git <br>
         cd ts-wc-template <br>
         npm install <br>
         npm run dev
       </code>
-      <p class="text-gray-300">
-        Explore the <a href="https://github.com/sholtomaud/ts-wc-template" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">documentation on GitHub</a>.
+      <p>
+        Explore the <a href="https://github.com/sholtomaud/ts-wc-template" target="_blank" rel="noopener noreferrer" class="docs-link">documentation on GitHub</a>.
       </p>
     </div>
   </main>
 
-  <footer class="text-center text-gray-500">
+  <footer class="main-footer">
     <p>&copy; 2024 ts-wc-template. Built with Boba.</p>
   </footer>
 </div>

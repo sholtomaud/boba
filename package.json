@@ -6,6 +6,23 @@
   "bin": {
     "create-boba-app": "bin/create-boba-app.js"
   },
+  "files": [
+    "bin",
+    "src",
+    ".github",
+    ".gitignore",
+    ".prettierrc.cjs",
+    "404.html",
+    "AGENTS.md",
+    "eslint.config.js",
+    "index.html",
+    "package.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vite-plugin-component-manifest.ts",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ],
   "homepage": "https://sholtomaud.github.io/boba/",
   "scripts": {
     "dev": "NODE_ENV=development vite",

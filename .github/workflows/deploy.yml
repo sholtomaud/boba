@@ -28,27 +28,30 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: ./packages/template-app
 
       - name: Run tests
         run: npm test
+        working-directory: ./packages/template-app
 
       - name: Type check
         run: npm run type-check
+        working-directory: ./packages/template-app
 
       - name: Build project
         run: npm run build
+        working-directory: ./packages/template-app
 
       - name: Prepare 404 page for SPA
-        run: cp dist/index.html dist/404.html
+        run: cp packages/template-app/dist/index.html packages/template-app/dist/404.html
 
       - name: Add .nojekyll
-        run: touch dist/.nojekyll
+        run: touch packages/template-app/dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/
-          # Remove CNAME unless you're using a custom domain
+          path: ./packages/template-app/dist/
 
   deploy:
     environment:

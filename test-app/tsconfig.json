@@ -16,15 +16,15 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["./template/src/*"],
-      "@components/*": ["./template/src/components/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"]
     },
     "types": ["vite/client", "vitest/globals", "node"]
   },
-  "include": ["template/src/**/*.ts", "template/src/**/*.d.ts", "bin/create-boba-app.js"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
   "references": [
     {
-      "path": "./template/tsconfig.node.json"
+      "path": "./tsconfig.node.json"
     }
   ]
 }

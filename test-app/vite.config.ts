@@ -1,13 +1,12 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import componentManifest from './template/vite-plugin-component-manifest';
+import componentManifest from './vite-plugin-component-manifest';
 
 export default defineConfig(({ command }) => ({
-  root: 'template',
   base: command === 'build' ? '/boba/' : '/',
   plugins: [componentManifest()],
   build: {
-    outDir: '../dist',
+    outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
     target: 'esnext',
@@ -35,7 +34,7 @@ export default defineConfig(({ command }) => ({
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, './template/src'),
+      '@': resolve(__dirname, './src'),
     },
   },
 }));

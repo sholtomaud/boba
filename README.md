@@ -9,7 +9,7 @@ The example application showcases a simple To-Do list, demonstrating core concep
 You can create a new Boba application using `npx`.
 
 ```bash
-npx github:sholtomaud/boba-templater create-boba-app <your-app-name>
+npx github:sholtomaud/boba create-boba-app <your-app-name>
 ```
 
 This will create a new directory called `<your-app-name>` with a new Boba project.

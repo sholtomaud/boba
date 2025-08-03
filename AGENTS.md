@@ -171,16 +171,16 @@ git rebase main
 
 ## 5. Deployment (GitHub Pages)
 
-This project is configured for deployment to GitHub Pages under a repository-named subdirectory (e.g., `https://<username>.github.io/boba-templater/`).
+This project is configured for deployment to GitHub Pages under a repository-named subdirectory (e.g., `https://<username>.github.io/boba/`).
 
-*   **Base Path:** The `vite.config.ts` file sets `base: '/boba-templater/'` during production builds (`command === 'build'`). This ensures that `import.meta.env.BASE_URL` is correctly set to `/boba-templater/`, and all asset paths in the built `index.html` are prefixed accordingly.
+*   **Base Path:** The `vite.config.ts` file sets `base: '/boba/'` during production builds (`command === 'build'`). This ensures that `import.meta.env.BASE_URL` is correctly set to `/boba/`, and all asset paths in the built `index.html` are prefixed accordingly.
 *   **SPA Routing (404.html Strategy):** To support deep linking in the SPA on GitHub Pages, the `.github/workflows/deploy.yml` workflow includes a step: `cp dist/index.html dist/404.html`. This means GitHub Pages will serve the application's main `index.html` file for any path it doesn't directly recognize, allowing the client-side router to handle the specific route.
 
 ## 6. Routing
 
 *   Client-side routing is handled by the `Router` class in `src/core/router/router.ts`.
 *   Routes are defined and registered in `src/main.ts` using `Router.getInstance().registerRoute({...});`.
-*   The router uses `import.meta.env.BASE_URL` (provided by Vite, see "Deployment" section) to correctly determine the application-specific path from `window.location.pathname`. For example, if `BASE_URL` is `/boba-templater/` and `window.location.pathname` is `/boba-templater/about`, the router will correctly identify the application path as `/about`.
+*   The router uses `import.meta.env.BASE_URL` (provided by Vite, see "Deployment" section) to correctly determine the application-specific path from `window.location.pathname`. For example, if `BASE_URL` is `/boba/` and `window.location.pathname` is `/boba/about`, the router will correctly identify the application path as `/about`.
 
 ## 7. Component Structure
 

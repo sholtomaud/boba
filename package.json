@@ -2,7 +2,7 @@
   "name": "create-boba-app",
   "version": "1.0.0",
   "type": "module",
-  "main": "bin/create-boba-app.js",
+  "main": "./src/main.ts",
   "bin": {
     "create-boba-app": "bin/create-boba-app.js"
   },
@@ -45,7 +45,6 @@
     "vitest": "^3.0.5"
   },
   "dependencies": {
-    "fs-extra": "^11.2.0",
     "prompts": "^2.4.2"
   }
 }

@@ -17,10 +17,15 @@
     "lint": "eslint . --ext .ts,.js",
     "format": "prettier --write ."
   },
-  "keywords": [],
+  "keywords": [
+    "web-components",
+    "typescript",
+    "vite",
+    "template"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A CLI to create a new Boba app.",
   "devDependencies": {
     "@eslint/js": "^9.30.0",
     "@types/node": "^22.10.10",

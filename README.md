@@ -1,8 +1,18 @@
-# Boba Templates - A Fresh Web Component Framework
+# Boba - A Web Component Framework
 
 **Boba** is a modern, opinionated template for building fast, modular, and maintainable web applications using TypeScript and Web Components, powered by Vite. It's designed to be intuitive, "bubbly" in its developer experience, and easy to get started with.
 
 The example application showcases a simple To-Do list, demonstrating core concepts.
+
+## Create a New Boba App
+
+You can create a new Boba application using `npx`.
+
+```bash
+npx github:sholtomaud/boba-templater create-boba-app <your-app-name>
+```
+
+This will create a new directory called `<your-app-name>` with a new Boba project.
 
 ## Core Philosophy
 
@@ -27,11 +37,6 @@ This template is designed with the following principles in mind:
 - **GitHub Actions CI/CD:** Basic deployment workflow to GitHub Pages is included.
 
 ## Getting Started
-
-### Using as a Template
-
-1.  Click the "Use this template" button on the GitHub repository page to create your own repository based on this template.
-2.  Clone your newly created repository.
 
 ### Prerequisites
 

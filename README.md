@@ -202,7 +202,7 @@ This system allows for efficient code splitting and on-demand loading of compone
 This template aims to provide a solid, simple foundation. Future enhancements will focus on improving developer experience and robustness, while maintaining this core philosophy.
 
 - **CLI Tool for Code Generation:**
-  A key planned enhancement is a Node.js CLI tool (e.g., `npx ts-wc-cli generate component <name>`) to scaffold new components, services, and manage routes. This will enforce conventions and speed up development.
+  A key planned enhancement is a Node.js CLI tool (e.g., `npx boba-cli generate component <name>`) to scaffold new components, services, and manage routes. This will enforce conventions and speed up development.
   - The CLI could also generate/maintain structured "context files" (e.g., `project-manifest.json`) describing the project's layout. This "MCP-Lite" (Model Context Protocol - Lite) approach could provide essential context for external tools or AI-assisted development, facilitating more advanced integrations in the future without overburdening the core template.
 
 - **PWA Capabilities:** Integrating PWA features (via `vite-plugin-pwa` or similar) to enable offline functionality and installability is a high-value next step.

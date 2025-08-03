@@ -1,6 +1,6 @@
-# TODO List for ts-wc-template Improvements
+# TODO List for Boba Improvements
 
-This list tracks potential improvements and fixes for the `ts-wc-template` repository. Items are categorized and prioritized. The overall philosophy is to maintain simplicity in the core template while enhancing developer experience and robustness.
+This list tracks potential improvements and fixes for the `Boba` repository. Items are categorized and prioritized. The overall philosophy is to maintain simplicity in the core template while enhancing developer experience and robustness.
 
 ## Immediate Priorities (Core Template Health)
 
@@ -41,7 +41,7 @@ This list tracks potential improvements and fixes for the `ts-wc-template` repos
 
 
 - **`[IDEA/HIGH]`** `[ ]` Design and Implement a Core CLI Tool:
-  - Scope out essential features for a Node.js CLI (e.g., `ts-wc-cli` or similar).
+  - Scope out essential features for a Node.js CLI (e.g., `boba-cli` or similar).
   - **Core commands:**
     - `generate component <component-name>`: Scaffolds component `.ts`, `.html`, `.css`, and `.test.ts` files adhering to template conventions.
     - `generate service <service-name>`: Scaffolds a service file in `src/services/`.

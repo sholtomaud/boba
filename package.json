@@ -1,26 +1,35 @@
 {
-  "name": "boba",
+  "name": "create-boba-app",
   "version": "1.0.0",
   "type": "module",
   "main": "./src/main.ts",
+  "bin": {
+    "create-boba-app": "bin/create-boba-app.js"
+  },
   "homepage": "https://sholtomaud.github.io/boba/",
   "scripts": {
     "dev": "NODE_ENV=development vite",
     "dev:host": "vite --host",
     "build": "NODE_ENV=production vite build",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run src/ test/",
+    "test:cli": "vitest run test/",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "test:ci": "vitest run",
+    "test:ci": "vitest run src/ test/",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.js",
     "format": "prettier --write ."
   },
-  "keywords": [],
+  "keywords": [
+    "web-components",
+    "typescript",
+    "vite",
+    "template"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A CLI to create a new Boba app.",
   "devDependencies": {
     "@eslint/js": "^9.30.0",
     "@types/node": "^22.10.10",
@@ -36,5 +45,7 @@
     "vite": "^6.3.4",
     "vitest": "^3.0.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "prompts": "^2.4.2"
+  }
 }

@@ -1,0 +1,45 @@
+:root {
+  /* Color Variables */
+  --primary-color: #e8e8e8;
+  --secondary-color: #efefef;
+  --background-color: #1f1f1f;
+  --text-color: #dcd9d9;
+
+  /* Typography */
+  --font-family: 'Helvetica', sans-serif;
+  --font-weight: 100;
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+
+  /* Spacing */
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+
+  --fade-in-speed: 0.4s;
+  --landing-page-fade-in-speed: 4.4s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: var(--spacing-medium);
+}

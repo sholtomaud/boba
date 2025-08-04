@@ -9,7 +9,7 @@ The example application showcases a simple To-Do list, demonstrating core concep
 You can create a new Boba application using `npx`.
 
 ```bash
-npx github:sholtomaud/boba create-boba-app <your-app-name>
+npx github:sholtomaud/boba <your-app-name>
 ```
 
 This will create a new directory called `<your-app-name>` with a new Boba project.
@@ -62,7 +62,7 @@ This template is designed with the following principles in mind:
 - **`npm run dev:host` or `yarn dev:host`**: Starts the development server and exposes it to your local network.
 - **`npm run build` or `yarn build`**: Builds the application for production in the `dist` folder.
 - **`npm run preview` or `yarn preview`**: Serves the production build locally for previewing.
-- **`npm test` or `yarn test`**: (Currently misconfigured, see `TODO.md`) Ideally, runs the test suite.
+- **`npm test` or `yarn test`**: Runs the test suite using Vitest.
 - **`npm run test:ui` or `yarn test:ui`**: Runs tests with the Vitest UI.
 - **`npm run test:coverage` or `yarn test:coverage`**: Runs tests and generates a coverage report.
 - **`npm run test:ci` or `yarn test:ci`**: Runs tests in CI mode (headless).

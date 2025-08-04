@@ -8,7 +8,20 @@
   },
   "files": [
     "bin",
-    "template"
+    "src",
+    ".github",
+    ".gitignore",
+    ".prettierrc.cjs",
+    "404.html",
+    "AGENTS.md",
+    "eslint.config.js",
+    "index.html",
+    "package.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vite-plugin-component-manifest.ts",
+    "vite.config.ts",
+    "vitest.config.ts"
   ],
   "homepage": "https://sholtomaud.github.io/boba/",
   "scripts": {

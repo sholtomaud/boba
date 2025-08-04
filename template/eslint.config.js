@@ -10,7 +10,6 @@ export default [
     ignores: [
       'dist/',
       'node_modules/',
-      'template/',
       '**/*.config.js', // Ignores this file, vite.config.js, prettierrc.js etc.
       '**/*.config.ts', // Ignores vite.config.ts, vitest.config.ts etc.
       '.github/',

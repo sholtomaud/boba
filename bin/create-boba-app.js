@@ -2,23 +2,36 @@
 
 import fs from 'fs';
 import path from 'path';
-import prompts from 'prompts';
+import readline from 'readline';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+function askQuestion(query) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) =>
+    rl.question(query, (ans) => {
+      rl.close();
+      resolve(ans);
+    })
+  );
+}
+
 async function main() {
   let projectName = process.argv[2];
 
   if (!projectName) {
-    const response = await prompts({
-      type: 'text',
-      name: 'projectName',
-      message: 'What is the name of your project?',
-      initial: 'my-boba-app',
-    });
-    projectName = response.projectName;
+    projectName = await askQuestion(
+      'What is the name of your project? (default: my-boba-app) '
+    );
+    if (!projectName) {
+      projectName = 'my-boba-app';
+    }
   }
 
   if (!projectName) {

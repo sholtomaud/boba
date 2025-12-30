@@ -21,10 +21,10 @@ This list tracks potential improvements and fixes for the `Boba` repository. Ite
 
 ## Near-Term Enhancements (Developer Experience & Standardization)
 
-- **`[MEDIUM]`** `[ ]` PWA Capabilities:
-  - Integrate `vite-plugin-pwa` or similar to add Service Worker generation and a Web App Manifest.
-  - Configure basic pre-caching for core assets and on-demand caching for lazy-loaded routes to enable offline functionality.
-
+- **`[MEDIUM]`** `[x]` PWA Capabilities:
+  - Integrated `vite-plugin-pwa` to add Service Worker generation and a Web App Manifest.
+  - Configured basic pre-caching for core assets and on-demand caching for lazy-loaded routes to enable offline functionality.
+  - **`[TODO]`** Add PWA icons to the `public` directory and reference them in the `vite.config.ts` manifest.
 
 - **`[LOW]`** `[x]` Add Linting and Formatting:
   - Integrate ESLint for TypeScript linting.
@@ -38,7 +38,6 @@ This list tracks potential improvements and fixes for the `Boba` repository. Ite
   - Ensure it correctly builds and deploys the example application from the template.
   - Update actions, build steps, and configurations as necessary to align with current project structure and best practices.
   - Confirm successful deployment of a working example to GitHub Pages.
-
 
 - **`[IDEA/HIGH]`** `[ ]` Design and Implement a Core CLI Tool:
   - Scope out essential features for a Node.js CLI (e.g., `boba-cli` or similar).
@@ -62,12 +61,10 @@ This list tracks potential improvements and fixes for the `Boba` repository. Ite
   - Create a new page that functions as a TODO application.
   - This will demonstrate more complex component interaction and state management.
 
-- **`[HIGH]`** `[ ]` Add Playwright Tests:
-  - Initialize Playwright with `npm init playwright@latest`.
-  - Choose TypeScript as the language.
-  - Name of your Tests folder (default is tests or e2e if you already have a tests folder in your project).
-  - Add a GitHub Actions workflow to easily run tests on CI.
-  - Write Playwright tests for the example app.
+- **`[HIGH]`** `[x]` Add Playwright Tests:
+  - Initialized Playwright and added a basic test.
+  - **`[TODO]`** Add a GitHub Actions workflow to easily run tests on CI.
+  - **`[TODO]`** Write Playwright tests for the example app.
 
 ## Future Enhancements (Ecosystem & Features)
 

@@ -61,14 +61,21 @@ async function main() {
     }
 
     const packageJsonPath = path.join(projectPath, 'package.json');
-    const packageJsonContent = await fs.promises.readFile(packageJsonPath, 'utf-8');
+    const packageJsonContent = await fs.promises.readFile(
+      packageJsonPath,
+      'utf-8'
+    );
     const packageJson = JSON.parse(packageJsonContent);
     packageJson.name = projectName;
     // remove bin entry from the created app's package.json
-    if(packageJson.bin) delete packageJson.bin;
+    if (packageJson.bin) delete packageJson.bin;
     // remove prompts from dependencies
-    if(packageJson.dependencies && packageJson.dependencies.prompts) delete packageJson.dependencies.prompts;
-    await fs.promises.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    if (packageJson.dependencies && packageJson.dependencies.prompts)
+      delete packageJson.dependencies.prompts;
+    await fs.promises.writeFile(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2)
+    );
 
     console.log('Success! Your new Boba app is ready.');
     console.log(`To get started, run the following commands:`);

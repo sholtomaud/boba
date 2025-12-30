@@ -1,10 +1,22 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import componentManifest from './vite-plugin-component-manifest';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/boba/' : '/',
-  plugins: [componentManifest()],
+  plugins: [
+    componentManifest(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'Boba',
+        short_name: 'Boba',
+        description: 'A Web Component Framework',
+        theme_color: '#ffffff',
+      },
+    }),
+  ],
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

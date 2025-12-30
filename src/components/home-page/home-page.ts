@@ -1,10 +1,11 @@
-import html from './home.html?raw'; // Use ?raw instead of ?inline
-import css from './home.css?raw'; // Use ?raw instead of ?inline
+import html from './home.html?raw';
+import css from './home.css?raw';
 
 import { BaseComponent } from '../../core/base-component';
+import { counter } from '../../services/store';
 
 export class HomeComponent extends BaseComponent {
-  static readonly tagName = 'home-page'; // Match the element name
+  static readonly tagName = 'home-page';
 
   constructor() {
     super(html, css);
@@ -12,16 +13,32 @@ export class HomeComponent extends BaseComponent {
 
   protected init(): void {
     this.setupEventListeners();
+    counter.subscribe(this.updateCounter.bind(this));
+    this.updateCounter(counter.get());
   }
 
   private setupEventListeners(): void {
-    // Setup component-specific event listeners
-    this.onclick = () => {
-      const currentDateTime = new Date().toLocaleString();
-      console.log('hello world' + currentDateTime);
-      // this.shadowRoot!.querySelector('.title')!.textContent = 'W';
-      // this.shadowRoot!.querySelector('.message')!.textContent = 'Welcome!' + currentDateTime;
-    };
+    this.shadowRoot
+      ?.querySelector('.increment')
+      ?.addEventListener('click', this.increment.bind(this));
+    this.shadowRoot
+      ?.querySelector('.decrement')
+      ?.addEventListener('click', this.decrement.bind(this));
+  }
+
+  private increment(): void {
+    counter.set((prev) => prev + 1);
+  }
+
+  private decrement(): void {
+    counter.set((prev) => prev - 1);
+  }
+
+  private updateCounter(value: number): void {
+    const counterElement = this.shadowRoot?.querySelector('.counter');
+    if (counterElement) {
+      counterElement.textContent = value.toString();
+    }
   }
 }
 

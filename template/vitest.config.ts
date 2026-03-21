@@ -4,8 +4,29 @@ import { resolve } from 'path';
 export default defineConfig({
   test: {
     globals: true,
-    environment: 'happy-dom',
-    include: ['src/**/*.{test,spec}.{js,ts}', 'test/**/*.{test,spec}.{js,ts}'],
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'browser',
+          browser: {
+            enabled: true,
+            instances: [{ browser: 'chromium' }],
+            provider: 'playwright',
+            headless: true,
+          },
+          include: ['src/**/*.{test,spec}.{js,ts}'],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'node',
+          environment: 'node',
+          include: ['test/**/*.{test,spec}.{js,ts}'],
+        },
+      },
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],

@@ -30,10 +30,13 @@ jobs:
         run: npm run lint
 
       - name: Install Playwright Browsers
-        run: npx playwright install chromium --with-deps
+        run: npx playwright install --with-deps
 
       - name: Test
         run: npm test
+
+      - name: E2E Tests
+        run: npx playwright test
 
       - name: Build
         run: npm run build

@@ -36,9 +36,11 @@ This is a template repository for building modern web applications using Web Com
 The following commands MUST be run and MUST pass before pushing any commit to GitHub. This is mandatory and cannot be skipped or modified:
 
 1. **Install Dependencies:** `npm ci`
-2. **Run Type Check:** `npm run type-check`
-3. **Run Lint:** `npm run lint`
-4. **Run Tests:** `npm test` (uses Vitest)
+2. **Install Playwright Browsers:** `npx playwright install --with-deps` (required for tests)
+3. **Run Type Check:** `npm run type-check`
+4. **Run Lint:** `npm run lint`
+5. **Run Tests:** `npm test` (uses Vitest)
+6. **Run E2E Tests:** `npx playwright test`
 
 **ALL of these must complete successfully with zero errors before any git push.**
 

@@ -55,6 +55,10 @@ This template is designed with the following principles in mind:
     # or
     # yarn install
     ```
+3.  Install Playwright browsers (required for testing):
+    ```bash
+    npx playwright install --with-deps
+    ```
 
 ### Available Scripts
 

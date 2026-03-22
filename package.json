@@ -2,7 +2,7 @@
   "name": "create-boba-app",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/main.ts",
+  "main": "./src/main.js",
   "bin": {
     "create-boba-app": "bin/create-boba-app.js"
   },
@@ -13,48 +13,12 @@
   "engines": {
     "node": ">=25.0.0"
   },
-  "homepage": "https://sholtomaud.github.io/boba/",
   "scripts": {
-    "dev": "NODE_ENV=development vite",
-    "dev:host": "vite --host",
-    "build": "NODE_ENV=production vite build",
-    "preview": "vite preview",
-    "test": "vitest run src/ test/",
-    "test:cli": "vitest run test/",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
-    "test:ci": "vitest run src/ test/",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint .",
-    "format": "prettier --write ."
+    "test": "node --test test/",
+    "e2e": "npx playwright test"
   },
-  "keywords": [
-    "web-components",
-    "typescript",
-    "vite",
-    "template"
-  ],
-  "author": "",
-  "license": "ISC",
-  "description": "A CLI to create a new Boba app.",
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
-    "@vitest/browser": "^4.1.0",
-    "@vitest/browser-playwright": "^4.1.0",
-    "playwright": "^1.58.2",
-    "@types/node": "^25.5.0",
-    "@typescript-eslint/eslint-plugin": "^8.57.1",
-    "@typescript-eslint/parser": "^8.57.1",
-    "eslint": "^10.1.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
-    "globals": "^16.2.0",
-    "prettier": "^3.8.1",
-    "rollup": "^4.59.1",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.1",
-    "vite-plugin-pwa": "^1.2.0",
-    "vitest": "^4.1.0"
+    "playwright": "^1.58.2"
   }
 }

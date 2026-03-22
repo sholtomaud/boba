@@ -1,21 +1,20 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { execSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
+import { describe, it, before, after } from 'node:test';
+import assert from 'node:assert';
+import { execSync } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const TEST_APP_NAME = 'test-app';
 const TEST_APP_PATH = path.resolve(process.cwd(), TEST_APP_NAME);
 
 describe('create-boba-app CLI', () => {
-  beforeAll(() => {
-    // Clean up any previous test app
+  before(() => {
     if (fs.existsSync(TEST_APP_PATH)) {
       fs.rmSync(TEST_APP_PATH, { recursive: true, force: true });
     }
   });
 
-  afterAll(() => {
-    // Clean up the test app
+  after(() => {
     if (fs.existsSync(TEST_APP_PATH)) {
       fs.rmSync(TEST_APP_PATH, { recursive: true, force: true });
     }
@@ -26,14 +25,14 @@ describe('create-boba-app CLI', () => {
       stdio: 'inherit',
     });
 
-    expect(fs.existsSync(TEST_APP_PATH)).toBe(true);
-    expect(fs.existsSync(path.join(TEST_APP_PATH, 'package.json'))).toBe(true);
+    assert.strictEqual(fs.existsSync(TEST_APP_PATH), true);
+    assert.strictEqual(fs.existsSync(path.join(TEST_APP_PATH, 'package.json')), true);
 
     const packageJsonContent = fs.readFileSync(
       path.join(TEST_APP_PATH, 'package.json'),
       'utf-8'
     );
     const packageJson = JSON.parse(packageJsonContent);
-    expect(packageJson.name).toBe(TEST_APP_NAME);
+    assert.strictEqual(packageJson.name, TEST_APP_NAME);
   });
 });

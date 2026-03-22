@@ -81,7 +81,7 @@ async function main() {
     console.log(`To get started, run the following commands:`);
     console.log(`  cd ${projectName}`);
     console.log(`  npm install`);
-    console.log(`  npm run dev`);
+    console.log(`  npm start`);
   } catch (error) {
     console.error('Error creating the app:', error);
     fs.rmSync(projectPath, { recursive: true, force: true }); // Clean up the created directory on error

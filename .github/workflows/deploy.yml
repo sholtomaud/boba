@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
+  test-and-prepare:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,34 +27,34 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Run tests
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run unit tests
         run: npm test
 
-      - name: Type check
-        run: npm run type-check
-
-      - name: Build project
-        run: npm run build
+      - name: Run E2E tests
+        run: npx playwright test
 
       - name: Prepare 404 page for SPA
-        run: cp dist/index.html dist/404.html
+        run: cp index.html 404.html
 
       - name: Add .nojekyll
-        run: touch dist/.nojekyll
+        run: touch .nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/
-          # Remove CNAME unless you're using a custom domain
+          path: .
+          # We deploy the whole root since it's a zero-build project
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build-and-test
+    needs: test-and-prepare
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages

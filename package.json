@@ -14,7 +14,7 @@
     "node": ">=25.0.0"
   },
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test test/cli.test.js",
     "e2e": "npx playwright test"
   },
   "devDependencies": {

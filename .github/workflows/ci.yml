@@ -14,10 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js v23
+      - name: Set up Node.js v25
         uses: actions/setup-node@v4
         with:
-          node-version: 23.x # Using a more flexible version specifier
+          node-version: 25.x
           cache: 'npm'
 
       - name: Install dependencies

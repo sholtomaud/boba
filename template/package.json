@@ -23,6 +23,9 @@
     "vite.config.ts",
     "vitest.config.ts"
   ],
+  "engines": {
+    "node": ">=25.0.0"
+  },
   "homepage": "https://sholtomaud.github.io/boba/",
   "scripts": {
     "dev": "NODE_ENV=development vite",
@@ -35,7 +38,7 @@
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run src/ test/",
     "type-check": "tsc --noEmit",
-    "lint": "eslint . --ext .ts,.js",
+    "lint": "eslint .",
     "format": "prettier --write ."
   },
   "keywords": [
@@ -48,20 +51,22 @@
   "license": "ISC",
   "description": "A CLI to create a new Boba app.",
   "devDependencies": {
-    "@eslint/js": "^9.30.0",
-    "@types/node": "^22.10.10",
-    "@typescript-eslint/eslint-plugin": "^8.35.0",
-    "@typescript-eslint/parser": "^8.35.0",
-    "eslint": "^9.30.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-prettier": "^5.5.1",
-    "@vitest/browser": "^3.0.5",
-    "playwright": "^1.50.0",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "@vitest/browser": "^4.1.0",
+    "@vitest/browser-playwright": "^4.1.0",
+    "@playwright/test": "^1.58.2",
+    "playwright": "^1.58.2",
     "globals": "^16.2.0",
-    "prettier": "^3.6.2",
-    "typescript": "^5.7.3",
-    "vite": "^7.3.0",
-    "vitest": "^3.0.5"
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.1.0"
   },
   "dependencies": {
     "prompts": "^2.4.2"

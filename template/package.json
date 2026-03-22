@@ -7,12 +7,11 @@
     "node": ">=25.0.0"
   },
   "scripts": {
-    "start": "npx serve .",
+    "start": "node server.js",
     "test": "npx playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "playwright": "^1.58.2",
-    "serve": "^14.2.4"
+    "playwright": "^1.58.2"
   }
 }

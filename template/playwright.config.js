@@ -17,7 +17,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npx serve . -p 5173',
+    command: 'node server.js',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
   },

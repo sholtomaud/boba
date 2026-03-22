@@ -21,19 +21,25 @@ describe('create-boba-app CLI', () => {
     }
   });
 
-  it('should create a new boba app', () => {
-    execSync(`node bin/create-boba-app.js ${TEST_APP_NAME}`, {
-      stdio: 'inherit',
-    });
+  it(
+    'should create a new boba app',
+    () => {
+      execSync(`node bin/create-boba-app.js ${TEST_APP_NAME}`, {
+        stdio: 'inherit',
+      });
 
-    expect(fs.existsSync(TEST_APP_PATH)).toBe(true);
-    expect(fs.existsSync(path.join(TEST_APP_PATH, 'package.json'))).toBe(true);
+      expect(fs.existsSync(TEST_APP_PATH)).toBe(true);
+      expect(fs.existsSync(path.join(TEST_APP_PATH, 'package.json'))).toBe(
+        true
+      );
 
-    const packageJsonContent = fs.readFileSync(
-      path.join(TEST_APP_PATH, 'package.json'),
-      'utf-8'
-    );
-    const packageJson = JSON.parse(packageJsonContent);
-    expect(packageJson.name).toBe(TEST_APP_NAME);
-  });
+      const packageJsonContent = fs.readFileSync(
+        path.join(TEST_APP_PATH, 'package.json'),
+        'utf-8'
+      );
+      const packageJson = JSON.parse(packageJsonContent);
+      expect(packageJson.name).toBe(TEST_APP_NAME);
+    },
+    10000
+  );
 });

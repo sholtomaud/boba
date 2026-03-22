@@ -1,43 +1,31 @@
 import { defineConfig } from 'vitest/config';
 import { resolve } from 'path';
+import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig({
   test: {
     globals: true,
     projects: [
       {
-        extends: true,
+        name: 'browser',
         test: {
-          name: 'browser',
           browser: {
             enabled: true,
             instances: [{ browser: 'chromium' }],
-            provider: 'playwright',
+            provider: playwright(),
             headless: true,
           },
           include: ['src/**/*.{test,spec}.{js,ts}'],
         },
       },
       {
-        extends: true,
+        name: 'node',
         test: {
-          name: 'node',
           environment: 'node',
           include: ['test/**/*.{test,spec}.{js,ts}'],
         },
       },
     ],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'html'],
-      exclude: [
-        'node_modules/**',
-        'dist/**',
-        '**/*.d.ts',
-        '**/*.config.{js,ts}',
-        '**/types/**',
-      ],
-    },
   },
   resolve: {
     alias: {

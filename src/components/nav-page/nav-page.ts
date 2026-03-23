@@ -28,8 +28,8 @@ a:hover {
 }
 `;
 
-import { Router } from '../../core/router/router.js';
-import { BaseComponent } from '../../core/base-component.js';
+import { Router } from '../../core/router/router.ts';
+import { BaseComponent } from '../../core/base-component.ts';
 
 export class NavComponent extends BaseComponent {
   static tagName = 'app-nav';

@@ -1,5 +1,5 @@
-import { Router } from './core/router/router.js';
-import './components/nav-page/nav-page.js';
+import { Router } from './core/router/router.ts';
+import './components/nav-page/nav-page.ts';
 
 // Setup BASE_URL for the router
 window.BOBA_BASE_URL = '/';

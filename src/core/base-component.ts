@@ -1,5 +1,7 @@
 export class BaseComponent extends HTMLElement {
-  constructor(html, css) {
+  template: HTMLTemplateElement;
+
+  constructor(html: string, css: string) {
     super();
     this.template = document.createElement('template');
     this.template.innerHTML = `<style>${css}</style>${html}`;

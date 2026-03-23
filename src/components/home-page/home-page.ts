@@ -42,7 +42,7 @@ code {
 }
 `;
 
-import { BaseComponent } from '../../core/base-component.js';
+import { BaseComponent } from '../../core/base-component.ts';
 
 export class HomeComponent extends BaseComponent {
   static tagName = 'home-page';

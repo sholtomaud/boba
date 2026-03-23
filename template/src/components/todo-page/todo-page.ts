@@ -20,7 +20,7 @@ li { display: flex; align-items: center; justify-content: space-between; padding
 .delete-btn { background: #ff4d4d; color: white; border: none; padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; }
 `;
 
-import { BaseComponent } from '../../core/base-component.js';
+import { BaseComponent } from '../../core/base-component.ts';
 
 export class TodoPageComponent extends BaseComponent {
   static tagName = 'todo-page';

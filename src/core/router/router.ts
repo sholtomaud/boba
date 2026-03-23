@@ -78,7 +78,7 @@ export class Router {
 
       // Let's assume a global mapping or conventional paths
       if (!customElements.get(tagName)) {
-        await import(`../../components/${tagName}/${tagName}.js`);
+        await import(`../../components/${tagName}/${tagName}.ts`);
       }
 
       outlet.innerHTML = `<${tagName}></${tagName}>`;

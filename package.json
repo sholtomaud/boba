@@ -2,7 +2,7 @@
   "name": "create-boba-app",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/main.js",
+  "main": "./src/main.ts",
   "bin": {
     "create-boba-app": "bin/create-boba-app.js"
   },
@@ -14,11 +14,22 @@
     "node": ">=25.0.0"
   },
   "scripts": {
-    "test": "node --test test/cli.test.js",
+    "dev": "vite",
+    "test": "node --test test/*.test.ts",
     "e2e": "npx playwright test"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
-    "playwright": "^1.58.2"
+    "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.4.0",
+    "playwright": "^1.58.2",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1"
   }
 }

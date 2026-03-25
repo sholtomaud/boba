@@ -1,6 +1,6 @@
 # Boba - A Minimalist Web Component Framework
 
-**Boba** is a ultra-minimalist template for building fast, modular web applications using plain JavaScript and Web Components. It requires **zero build steps** and uses native browser features and Node.js v24+ capabilities.
+**Boba** is a ultra-minimalist template for building fast, modular web applications using TypeScript and Web Components. It leverages native browser features and Node.js v25+ native type stripping for a build-less development experience.
 
 ## Create a New Boba App
 
@@ -14,23 +14,23 @@ This will create a new directory called `<your-app-name>` with a new Boba projec
 
 ## Core Philosophy
 
-- **No Build Step:** Browsers run the code directly. No Vite, no Webpack, no Babel.
+- **Build-less Workflow:** Browsers run the code directly. Vite is used for development to leverage Node.js v25+ native type stripping.
 - **Native Standards:** Uses standard ES Modules, Web Components (Shadow DOM), and CSS.
-- **Minimal Dependencies:** Only uses `playwright` for testing and `serve` for local development.
-- **Node.js v24+:** Leverages native TypeScript stripping if you choose to use `.ts` (though this template uses `.js` for simplicity).
+- **Minimal Dependencies:** Only uses `playwright` for testing and `vite` for development.
+- **Node.js v25+:** Leverages native TypeScript stripping for a seamless development experience without a complex build pipeline.
 
 ## Key Features
 
 - **Web Component-Based Architecture:** True encapsulation with Shadow DOM.
-- **`BaseComponent` (`src/core/base-component.js`):** A foundational class that simplifies component creation.
-- **Client-Side Router (`src/core/router/router.js`):** A lightweight, singleton router that dynamically loads components.
+- **`BaseComponent` (`src/core/base-component.ts`):** A foundational class that simplifies component creation.
+- **Client-Side Router (`src/core/router/router.ts`):** A lightweight, singleton router that dynamically loads components.
 - **Playwright for Testing:** Modern E2E testing out of the box.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js v24 or higher.
+- Node.js v25 or higher.
 
 ### Installation
 
@@ -49,8 +49,9 @@ This will create a new directory called `<your-app-name>` with a new Boba projec
 
 ### Available Scripts
 
-- **`npm start`**: Starts a local static file server.
-- **`npm test`**: Runs E2E tests using Playwright.
+- **`npm run dev`**: Starts the development server using Vite.
+- **`npm test`**: Runs unit tests.
+- **`npm run e2e`**: Runs E2E tests using Playwright.
 
 ## Developing Your Own Application
 
@@ -58,19 +59,19 @@ This will create a new directory called `<your-app-name>` with a new Boba projec
 
 - **`src/components/`**: Your application's web components.
 - **`src/core/`**: Core modules (BaseComponent, Router).
-- **`src/main.js`**: Main entry point.
+- **`src/main.ts`**: Main entry point.
 - **`index.html`**: The main HTML file.
 
 ### Creating a New Component
 
 1.  **Create a new directory** under `src/components/`, e.g., `src/components/user-profile/`.
-2.  **Create the component file:** `user-profile.js`.
+2.  **Create the component file:** `user-profile.ts`.
 3.  **Implement the component:**
 
-    ```javascript
+    ```typescript
     const html = `<h1>User Profile</h1>`;
     const css = `h1 { color: blue; }`;
-    import { BaseComponent } from '../../core/base-component.js';
+    import { BaseComponent } from '../../core/base-component.ts';
 
     export class UserProfileComponent extends BaseComponent {
       static tagName = 'user-profile';
@@ -89,9 +90,9 @@ This will create a new directory called `<your-app-name>` with a new Boba projec
 
 ### Adding Routes
 
-Open `src/main.js` and register a new route:
+Open `src/main.ts` and register a new route:
 
-```javascript
+```typescript
 const router = Router.getInstance();
 router.registerRoute({ path: '/profile', component: 'user-profile' });
 ```

@@ -4,13 +4,13 @@ Welcome, AI Agent! This file provides guidance for working with the `Boba` repos
 
 ## 1. Project Overview
 
-This is a minimalist template repository for building modern web applications using Web Components and plain JavaScript. It features a client-side router and is set up for a zero-build development workflow.
+This is a minimalist template repository for building modern web applications using Web Components and TypeScript. It features a client-side router and is set up for a build-less development workflow leveraging Node.js v25+ native type stripping.
 
 ## 2. Key Technologies
 
-- **JavaScript (ES Modules):** For modern, modular code without a build step.
+- **TypeScript:** For modern, modular code without a complex build step.
 - **Web Components:** For creating reusable custom elements.
-- **Client-Side Routing:** Custom router implemented in `src/core/router/router.js`.
+- **Client-Side Routing:** Custom router implemented in `src/core/router/router.ts`.
 - **CSS Variables:** For themeable and maintainable styles.
 - **Playwright:** For end-to-end testing.
 
@@ -19,9 +19,9 @@ This is a minimalist template repository for building modern web applications us
 - `src/`: Contains all source code.
   - `src/components/`: Houses individual web components, typically one directory per component.
   - `src/core/`: Core application logic.
-    - `src/core/base-component.js`: A base class that components can extend.
+    - `src/core/base-component.ts`: A base class that components can extend.
     - `src/core/router/`: Client-side routing implementation.
-  - `src/main.js`: The main entry point of the application.
+  - `src/main.ts`: The main entry point of the application.
   - `src/styles/`: Global styles and CSS variables.
 - `index.html`: The main HTML entry point for the application.
 - `e2e/`: End-to-end tests using Playwright.
@@ -45,20 +45,20 @@ Follow the standard feature branch and PR workflow as described in the original 
 
 ## 5. Routing
 
-- Client-side routing is handled by the `Router` class in `src/core/router/router.js`.
-- Routes are defined and registered in `src/main.js`.
+- Client-side routing is handled by the `Router` class in `src/core/router/router.ts`.
+- Routes are defined and registered in `src/main.ts`.
 - The router uses `window.BOBA_BASE_URL` to correctly determine the application-specific path.
 
 ## 6. Component Structure
 
 - Components are located in their own subdirectory within `src/components/`.
-- A component consists of a `.js` file for the logic, which includes the HTML and CSS as strings.
+- A component consists of a `.ts` file for the logic, which includes the HTML and CSS as strings.
 - Most components extend the `BaseComponent` class.
 
 ## 7. Coding Style & Conventions
 
-- Use modern ES6+ JavaScript.
-- Mandatory `.js` extensions for all imports.
+- Use TypeScript.
+- Mandatory `.ts` extensions for all imports.
 - Use kebab-case for custom element tag names.
 - Write meaningful commit messages.
 

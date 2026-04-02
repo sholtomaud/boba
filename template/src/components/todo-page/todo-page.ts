@@ -1,4 +1,6 @@
-const html = `
+import { BaseComponent, html, css } from '../../core/base-component.ts';
+
+const template = html`
 <div class="todo-container">
   <h1>To-Do List</h1>
   <div class="add-task">
@@ -8,7 +10,8 @@ const html = `
   <ul id="task-list"></ul>
 </div>
 `;
-const css = `
+
+const style = css`
 .todo-container { padding: 2rem; max-width: 600px; margin: 0 auto; }
 .add-task { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
 input { flex-grow: 1; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
@@ -20,22 +23,29 @@ li { display: flex; align-items: center; justify-content: space-between; padding
 .delete-btn { background: #ff4d4d; color: white; border: none; padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; }
 `;
 
-import { BaseComponent } from '../../core/base-component.ts';
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
 
 export class TodoPageComponent extends BaseComponent {
   static tagName = 'todo-page';
-  tasks = [];
+  tasks: Todo[] = [];
   nextTaskId = 1;
+  taskInput!: HTMLInputElement;
+  addTaskButton!: HTMLButtonElement;
+  taskList!: HTMLElement;
 
   constructor() {
-    super(html, css);
+    super(template, style);
     this.loadTasks();
   }
 
   init() {
-    this.taskInput = this.shadowRoot.getElementById('new-task-input');
-    this.addTaskButton = this.shadowRoot.getElementById('add-task-btn');
-    this.taskList = this.shadowRoot.getElementById('task-list');
+    this.taskInput = this.shadowRoot!.getElementById('new-task-input') as HTMLInputElement;
+    this.addTaskButton = this.shadowRoot!.getElementById('add-task-btn') as HTMLButtonElement;
+    this.taskList = this.shadowRoot!.getElementById('task-list')!;
 
     this.addTaskButton.addEventListener('click', () => this.addTask());
     this.taskInput.addEventListener('keypress', (event) => {
@@ -56,7 +66,7 @@ export class TodoPageComponent extends BaseComponent {
     this.renderTasks();
   }
 
-  toggleTaskComplete(taskId) {
+  toggleTaskComplete(taskId: number) {
     const task = this.tasks.find((t) => t.id === taskId);
     if (task) {
       task.completed = !task.completed;
@@ -65,7 +75,7 @@ export class TodoPageComponent extends BaseComponent {
     }
   }
 
-  deleteTask(taskId) {
+  deleteTask(taskId: number) {
     this.tasks = this.tasks.filter((t) => t.id !== taskId);
     this.saveTasks();
     this.renderTasks();
@@ -97,7 +107,10 @@ export class TodoPageComponent extends BaseComponent {
       const btn = document.createElement('button');
       btn.className = 'delete-btn';
       btn.innerHTML = '&times;';
-      btn.onclick = () => this.deleteTask(task.id);
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        this.deleteTask(task.id);
+      };
 
       li.append(span, btn);
       this.taskList.append(li);

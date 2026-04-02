@@ -1,13 +1,23 @@
-const html = `
+import { BaseComponent, html, css } from '../../core/base-component.ts';
+import { appStore } from '../../store/app-store.ts';
+
+const template = html`
 <div class="home-container">
   <h1 class="title">Boba</h1>
   <p class="message">Welcome to your new Boba app!</p>
   <div class="card">
-    <p>Get started by editing <code>src/components/home-page/home-page.js</code></p>
+    <p>Global State Management:</p>
+    <div class="counter-controls">
+      <button id="decrement">-</button>
+      <span id="home-counter">0</span>
+      <button id="increment">+</button>
+    </div>
+    <p>Edit <code>src/components/home-page/home-page.ts</code> to get started.</p>
   </div>
 </div>
 `;
-const css = `
+
+const style = css`
 .home-container {
   display: flex;
   flex-direction: column;
@@ -35,6 +45,33 @@ const css = `
   background-color: #f9f9f9;
 }
 
+.counter-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+}
+
+button:hover {
+  background: #eee;
+}
+
+#home-counter {
+  font-weight: bold;
+  font-size: 1.5rem;
+  min-width: 2rem;
+}
+
 code {
   background-color: #eee;
   padding: 0.2rem 0.4rem;
@@ -42,24 +79,39 @@ code {
 }
 `;
 
-import { BaseComponent } from '../../core/base-component.ts';
-
 export class HomeComponent extends BaseComponent {
   static tagName = 'home-page';
 
   constructor() {
-    super(html, css);
+    super(template, style);
   }
 
   init() {
     this.setupEventListeners();
+    this.updateCounter(appStore.getState().count);
+
+    appStore.addEventListener('change', ((e: CustomEvent) => {
+      this.updateCounter(e.detail.count);
+    }) as EventListener);
   }
 
   setupEventListeners() {
-    this.onclick = () => {
-      const currentDateTime = new Date().toLocaleString();
-      console.log('hello world ' + currentDateTime);
-    };
+    this.shadowRoot?.getElementById('increment')?.addEventListener('click', () => {
+      const { count } = appStore.getState();
+      appStore.setState({ count: count + 1 });
+    });
+
+    this.shadowRoot?.getElementById('decrement')?.addEventListener('click', () => {
+      const { count } = appStore.getState();
+      appStore.setState({ count: count - 1 });
+    });
+  }
+
+  updateCounter(count: number) {
+    const counterEl = this.shadowRoot?.getElementById('home-counter');
+    if (counterEl) {
+      counterEl.textContent = count.toString();
+    }
   }
 }
 

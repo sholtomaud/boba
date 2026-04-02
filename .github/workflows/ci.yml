@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.58.2-noble
 
     steps:
       - name: Checkout code
@@ -22,9 +23,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
       - name: Unit Tests
         run: npm test

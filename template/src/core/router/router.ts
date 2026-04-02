@@ -15,8 +15,7 @@ export class Router {
 
   getAppPath() {
     const pathname = window.location.pathname;
-    // For plain JS without Vite, we might not have BASE_URL unless we define it
-    const BASE_URL = window.BOBA_BASE_URL || '/';
+    const BASE_URL = (window as any).BOBA_BASE_URL || '/';
     const normalizedBaseUrl =
       BASE_URL.endsWith('/') || BASE_URL === '/' ? BASE_URL : BASE_URL + '/';
 
@@ -37,12 +36,21 @@ export class Router {
     const normalizedPath = route.path.startsWith('/')
       ? route.path
       : '/' + route.path;
-    this.routes.push({ ...route, path: normalizedPath });
+
+    // Convert path like '/user/:id' to a regex and extract parameter names
+    const paramNames = [];
+    const regexSource = normalizedPath.replace(/:([^\/]+)/g, (_, paramName) => {
+      paramNames.push(paramName);
+      return '([^\\/]+)';
+    });
+
+    const regex = new RegExp(`^${regexSource}$`);
+    this.routes.push({ ...route, path: normalizedPath, regex, paramNames });
   }
 
   navigate(appPath) {
     const normalizedAppPath = appPath.startsWith('/') ? appPath : '/' + appPath;
-    const BASE_URL = window.BOBA_BASE_URL || '/';
+    const BASE_URL = (window as any).BOBA_BASE_URL || '/';
 
     const dummyAbsoluteBase = 'http://dummy';
     const publicPath = new URL(
@@ -58,30 +66,46 @@ export class Router {
 
   handleRoute() {
     const appPathToMatch = this.getAppPath();
-    const route = this.routes.find((r) => r.path === appPathToMatch);
+    const match = this.findRoute(appPathToMatch);
 
-    if (route) {
-      this.loadComponent(route.component);
+    if (match) {
+      this.loadComponent(match.route.component, match.params);
     } else {
       this.show404();
     }
   }
 
-  async loadComponent(tagName) {
+  findRoute(path) {
+    for (const route of this.routes) {
+      const match = path.match(route.regex || new RegExp(`^${route.path}$`));
+      if (match) {
+        const params = {};
+        if (route.paramNames) {
+          route.paramNames.forEach((name, index) => {
+            params[name] = match[index + 1];
+          });
+        }
+        return { route, params };
+      }
+    }
+    return null;
+  }
+
+  async loadComponent(tagName, params = {}) {
     const outlet = document.querySelector('#router-outlet');
     if (!outlet) return;
 
     try {
-      // In plain JS, we expect components to be already imported or we lazy load them here
-      // For simplicity in this "simplified" version, we might just assume they are registered
-      // Or we can use dynamic imports if we have a mapping.
-
-      // Let's assume a global mapping or conventional paths
       if (!customElements.get(tagName)) {
         await import(`../../components/${tagName}/${tagName}.ts`);
       }
 
-      outlet.innerHTML = `<${tagName}></${tagName}>`;
+      const element = document.createElement(tagName);
+      // Pass parameters as properties to the component
+      Object.assign(element, params);
+
+      outlet.innerHTML = '';
+      outlet.appendChild(element);
     } catch (error) {
       console.error(`Failed to load component: ${tagName}`, error);
       this.show404();

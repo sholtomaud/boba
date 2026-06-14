@@ -7,7 +7,10 @@ import './components/nav-page/nav-page.ts';
 import './components/docs-page/docs-page.ts';
 
 // Setup BASE_URL for the router
-window.BOBA_BASE_URL = '/';
+const isGitHubPages = window.location.hostname.endsWith('.github.io');
+const pathSegments = window.location.pathname.split('/');
+const repoName = isGitHubPages && pathSegments.length > 1 && pathSegments[1] ? pathSegments[1] : null;
+(window as any).BOBA_BASE_URL = repoName ? `/${repoName}/` : '/';
 
 function getInitialAppPath() {
   const pathname = window.location.pathname;

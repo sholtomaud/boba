@@ -30,7 +30,7 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: 'npx serve -p 3000 -s .',
+      command: 'npm run build && npx serve -p 3000 -s dist',
       url: 'http://localhost:3000',
       reuseExistingServer: !process.env.CI,
     }

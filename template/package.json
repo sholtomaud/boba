@@ -9,6 +9,7 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
+    "build": "vite build --base ./",
     "test": "node --test src/**/*.test.ts",
     "e2e": "npx playwright test"
   },

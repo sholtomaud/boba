@@ -33,9 +33,9 @@ export class TodoPageComponent extends BaseComponent {
   }
 
   init() {
-    this.taskInput = this.shadowRoot.getElementById('new-task-input');
-    this.addTaskButton = this.shadowRoot.getElementById('add-task-btn');
-    this.taskList = this.shadowRoot.getElementById('task-list');
+    this.taskInput = this.querySelector('#new-task-input');
+    this.addTaskButton = this.querySelector('#add-task-btn');
+    this.taskList = this.querySelector('#task-list');
 
     this.addTaskButton.addEventListener('click', () => this.addTask());
     this.taskInput.addEventListener('keypress', (event) => {

@@ -1,3 +1,4 @@
+import './styles/global.css';
 import './components/home-page/home-page.ts';
 import { Router } from './core/router/router.ts';
 import './components/nav-page/nav-page.ts';

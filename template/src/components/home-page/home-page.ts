@@ -78,19 +78,19 @@ export class HomeComponent extends BaseComponent {
   }
 
   setupEventListeners() {
-    this.shadowRoot?.getElementById('increment')?.addEventListener('click', () => {
+    this.querySelector('#increment')?.addEventListener('click', () => {
       const { count } = appStore.getState();
       appStore.setState({ count: count + 1 });
     });
 
-    this.shadowRoot?.getElementById('decrement')?.addEventListener('click', () => {
+    this.querySelector('#decrement')?.addEventListener('click', () => {
       const { count } = appStore.getState();
       appStore.setState({ count: count - 1 });
     });
   }
 
   updateCounter(count: number) {
-    const counterEl = this.shadowRoot?.getElementById('home-counter');
+    const counterEl = this.querySelector('#home-counter');
     if (counterEl) {
       counterEl.textContent = count.toString();
     }

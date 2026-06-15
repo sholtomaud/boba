@@ -1,3 +1,4 @@
+import './styles/global.css';
 import './components/home-page/home-page.ts';
 import './components/about-page/about-page.ts';
 import './components/todo-page/todo-page.ts';

@@ -15,10 +15,24 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'production',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:3000',
+      },
+    },
   ],
-  webServer: {
-    command: 'npx vite',
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      command: 'npx vite',
+      url: 'http://localhost:5173',
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: 'npm run build && npx serve -p 3000 -s dist',
+      url: 'http://localhost:3000',
+      reuseExistingServer: !process.env.CI,
+    }
+  ],
 });

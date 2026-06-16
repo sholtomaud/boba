@@ -3,13 +3,14 @@ export class BaseComponent extends HTMLElement {
 
   constructor(htmlContent: string, cssContent: string) {
     super();
+    const tagName = this.tagName.toLowerCase();
+    const scopedCss = cssContent.replace(/:host/g, tagName);
     this.template = document.createElement('template');
-    this.template.innerHTML = `<style>${cssContent}</style>${htmlContent}`;
-    this.attachShadow({ mode: 'open' });
+    this.template.innerHTML = `<style>${scopedCss}</style>${htmlContent}`;
   }
 
   connectedCallback() {
-    this.shadowRoot?.appendChild(this.template.content.cloneNode(true));
+    this.appendChild(this.template.content.cloneNode(true));
     this.init();
   }
 

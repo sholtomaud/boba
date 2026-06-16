@@ -37,7 +37,7 @@ export class NavComponent extends BaseComponent {
   }
 
   init() {
-    this.shadowRoot?.querySelectorAll('a').forEach((link) => {
+    this.querySelectorAll('a').forEach((link) => {
       const href = link.getAttribute('href');
       if (href && (href.startsWith('/') || href === '')) {
         link.addEventListener('click', (e) => {

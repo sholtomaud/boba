@@ -44,7 +44,7 @@ export class NavComponent extends BaseComponent {
   }
 
   init() {
-    this.shadowRoot?.querySelectorAll('a').forEach((link) => {
+    this.querySelectorAll('a').forEach((link) => {
       const href = link.getAttribute('href');
       if (href && (href.startsWith('/') || href === '')) {
         link.addEventListener('click', (e) => {
@@ -63,7 +63,7 @@ export class NavComponent extends BaseComponent {
   }
 
   updateCounter(count: number) {
-    const counterEl = this.shadowRoot?.getElementById('nav-counter');
+    const counterEl = this.querySelector('#nav-counter');
     if (counterEl) {
       counterEl.textContent = count.toString();
     }

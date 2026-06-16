@@ -34,7 +34,7 @@ export class UserPageComponent extends BaseComponent {
   }
 
   render() {
-    const nameElement = this.shadowRoot?.getElementById('user-name');
+    const nameElement = this.querySelector('#user-name');
     if (nameElement) {
       nameElement.textContent = this.name;
     }

@@ -85,7 +85,7 @@ export class HomeComponent extends BaseComponent {
   }
 
   init() {
-    this.shadowRoot?.getElementById('version-tag')?.addEventListener('click', () => {
+    this.querySelector('#version-tag')?.addEventListener('click', () => {
       console.log('Boba Framework v1.0.0 initialized');
     });
   }

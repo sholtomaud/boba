@@ -1,0 +1,11 @@
+.user-container {
+  padding: 2rem;
+  text-align: center;
+}
+h1 {
+  color: var(--primary-color, #007bff);
+}
+strong {
+  color: #fff;
+  font-weight: bold;
+}

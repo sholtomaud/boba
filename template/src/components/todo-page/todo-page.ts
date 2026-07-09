@@ -1,27 +1,6 @@
-import { BaseComponent, html, css } from '../../core/base-component.ts';
-
-const template = html`
-<div class="todo-container">
-  <h1>To-Do List</h1>
-  <div class="add-task">
-    <input type="text" id="new-task-input" placeholder="Enter a new task..." />
-    <button id="add-task-btn">Add Task</button>
-  </div>
-  <ul id="task-list"></ul>
-</div>
-`;
-
-const style = css`
-.todo-container { padding: 2rem; max-width: 600px; margin: 0 auto; }
-.add-task { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-input { flex-grow: 1; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
-button { padding: 0.5rem 1rem; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
-ul { list-style: none; padding: 0; }
-li { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid #eee; }
-.completed .task-text { text-decoration: line-through; color: #888; }
-.task-text { cursor: pointer; flex-grow: 1; }
-.delete-btn { background: #ff4d4d; color: white; border: none; padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; }
-`;
+import { BaseComponent } from '../../core/base-component.ts';
+import template from './todo-page.html?raw';
+import style from './todo-page.css?raw';
 
 interface Todo {
   id: number;

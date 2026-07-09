@@ -1,16 +1,20 @@
-const html = `<h1>About</h1><p>This is the about page.</p>`;
-const css = `h1 { color: #333; }`;
-
 import { BaseComponent } from '../../core/base-component.ts';
+import template from './about-page.html?raw';
+import style from './about-page.css?raw';
 
 export class AboutComponent extends BaseComponent {
   static tagName = 'about-page';
 
   constructor() {
-    super(html, css);
+    super(template, style);
   }
 
-  init() {}
+  init() {
+    const yearEl = this.querySelector('[data-year]');
+    if (yearEl) {
+      yearEl.textContent = String(new Date().getFullYear());
+    }
+  }
 }
 
 if (!customElements.get(AboutComponent.tagName)) {

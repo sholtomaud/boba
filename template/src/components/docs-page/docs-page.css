@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+code {
+  background-color: #edf2f7;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}

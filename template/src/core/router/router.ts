@@ -1,6 +1,7 @@
 export class Router {
   static instance;
   routes = [];
+  currentPath = '';
 
   constructor() {
     window.addEventListener('popstate', this.handleRoute.bind(this));
@@ -27,9 +28,9 @@ export class Router {
       if (!appPath.startsWith('/')) {
         appPath = '/' + appPath;
       }
-      return appPath === '' ? '/' : appPath;
+      return (appPath === '' ? '/' : appPath) + window.location.search;
     }
-    return pathname.startsWith('/') ? pathname : '/' + pathname;
+    return (pathname.startsWith('/') ? pathname : '/' + pathname) + window.location.search;
   }
 
   registerRoute(route) {
@@ -49,27 +50,51 @@ export class Router {
   }
 
   navigate(appPath) {
-    const normalizedAppPath = appPath.startsWith('/') ? appPath : '/' + appPath;
+    const pathAndQuery = appPath.startsWith('/') ? appPath : '/' + appPath;
     const BASE_URL = (window as any).BOBA_BASE_URL || '/';
 
+    const [pathPart, queryString] = pathAndQuery.split('?');
     const dummyAbsoluteBase = 'http://dummy';
     const publicPath = new URL(
-      normalizedAppPath.substring(1),
+      pathPart.substring(1),
       dummyAbsoluteBase + (BASE_URL.endsWith('/') ? BASE_URL : BASE_URL + '/')
     ).pathname;
 
-    if (window.location.pathname !== publicPath) {
-      window.history.pushState({}, '', publicPath);
+    const finalPath = publicPath + (queryString ? '?' + queryString : '');
+
+    if (window.location.pathname + window.location.search !== finalPath) {
+      window.history.pushState({}, '', finalPath);
     }
     this.handleRoute();
   }
 
-  handleRoute() {
+  async handleRoute() {
     const appPathToMatch = this.getAppPath();
-    const match = this.findRoute(appPathToMatch);
+    const [pathPart, queryString] = appPathToMatch.split('?');
+    
+    const searchParams = new URLSearchParams(queryString || '');
+    const query = Object.fromEntries(searchParams.entries());
+
+    const match = this.findRoute(pathPart);
 
     if (match) {
-      this.loadComponent(match.route.component, match.params);
+      const to = { path: pathPart, params: match.params, query };
+
+      if (match.route.beforeEnter) {
+        const guardResult = await match.route.beforeEnter(to);
+        if (guardResult === false) {
+          if (this.currentPath && this.currentPath !== appPathToMatch) {
+            this.navigate(this.currentPath);
+          }
+          return;
+        } else if (typeof guardResult === 'string') {
+          this.navigate(guardResult);
+          return;
+        }
+      }
+
+      this.currentPath = appPathToMatch;
+      this.loadComponent(match.route.component, match.params, query);
     } else {
       this.show404();
     }
@@ -82,7 +107,7 @@ export class Router {
         const params = {};
         if (route.paramNames) {
           route.paramNames.forEach((name, index) => {
-            params[name] = match[index + 1];
+            params[name] = decodeURIComponent(match[index + 1]);
           });
         }
         return { route, params };
@@ -91,7 +116,7 @@ export class Router {
     return null;
   }
 
-  async loadComponent(tagName, params = {}) {
+  async loadComponent(tagName, params = {}, query = {}) {
     const outlet = document.querySelector('#router-outlet');
     if (!outlet) return;
 
@@ -101,8 +126,9 @@ export class Router {
       }
 
       const element = document.createElement(tagName);
-      // Pass parameters as properties to the component
       Object.assign(element, params);
+      (element as any).params = params;
+      (element as any).query = query;
 
       outlet.innerHTML = '';
       outlet.appendChild(element);

@@ -1,6 +1,7 @@
 export class Router {
   static instance;
   routes = [];
+  currentPath = '';
 
   constructor() {
     window.addEventListener('popstate', this.handleRoute.bind(this));
@@ -15,8 +16,7 @@ export class Router {
 
   getAppPath() {
     const pathname = window.location.pathname;
-    // For plain JS without Vite, we might not have BASE_URL unless we define it
-    const BASE_URL = window.BOBA_BASE_URL || '/';
+    const BASE_URL = (window as any).BOBA_BASE_URL || '/';
     const normalizedBaseUrl =
       BASE_URL.endsWith('/') || BASE_URL === '/' ? BASE_URL : BASE_URL + '/';
 
@@ -28,60 +28,110 @@ export class Router {
       if (!appPath.startsWith('/')) {
         appPath = '/' + appPath;
       }
-      return appPath === '' ? '/' : appPath;
+      return (appPath === '' ? '/' : appPath) + window.location.search;
     }
-    return pathname.startsWith('/') ? pathname : '/' + pathname;
+    return (pathname.startsWith('/') ? pathname : '/' + pathname) + window.location.search;
   }
 
   registerRoute(route) {
     const normalizedPath = route.path.startsWith('/')
       ? route.path
       : '/' + route.path;
-    this.routes.push({ ...route, path: normalizedPath });
+
+    // Convert path like '/user/:id' to a regex and extract parameter names
+    const paramNames = [];
+    const regexSource = normalizedPath.replace(/:([^\/]+)/g, (_, paramName) => {
+      paramNames.push(paramName);
+      return '([^\\/]+)';
+    });
+
+    const regex = new RegExp(`^${regexSource}$`);
+    this.routes.push({ ...route, path: normalizedPath, regex, paramNames });
   }
 
   navigate(appPath) {
-    const normalizedAppPath = appPath.startsWith('/') ? appPath : '/' + appPath;
-    const BASE_URL = window.BOBA_BASE_URL || '/';
+    const pathAndQuery = appPath.startsWith('/') ? appPath : '/' + appPath;
+    const BASE_URL = (window as any).BOBA_BASE_URL || '/';
 
+    const [pathPart, queryString] = pathAndQuery.split('?');
     const dummyAbsoluteBase = 'http://dummy';
     const publicPath = new URL(
-      normalizedAppPath.substring(1),
+      pathPart.substring(1),
       dummyAbsoluteBase + (BASE_URL.endsWith('/') ? BASE_URL : BASE_URL + '/')
     ).pathname;
 
-    if (window.location.pathname !== publicPath) {
-      window.history.pushState({}, '', publicPath);
+    const finalPath = publicPath + (queryString ? '?' + queryString : '');
+
+    if (window.location.pathname + window.location.search !== finalPath) {
+      window.history.pushState({}, '', finalPath);
     }
     this.handleRoute();
   }
 
-  handleRoute() {
+  async handleRoute() {
     const appPathToMatch = this.getAppPath();
-    const route = this.routes.find((r) => r.path === appPathToMatch);
+    const [pathPart, queryString] = appPathToMatch.split('?');
+    
+    const searchParams = new URLSearchParams(queryString || '');
+    const query = Object.fromEntries(searchParams.entries());
 
-    if (route) {
-      this.loadComponent(route.component);
+    const match = this.findRoute(pathPart);
+
+    if (match) {
+      const to = { path: pathPart, params: match.params, query };
+
+      if (match.route.beforeEnter) {
+        const guardResult = await match.route.beforeEnter(to);
+        if (guardResult === false) {
+          if (this.currentPath && this.currentPath !== appPathToMatch) {
+            this.navigate(this.currentPath);
+          }
+          return;
+        } else if (typeof guardResult === 'string') {
+          this.navigate(guardResult);
+          return;
+        }
+      }
+
+      this.currentPath = appPathToMatch;
+      this.loadComponent(match.route.component, match.params, query);
     } else {
       this.show404();
     }
   }
 
-  async loadComponent(tagName) {
+  findRoute(path) {
+    for (const route of this.routes) {
+      const match = path.match(route.regex || new RegExp(`^${route.path}$`));
+      if (match) {
+        const params = {};
+        if (route.paramNames) {
+          route.paramNames.forEach((name, index) => {
+            params[name] = decodeURIComponent(match[index + 1]);
+          });
+        }
+        return { route, params };
+      }
+    }
+    return null;
+  }
+
+  async loadComponent(tagName, params = {}, query = {}) {
     const outlet = document.querySelector('#router-outlet');
     if (!outlet) return;
 
     try {
-      // In plain JS, we expect components to be already imported or we lazy load them here
-      // For simplicity in this "simplified" version, we might just assume they are registered
-      // Or we can use dynamic imports if we have a mapping.
-
-      // Let's assume a global mapping or conventional paths
       if (!customElements.get(tagName)) {
         await import(`../../components/${tagName}/${tagName}.ts`);
       }
 
-      outlet.innerHTML = `<${tagName}></${tagName}>`;
+      const element = document.createElement(tagName);
+      Object.assign(element, params);
+      (element as any).params = params;
+      (element as any).query = query;
+
+      outlet.innerHTML = '';
+      outlet.appendChild(element);
     } catch (error) {
       console.error(`Failed to load component: ${tagName}`, error);
       this.show404();
@@ -91,7 +141,19 @@ export class Router {
   show404() {
     const outlet = document.querySelector('#router-outlet');
     if (outlet) {
-      outlet.innerHTML = '<h1>404 - Page Not Found</h1>';
+      outlet.innerHTML = `
+        <div class="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center">
+          <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+            <h1 class="text-7xl font-extrabold text-blue-600 mb-4 font-mono">404</h1>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Page Not Found</h2>
+            <p class="text-gray-600 mb-6">The page you are looking for doesn't exist or has been moved.</p>
+            <a href="/" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+              Go back home
+            </a>
+          </div>
+        </div>
+      `;
     }
   }
 }
+

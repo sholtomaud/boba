@@ -18,7 +18,7 @@
     "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^22.13.4",
     "autoprefixer": "^10.4.27",
-    "eslint": "^9.20.1",
+    "eslint": "^10.1.0",
     "playwright": "^1.58.2",
     "postcss": "^8.5.8",
     "serve": "^14.2.6",

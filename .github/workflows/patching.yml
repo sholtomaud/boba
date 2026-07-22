@@ -1,0 +1,53 @@
+name: Scheduled Patching & Testing
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # Every Monday at midnight UTC
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  patch-and-test:
+    name: Patch & Test Dependencies
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.61.1-noble
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js v25
+        uses: actions/setup-node@v4
+        with:
+          node-version: 25.x
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Update root dependencies to latest patches
+        run: npm update
+
+      - name: Build root app
+        run: npm run build
+
+      - name: Run root unit & integration tests
+        run: npm test
+
+      - name: Run root E2E tests
+        run: npm run e2e
+
+      - name: Install and update template dependencies
+        run: |
+          cd template
+          npm install
+          npm update
+
+      - name: Build template app
+        run: |
+          cd template
+          npm run build
+
+      - name: Run template unit tests
+        run: |
+          cd template
+          npm test

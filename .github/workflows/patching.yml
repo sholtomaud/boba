@@ -27,6 +27,9 @@ jobs:
       - name: Update root dependencies to latest patches
         run: npm update
 
+      - name: Build root app
+        run: npm run build
+
       - name: Run root unit & integration tests
         run: npm test
 
@@ -39,12 +42,12 @@ jobs:
           npm install
           npm update
 
-      - name: Run template unit tests
-        run: |
-          cd template
-          npm test
-
       - name: Build template app
         run: |
           cd template
           npm run build
+
+      - name: Run template unit tests
+        run: |
+          cd template
+          npm test

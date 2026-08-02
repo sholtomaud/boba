@@ -9,7 +9,7 @@ jobs:
   patch-and-test:
     name: Patch & Test Dependencies
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.61.1-noble
+    container: mcr.microsoft.com/playwright:v1.62.0-noble
 
     steps:
       - name: Checkout code

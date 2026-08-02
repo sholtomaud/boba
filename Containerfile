@@ -9,7 +9,7 @@ ENV NODE_OPTIONS=--max-old-space-size=3072
 
 # Install Playwright system dependencies and Chromium browser
 RUN apt-get update && \
-    npx -y playwright@1.61.1 install chromium --with-deps && \
+    npx -y playwright@1.62.0 install chromium --with-deps && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

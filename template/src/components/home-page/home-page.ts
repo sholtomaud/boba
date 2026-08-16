@@ -1,4 +1,5 @@
 import { BaseComponent } from '../../core/base-component.ts';
+import { Router } from '../../core/router/router.ts';
 import { appStore } from '../../store/app-store.ts';
 import template from './home-page.html?raw';
 import style from './home-page.css?raw';
@@ -17,6 +18,16 @@ export class HomeComponent extends BaseComponent {
     appStore.addEventListener('change', ((e: CustomEvent) => {
       this.updateCounter(e.detail.count);
     }) as EventListener);
+
+    this.querySelectorAll('a').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('/')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          Router.getInstance().navigate(href);
+        });
+      }
+    });
   }
 
   setupEventListeners() {

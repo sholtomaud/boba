@@ -1,33 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  /* Boba O365 / VitePress Design System Tokens */
+  /* Boba Minimal / Professional Design System Tokens */
   --boba-primary: #0f172a;
   --boba-secondary: #475569;
-  --boba-accent: #0284c7;
-  --boba-accent-hover: #0369a1;
+  --boba-accent: #334155;
+  --boba-accent-hover: #1e293b;
   --boba-bg: #ffffff;
   --boba-surface: #f8fafc;
   --boba-border: #e2e8f0;
   --boba-text: #0f172a;
   --boba-text-muted: #64748b;
   --boba-code-bg: #0f172a;
-  --boba-nav-bg: rgba(255, 255, 255, 0.85);
+  --boba-nav-bg: rgba(255, 255, 255, 0.9);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --boba-primary: #f8fafc;
     --boba-secondary: #94a3b8;
-    --boba-accent: #38bdf8;
-    --boba-accent-hover: #7dd3fc;
-    --boba-bg: #090d16;
+    --boba-accent: #475569;
+    --boba-accent-hover: #64748b;
+    --boba-bg: #0b0f17;
     --boba-surface: #111827;
     --boba-border: #1e293b;
     --boba-text: #f1f5f9;
     --boba-text-muted: #94a3b8;
     --boba-code-bg: #0f172a;
-    --boba-nav-bg: rgba(9, 13, 22, 0.85);
+    --boba-nav-bg: rgba(11, 15, 23, 0.9);
   }
 }
 

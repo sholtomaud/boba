@@ -9,33 +9,41 @@
             Documentation Overview
           </h3>
           <nav class="space-y-1 text-sm font-medium">
-            <a href="#intro" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
-              <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+            <a href="#intro" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
               Getting Started
             </a>
-            <a href="#components" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              Web Components
+            <a href="#structure" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+              Project Structure
             </a>
-            <a href="#routing" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
-              <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-              Smart Routing
+            <a href="#components" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+              BaseComponent & Light DOM
             </a>
-            <a href="#state" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+            <a href="#routing" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+              Smart Client Routing
+            </a>
+            <a href="#state" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
               State Management
+            </a>
+            <a href="#deployment" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+              Build & Production Deployment
             </a>
           </nav>
         </div>
 
-        <div class="p-4 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/60 text-xs text-sky-800 dark:text-sky-200">
-          <div class="font-bold mb-1 flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-sky-600 dark:text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-300">
+          <div class="font-bold mb-1 flex items-center gap-1.5 text-slate-900 dark:text-slate-100">
+            <svg class="w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Pro Tip
+            Zero-Build Workflow
           </div>
-          Boba runs natively on Node 25+ without any build step required for local dev.
+          Boba runs natively on Node 25+ using native TypeScript type stripping without transpilation overhead.
         </div>
       </div>
     </aside>
@@ -49,118 +57,166 @@
           Documentation
         </h1>
         <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-          Everything you need to know about building enterprise-grade, minimalist web applications with Boba.
+          Comprehensive guide to building minimal, modern, enterprise-grade web applications using Boba.
         </p>
       </header>
 
-      <!-- Section 1: Intro -->
+      <!-- Section 1: Quickstart -->
       <section id="intro" class="mb-14 scroll-mt-24">
         <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span class="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center text-sm font-extrabold">1</span>
-          Getting Started
+          <span class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center text-sm font-extrabold">1</span>
+          Getting Started & Scaffolding
         </h2>
 
         <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-          Boba is a zero-build framework leveraging browser standards (Web Components, Light DOM styling, ES Modules) and Node.js v25+ native type stripping for ultra-fast performance.
+          Boba provides a lightweight scaffolding CLI to generate clean, production-ready applications powered by browser standards, native Web Components, and Vite.
         </p>
 
-        <!-- Command Box -->
         <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs sm:text-sm border border-slate-800 shadow-sm mb-6 overflow-x-auto">
-          <div class="text-slate-500 mb-2"># Scaffold a new Boba application</div>
-          <div class="text-sky-400 mb-3">npx github:sholtomaud/boba my-boba-app</div>
+          <div class="text-slate-500 mb-2"># Scaffold a new Boba project</div>
+          <div class="text-slate-200 mb-3">npx github:sholtomaud/boba my-app</div>
           <div class="text-slate-500 mb-2"># Navigate and install dependencies</div>
-          <div class="text-slate-200 mb-3">cd my-boba-app && npm install</div>
-          <div class="text-slate-500 mb-2"># Launch live dev server</div>
-          <div class="text-emerald-400">npm start</div>
+          <div class="text-slate-200 mb-3">cd my-app && npm install</div>
+          <div class="text-slate-500 mb-2"># Start Vite development server</div>
+          <div class="text-slate-200">npm start</div>
         </div>
 
-        <!-- VitePress-style Callout Note -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/80 border-l-4 border-sky-500 text-sm text-slate-700 dark:text-slate-300">
-          <span class="font-bold text-slate-900 dark:text-slate-100">Note:</span> Running <code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-xs">npm start</code> starts Vite dev server for on-the-fly type stripping and instant browser updates.
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/80 border-l-4 border-slate-600 dark:border-slate-400 text-sm text-slate-700 dark:text-slate-300">
+          <span class="font-bold text-slate-900 dark:text-slate-100">Note:</span> During development, Vite provides instant HMR and on-the-fly type stripping for seamless browser testing.
         </div>
       </section>
 
-      <!-- Section 2: Components -->
+      <!-- Section 2: Structure -->
+      <section id="structure" class="mb-14 scroll-mt-24">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center text-sm font-extrabold">2</span>
+          Project Architecture & Structure
+        </h2>
+
+        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+          Boba maintains a clean, flat architecture where components, routes, and core utilities are explicitly organized:
+        </p>
+
+        <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs border border-slate-800 shadow-sm overflow-x-auto mb-6">
+<pre class="text-slate-300">
+my-app/
+├── index.html              # Main entry HTML file
+├── package.json            # Node.js dependencies & scripts
+├── src/
+│   ├── main.ts             # Application bootstrapper & route definitions
+│   ├── core/               # Core framework abstractions
+│   │   ├── base-component.ts  # Base web component class
+│   │   ├── store.ts           # EventTarget-backed state store
+│   │   └── router/            # Client-side router engine
+│   ├── components/         # Modular Web Components
+│   └── styles/
+│       └── global.css      # Tailwind v4 & design tokens
+└── e2e/                    # Playwright end-to-end tests
+</pre>
+        </div>
+      </section>
+
+      <!-- Section 3: Web Components -->
       <section id="components" class="mb-14 scroll-mt-24">
         <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-extrabold">2</span>
-          Web Components
+          <span class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center text-sm font-extrabold">3</span>
+          BaseComponent & Light DOM Styling
         </h2>
 
         <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-          Components inherit from <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-sky-600 dark:text-sky-400 font-mono text-xs">BaseComponent</code>, providing scoped styles, Light DOM integration for global Tailwind utility compatibility, and lifecycle hooks.
+          Components inherit from <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-xs">BaseComponent</code>. To allow full integration with Tailwind CSS utility classes, Shadow DOM is disabled in favor of Light DOM rendering with simulated style scoping.
         </p>
 
         <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs sm:text-sm border border-slate-800 shadow-sm overflow-x-auto mb-6">
-<pre class="text-slate-300"><span class="text-sky-400">import</span> { BaseComponent } <span class="text-sky-400">from</span> <span class="text-emerald-300">'../../core/base-component.ts'</span>;
+<pre class="text-slate-300"><span class="text-slate-400">import</span> { BaseComponent } <span class="text-slate-400">from</span> <span class="text-slate-200">'../../core/base-component.ts'</span>;
 
-<span class="text-sky-400">const</span> html = <span class="text-emerald-300">`&lt;h1 class="text-2xl font-bold text-slate-900"&gt;Hello World&lt;/h1&gt;`</span>;
-<span class="text-sky-400">const</span> css = <span class="text-emerald-300">`:host { display: block; }`</span>;
+<span class="text-slate-400">const</span> html = <span class="text-slate-200">`&lt;div class="p-4 bg-slate-100 text-slate-900 rounded-lg"&gt;Hello Boba&lt;/div&gt;`</span>;
+<span class="text-slate-400">const</span> css = <span class="text-slate-200">`:host { display: block; }`</span>;
 
-<span class="text-sky-400">export class</span> HelloComponent <span class="text-sky-400">extends</span> BaseComponent {
-  <span class="text-sky-400">static</span> tagName = <span class="text-emerald-300">'hello-component'</span>;
-  <span class="text-sky-400">constructor</span>() {
-    <span class="text-sky-400">super</span>(html, css);
+<span class="text-slate-400">export class</span> DemoComponent <span class="text-slate-400">extends</span> BaseComponent {
+  <span class="text-slate-400">static</span> tagName = <span class="text-slate-200">'demo-component'</span>;
+  <span class="text-slate-400">constructor</span>() {
+    <span class="text-slate-400">super</span>(html, css);
   }
 }
 
-customElements.define(HelloComponent.tagName, HelloComponent);</pre>
+customElements.define(DemoComponent.tagName, DemoComponent);</pre>
         </div>
       </section>
 
-      <!-- Section 3: Routing -->
+      <!-- Section 4: Routing -->
       <section id="routing" class="mb-14 scroll-mt-24">
         <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span class="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-extrabold">3</span>
-          Smart Client Routing
+          <span class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center text-sm font-extrabold">4</span>
+          Smart Client-Side Routing
         </h2>
 
         <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-          The built-in Boba Router supports client-side SPA navigation, path parameter extraction (<code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-purple-600 dark:text-purple-400 font-mono text-xs">:param</code>), and automatic subpath support for GitHub Pages deployments.
+          The built-in <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-xs">Router</code> provides seamless SPA navigation, dynamic route parameters (<code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-xs">:param</code>), and automatic base path resolution for subpath deployments such as GitHub Pages.
         </p>
 
         <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs sm:text-sm border border-slate-800 shadow-sm overflow-x-auto mb-6">
-<pre class="text-slate-300"><span class="text-sky-400">import</span> { Router } <span class="text-sky-400">from</span> <span class="text-emerald-300">'./core/router/router.ts'</span>;
+<pre class="text-slate-300"><span class="text-slate-400">import</span> { Router } <span class="text-slate-400">from</span> <span class="text-slate-200">'./core/router/router.ts'</span>;
 
-<span class="text-sky-400">const</span> router = Router.getInstance();
-router.registerRoute({ path: <span class="text-emerald-300">'/'</span>, component: <span class="text-emerald-300">'home-page'</span> });
-router.registerRoute({ path: <span class="text-emerald-300">'/user/:id'</span>, component: <span class="text-emerald-300">'user-profile'</span> });</pre>
+<span class="text-slate-400">const</span> router = Router.getInstance();
+router.registerRoute({ path: <span class="text-slate-200">'/'</span>, component: <span class="text-slate-200">'home-page'</span> });
+router.registerRoute({ path: <span class="text-slate-200">'/docs'</span>, component: <span class="text-slate-200">'docs-page'</span> });
+router.registerRoute({ path: <span class="text-slate-200">'/user/:name'</span>, component: <span class="text-slate-200">'user-page'</span> });</pre>
         </div>
       </section>
 
-      <!-- Section 4: State -->
+      <!-- Section 5: State -->
       <section id="state" class="mb-14 scroll-mt-24">
         <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm font-extrabold">4</span>
-          Global State
+          <span class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center text-sm font-extrabold">5</span>
+          Reactive State Management
         </h2>
 
         <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-          Lightweight state management backed by standard browser <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 font-mono text-xs">EventTarget</code> events.
+          State management uses native browser <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-xs">EventTarget</code> events without standard heavy external state libraries.
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="bg-[var(--boba-surface)] p-5 rounded-xl border border-slate-200 dark:border-slate-800">
-            <h3 class="font-bold text-slate-900 dark:text-slate-100 text-base mb-2">Define Store</h3>
-            <code class="block text-xs font-mono text-sky-600 dark:text-sky-400 bg-slate-100 dark:bg-slate-900/80 p-2 rounded-md mb-3">new Store({ count: 0 })</code>
+            <h3 class="font-bold text-slate-900 dark:text-slate-100 text-base mb-2">Create Store</h3>
+            <code class="block text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-900/80 p-2 rounded-md mb-3">export const appStore = new Store({ count: 0 });</code>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Emits native custom events whenever state properties are updated.
+              Updates state using <code class="font-mono">setState()</code> and emits native change events.
             </p>
           </div>
 
           <div class="bg-[var(--boba-surface)] p-5 rounded-xl border border-slate-200 dark:border-slate-800">
-            <h3 class="font-bold text-slate-900 dark:text-slate-100 text-base mb-2">Subscribe</h3>
-            <code class="block text-xs font-mono text-purple-600 dark:text-purple-400 bg-slate-100 dark:bg-slate-900/80 p-2 rounded-md mb-3">store.addEventListener('change', ...)</code>
+            <h3 class="font-bold text-slate-900 dark:text-slate-100 text-base mb-2">Listen in Components</h3>
+            <code class="block text-xs font-mono text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-900/80 p-2 rounded-md mb-3">appStore.addEventListener('change', ...)</code>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Components listen to state changes inside their <code class="font-mono">init()</code> lifecycle method.
+              Components subscribe inside <code class="font-mono">init()</code> to automatically update UI on changes.
             </p>
           </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Deployment -->
+      <section id="deployment" class="mb-14 scroll-mt-24">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center text-sm font-extrabold">6</span>
+          Production Build & Deployment
+        </h2>
+
+        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+          To generate static production assets suitable for GitHub Pages, Netlify, or Vercel, run the production build script:
+        </p>
+
+        <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs sm:text-sm border border-slate-800 shadow-sm mb-6 overflow-x-auto">
+          <div class="text-slate-500 mb-2"># Build static dist bundle</div>
+          <div class="text-slate-200 mb-3">npm run build</div>
+          <div class="text-slate-500 mb-2"># Preview static build locally</div>
+          <div class="text-slate-200">npx serve dist</div>
         </div>
       </section>
 
       <!-- Footer -->
       <footer class="pt-8 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 text-center">
-        &copy; <span data-year></span> Boba Framework. Built for modern software engineering.
+        &copy; Boba Framework. Distributed under the MIT License.
       </footer>
 
     </main>

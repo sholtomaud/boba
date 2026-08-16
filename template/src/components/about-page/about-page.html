@@ -1,11 +1,183 @@
-<div class="about-container">
-  <h1>About Boba</h1>
-  <p>Boba is a minimalist framework for building web applications using modern Web Components and TypeScript.</p>
-  <h2>Key Features:</h2>
-  <ul>
-    <li><strong>Web Components:</strong> Built on standard Custom Elements.</li>
-    <li><strong>TypeScript:</strong> Full type safety with Node.js 25+ type stripping.</li>
-    <li><strong>Router:</strong> Lightweight client-side routing with dynamic parameters.</li>
-    <li><strong>Store:</strong> Simple reactive state management.</li>
-  </ul>
+<div class="min-h-screen bg-[var(--boba-bg)] text-slate-900 dark:text-slate-100 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Hero Header -->
+    <header class="text-center mb-16">
+      <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800/60 mb-4 tracking-wide uppercase">
+        About Boba Framework
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight mb-6">
+        Simplicity in Every Bubble.
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal">
+        An ultra-minimalist, standards-based frontend web framework built to pair modern browser capabilities with Node.js native type stripping.
+      </p>
+    </header>
+
+    <!-- Bento Grid - Architectural Strengths -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+
+      <!-- Card 1: Standards-First -->
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between group shadow-sm">
+        <div>
+          <div class="w-12 h-12 bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Standards-First Philosophy</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            By utilizing native browser Custom Elements, template interpolation, and standard lifecycle callbacks, Boba has virtually zero runtime overhead. Your codebase remains evergreen and safe from framework deprecation cycles.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-sky-600 dark:text-sky-400">
+          Native Web Components Architecture
+        </div>
+      </div>
+
+      <!-- Card 2: Zero Build -->
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all flex flex-col justify-between group shadow-sm">
+        <div>
+          <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Zero-Build Experience</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Leveraging Node.js v25+ native type stripping means you can run your tests and server logic directly on TypeScript source code. No heavy dev servers and no continuous compilation loops.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+          TypeScript Native Execution
+        </div>
+      </div>
+
+      <!-- Card 3: Secure & Tiny Attack Surface -->
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between group shadow-sm">
+        <div>
+          <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Minimal Attack Surface</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            By avoiding massive node dependency trees (no heavy framework packages or thousands of transient libraries), Boba slashes package installation times and avoids supply chain risks entirely.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+          Zero External Runtime Dependencies
+        </div>
+      </div>
+
+      <!-- Card 4: Reactive Engine -->
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all flex flex-col justify-between group shadow-sm">
+        <div>
+          <div class="w-12 h-12 bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Reactive Binding & Routing</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Built-in EventTarget-based global store and dynamic router bringing route parameters, query parsing, and SPA navigation guards out of the box.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-purple-600 dark:text-purple-400">
+          Native Declarative Engine
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comparison Section -->
+    <section class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm mb-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6 text-center sm:text-left">
+        How Boba Compares
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="bg-slate-50 dark:bg-slate-900/60 p-5 rounded-lg border border-sky-300 dark:border-sky-800">
+          <h4 class="text-base font-bold text-sky-700 dark:text-sky-400 mb-3">Boba Framework</h4>
+          <ul class="text-xs space-y-2.5 text-slate-700 dark:text-slate-300">
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> Fast Light DOM</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> No Build Pipeline</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> Near-Zero Dependencies</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> Browser Native APIs</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-lg border border-slate-200 dark:border-slate-800">
+          <h4 class="text-base font-bold text-slate-600 dark:text-slate-400 mb-3">Lit / Stencil</h4>
+          <ul class="text-xs space-y-2.5 text-slate-500 dark:text-slate-400">
+            <li class="flex items-center gap-2"><span>⚠</span> Heavy Shadow DOM isolation</li>
+            <li class="flex items-center gap-2"><span>⚠</span> Compiles custom code</li>
+            <li class="flex items-center gap-2"><span>⚠</span> Third-party runtime library</li>
+            <li class="flex items-center gap-2"><span>⚠</span> Stylesheet injection overhead</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-lg border border-slate-200 dark:border-slate-800">
+          <h4 class="text-base font-bold text-slate-600 dark:text-slate-400 mb-3">React / Vue / Angular</h4>
+          <ul class="text-xs space-y-2.5 text-slate-500 dark:text-slate-400">
+            <li class="flex items-center gap-2"><span>✖</span> High supply chain risk</li>
+            <li class="flex items-center gap-2"><span>✖</span> Forced, slow build cycle</li>
+            <li class="flex items-center gap-2"><span>✖</span> Virtual DOM diff overhead</li>
+            <li class="flex items-center gap-2"><span>✖</span> Legacy syntax transformations</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Developer Best Practices Guidance -->
+    <section class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 mb-16">
+      <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-2">
+        <svg class="w-5 h-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        Styling Best Practices
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-emerald-50 dark:bg-emerald-950/30 p-5 rounded-lg border border-emerald-200 dark:border-emerald-800/50">
+          <h5 class="font-bold text-emerald-800 dark:text-emerald-300 mb-2 flex items-center text-xs uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
+            Recommended Practice
+          </h5>
+          <ul class="text-xs space-y-2 text-slate-700 dark:text-slate-300">
+            <li>• Use global Tailwind CSS utility classes inside component markup.</li>
+            <li>• Use <code class="px-1 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/60 font-mono text-[11px]">:host</code> inside component style blocks.</li>
+            <li>• Prefix custom selectors with the component's tag name.</li>
+          </ul>
+        </div>
+        <div class="bg-rose-50 dark:bg-rose-950/30 p-5 rounded-lg border border-rose-200 dark:border-rose-800/50">
+          <h5 class="font-bold text-rose-800 dark:text-rose-300 mb-2 flex items-center text-xs uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-rose-500 mr-2"></span>
+            Avoid
+          </h5>
+          <ul class="text-xs space-y-2 text-slate-700 dark:text-slate-300">
+            <li>• Avoid un-scoped global element selectors like <code class="px-1 py-0.5 rounded bg-rose-100 dark:bg-rose-900/60 font-mono text-[11px]">h1 { ... }</code>.</li>
+            <li>• Do not import heavy 3rd party UI frameworks into custom element roots.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center pt-6 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
+      <p class="mb-3">
+        &copy; <span data-year></span> Boba Framework. Distributed under MIT License.
+      </p>
+      <div class="flex items-center justify-center space-x-6">
+        <a href="/" class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors">Home</a>
+        <span>&bull;</span>
+        <a href="/docs" class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors">Docs</a>
+        <span>&bull;</span>
+        <a href="/todo" class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors">To-Do Demo</a>
+      </div>
+    </footer>
+
+  </div>
 </div>

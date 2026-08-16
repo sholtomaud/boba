@@ -1,204 +1,181 @@
-<div class="min-h-screen bg-gray-50/50 py-16 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-[var(--boba-bg)] text-slate-900 dark:text-slate-100 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
   <div class="max-w-5xl mx-auto">
 
-    <!-- Hero Header Section -->
+    <!-- Hero Header -->
     <header class="text-center mb-16">
-      <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-blue-50 text-blue-600 mb-4 tracking-wide uppercase">
+      <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800/60 mb-4 tracking-wide uppercase">
         About Boba Framework
       </span>
-      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight mb-6">
         Simplicity in Every Bubble.
       </h1>
-      <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal">
         An ultra-minimalist, standards-based frontend web framework built to pair modern browser capabilities with Node.js native type stripping.
       </p>
     </header>
 
     <!-- Bento Grid - Architectural Strengths -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
 
       <!-- Card 1: Standards-First -->
-      <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col justify-between hover:shadow-2xl hover:border-gray-200/80 transition-all group">
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between group shadow-sm">
         <div>
-          <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-md shadow-blue-500/5">
-            <svg class="w-7 h-7 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <div class="w-12 h-12 bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
             </svg>
           </div>
-          <h3 class="text-2xl font-extrabold text-gray-900 mb-3">Standards-First Philosophy</h3>
-          <p class="text-gray-600 leading-relaxed font-semibold">
-            By utilizing native browser Custom Elements, template interpolation, and standard lifecycle callbacks, Boba has virtually zero runtime overhead. Your codebase remains evergreen, highly future-proof, and safe from framework deprecation cycles.
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Standards-First Philosophy</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            By utilizing native browser Custom Elements, template interpolation, and standard lifecycle callbacks, Boba has virtually zero runtime overhead. Your codebase remains evergreen and safe from framework deprecation cycles.
           </p>
         </div>
-        <div class="mt-6 pt-6 border-t border-gray-50 flex items-center text-sm font-bold text-blue-600 group-hover:text-blue-700">
-          Native Web Components
-          <svg class="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-sky-600 dark:text-sky-400">
+          Native Web Components Architecture
         </div>
       </div>
 
       <!-- Card 2: Zero Build -->
-      <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col justify-between hover:shadow-2xl hover:border-gray-200/80 transition-all group">
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all flex flex-col justify-between group shadow-sm">
         <div>
-          <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-md shadow-indigo-500/5">
-            <svg class="w-7 h-7 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 class="text-2xl font-extrabold text-gray-900 mb-3">Zero-Build Experience</h3>
-          <p class="text-gray-600 leading-relaxed font-semibold">
-            Leveraging Node.js v25+ native type stripping means you can run your tests and server logic directly on TypeScript source code. No heavy dev servers, no continuous compilation loops, and an incredibly rapid, streamlined developer feedback loop.
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Zero-Build Experience</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Leveraging Node.js v25+ native type stripping means you can run your tests and server logic directly on TypeScript source code. No heavy dev servers and no continuous compilation loops.
           </p>
         </div>
-        <div class="mt-6 pt-6 border-t border-gray-50 flex items-center text-sm font-bold text-indigo-600 group-hover:text-indigo-700">
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-indigo-600 dark:text-indigo-400">
           TypeScript Native Execution
-          <svg class="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
         </div>
       </div>
 
       <!-- Card 3: Secure & Tiny Attack Surface -->
-      <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col justify-between hover:shadow-2xl hover:border-gray-200/80 transition-all group">
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between group shadow-sm">
         <div>
-          <div class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-all shadow-md shadow-green-500/5">
-            <svg class="w-7 h-7 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <h3 class="text-2xl font-extrabold text-gray-900 mb-3">Minimal Attack Surface</h3>
-          <p class="text-gray-600 leading-relaxed font-semibold">
-            By completely avoiding massive node dependency trees (no heavy framework packages, thousands of transient libraries), Boba slashes package installation times, reduces vulnerabilities, and avoids modern supply chain risks entirely.
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Minimal Attack Surface</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            By avoiding massive node dependency trees (no heavy framework packages or thousands of transient libraries), Boba slashes package installation times and avoids supply chain risks entirely.
           </p>
         </div>
-        <div class="mt-6 pt-6 border-t border-gray-50 flex items-center text-sm font-bold text-green-600 group-hover:text-green-700">
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-emerald-600 dark:text-emerald-400">
           Zero External Runtime Dependencies
-          <svg class="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
         </div>
       </div>
 
       <!-- Card 4: Reactive Engine -->
-      <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col justify-between hover:shadow-2xl hover:border-gray-200/80 transition-all group">
+      <div class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all flex flex-col justify-between group shadow-sm">
         <div>
-          <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-md shadow-purple-500/5">
-            <svg class="w-7 h-7 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <div class="w-12 h-12 bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
             </svg>
           </div>
-          <h3 class="text-2xl font-extrabold text-gray-900 mb-3">Reactive Binding & Routing</h3>
-          <p class="text-gray-600 leading-relaxed font-semibold">
-            Built-in native EventTarget-based global store and dynamic tagged template helper system allow declarative UI state binding. This is combined with our updated regex-based router, bringing dynamic route parameters, query parsing, and navigation guards out of the box.
+          <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">Reactive Binding & Routing</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Built-in EventTarget-based global store and dynamic router bringing route parameters, query parsing, and SPA navigation guards out of the box.
           </p>
         </div>
-        <div class="mt-6 pt-6 border-t border-gray-50 flex items-center text-sm font-bold text-purple-600 group-hover:text-purple-700">
+        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-purple-600 dark:text-purple-400">
           Native Declarative Engine
-          <svg class="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
         </div>
       </div>
 
     </div>
 
-    <!-- Technical Architecture Flow / Comparison -->
-    <section class="bg-gray-900 text-white p-8 sm:p-12 rounded-3xl shadow-2xl mb-16 overflow-hidden relative">
-      <div class="relative z-10">
-        <h2 class="text-3xl font-extrabold mb-8 tracking-tight text-center md:text-left">
-          How Boba Compares
-        </h2>
+    <!-- Comparison Section -->
+    <section class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm mb-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6 text-center sm:text-left">
+        How Boba Compares
+      </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700/50">
-            <h4 class="text-lg font-bold text-blue-400 mb-2">Boba Framework</h4>
-            <ul class="text-sm space-y-2 text-gray-300 font-semibold">
-              <li class="flex items-center"><span class="text-green-400 mr-2">✔</span> Fast Light DOM</li>
-              <li class="flex items-center"><span class="text-green-400 mr-2">✔</span> No Build Pipeline</li>
-              <li class="flex items-center"><span class="text-green-400 mr-2">✔</span> Near-Zero Dependencies</li>
-              <li class="flex items-center"><span class="text-green-400 mr-2">✔</span> Browser Native APIs</li>
-            </ul>
-          </div>
-
-          <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-800">
-            <h4 class="text-lg font-bold text-gray-400 mb-2">Lit / Stencil</h4>
-            <ul class="text-sm space-y-2 text-gray-400 font-semibold">
-              <li class="flex items-center"><span>⚠</span> Heavy Shadow DOM isolation</li>
-              <li class="flex items-center"><span>⚠</span> Compiles custom code</li>
-              <li class="flex items-center"><span>⚠</span> Third-party runtime library</li>
-              <li class="flex items-center"><span>⚠</span> Stylesheet injection overhead</li>
-            </ul>
-          </div>
-
-          <div class="bg-gray-800/40 p-6 rounded-2xl border border-gray-800">
-            <h4 class="text-lg font-bold text-gray-400 mb-2">React / Vue / Angular</h4>
-            <ul class="text-sm space-y-2 text-gray-400 font-semibold">
-              <li class="flex items-center"><span>✖</span> High supply chain risk</li>
-              <li class="flex items-center"><span>✖</span> Forced, slow build cycle</li>
-              <li class="flex items-center"><span>✖</span> Virtual DOM diff overhead</li>
-              <li class="flex items-center"><span>✖</span> Legacy syntax transformations</li>
-            </ul>
-          </div>
-
+        <div class="bg-slate-50 dark:bg-slate-900/60 p-5 rounded-lg border border-sky-300 dark:border-sky-800">
+          <h4 class="text-base font-bold text-sky-700 dark:text-sky-400 mb-3">Boba Framework</h4>
+          <ul class="text-xs space-y-2.5 text-slate-700 dark:text-slate-300">
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> Fast Light DOM</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> No Build Pipeline</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> Near-Zero Dependencies</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✔</span> Browser Native APIs</li>
+          </ul>
         </div>
-      </div>
 
-      <!-- Ambient Gradient Backdrops -->
-      <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
-      <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500 opacity-10 rounded-full blur-3xl"></div>
+        <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-lg border border-slate-200 dark:border-slate-800">
+          <h4 class="text-base font-bold text-slate-600 dark:text-slate-400 mb-3">Lit / Stencil</h4>
+          <ul class="text-xs space-y-2.5 text-slate-500 dark:text-slate-400">
+            <li class="flex items-center gap-2"><span>⚠</span> Heavy Shadow DOM isolation</li>
+            <li class="flex items-center gap-2"><span>⚠</span> Compiles custom code</li>
+            <li class="flex items-center gap-2"><span>⚠</span> Third-party runtime library</li>
+            <li class="flex items-center gap-2"><span>⚠</span> Stylesheet injection overhead</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-lg border border-slate-200 dark:border-slate-800">
+          <h4 class="text-base font-bold text-slate-600 dark:text-slate-400 mb-3">React / Vue / Angular</h4>
+          <ul class="text-xs space-y-2.5 text-slate-500 dark:text-slate-400">
+            <li class="flex items-center gap-2"><span>✖</span> High supply chain risk</li>
+            <li class="flex items-center gap-2"><span>✖</span> Forced, slow build cycle</li>
+            <li class="flex items-center gap-2"><span>✖</span> Virtual DOM diff overhead</li>
+            <li class="flex items-center gap-2"><span>✖</span> Legacy syntax transformations</li>
+          </ul>
+        </div>
+
+      </div>
     </section>
 
-    <!-- Developer Notes & Best Practices Guidance -->
-    <section class="bg-white p-8 sm:p-10 rounded-3xl shadow-xl border border-gray-100 mb-16">
-      <h3 class="text-2xl font-extrabold text-gray-900 mb-6 flex items-center">
-        <svg class="w-6 h-6 mr-3 text-blue-600 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+    <!-- Developer Best Practices Guidance -->
+    <section class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 mb-16">
+      <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-2">
+        <svg class="w-5 h-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
         Styling Best Practices
       </h3>
-      <div class="prose max-w-none text-gray-600 leading-relaxed font-semibold space-y-4">
-        <p>
-          Boba relies on a Tailwind-first structure and scoped selectors in the Light DOM. To prevent style conflicts across custom components, developers should adhere to the following simple guidelines:
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h5 class="font-bold text-gray-900 mb-2 flex items-center text-sm">
-              <span class="w-2.5 h-2.5 rounded-full bg-green-500 mr-2"></span>
-              Recommended Practice
-            </h5>
-            <ul class="text-xs space-y-2 list-disc list-inside text-gray-600 font-medium">
-              <li>Use global Tailwind CSS utility classes inside component markup.</li>
-              <li>Use <code>:host</code> inside component style blocks, which the Boba compiler scopes directly to the tag name.</li>
-              <li>Prefix selectors with the component's name or use strict element child matches.</li>
-            </ul>
-          </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h5 class="font-bold text-gray-900 mb-2 flex items-center text-sm">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500 mr-2"></span>
-              Avoid
-            </h5>
-            <ul class="text-xs space-y-2 list-disc list-inside text-gray-600 font-medium">
-              <li>Do not declare generic rules like <code>h1 { ... }</code> or <code>p { ... }</code> without prefixing or using <code>:host</code> scope.</li>
-              <li>Do not attempt to import massive third-party UI libraries into individual web component shadow roots.</li>
-            </ul>
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-emerald-50 dark:bg-emerald-950/30 p-5 rounded-lg border border-emerald-200 dark:border-emerald-800/50">
+          <h5 class="font-bold text-emerald-800 dark:text-emerald-300 mb-2 flex items-center text-xs uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
+            Recommended Practice
+          </h5>
+          <ul class="text-xs space-y-2 text-slate-700 dark:text-slate-300">
+            <li>• Use global Tailwind CSS utility classes inside component markup.</li>
+            <li>• Use <code class="px-1 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/60 font-mono text-[11px]">:host</code> inside component style blocks.</li>
+            <li>• Prefix custom selectors with the component's tag name.</li>
+          </ul>
+        </div>
+        <div class="bg-rose-50 dark:bg-rose-950/30 p-5 rounded-lg border border-rose-200 dark:border-rose-800/50">
+          <h5 class="font-bold text-rose-800 dark:text-rose-300 mb-2 flex items-center text-xs uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-rose-500 mr-2"></span>
+            Avoid
+          </h5>
+          <ul class="text-xs space-y-2 text-slate-700 dark:text-slate-300">
+            <li>• Avoid un-scoped global element selectors like <code class="px-1 py-0.5 rounded bg-rose-100 dark:bg-rose-900/60 font-mono text-[11px]">h1 { ... }</code>.</li>
+            <li>• Do not import heavy 3rd party UI frameworks into custom element roots.</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Call to Action footer -->
-    <footer class="text-center">
-      <p class="text-gray-400 text-sm font-semibold mb-4">
+    <!-- Footer -->
+    <footer class="text-center pt-6 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
+      <p class="mb-3">
         &copy; <span data-year></span> Boba Framework. Distributed under MIT License.
       </p>
-      <div class="flex items-center justify-center space-x-6 text-sm">
-        <a href="/" class="text-blue-600 hover:text-blue-700 font-bold hover:underline transition-colors">Back Home</a>
-        <span class="text-gray-300 font-semibold">&bull;</span>
-        <a href="/docs" class="text-blue-600 hover:text-blue-700 font-bold hover:underline transition-colors">Read Documentation</a>
-        <span class="text-gray-300 font-semibold">&bull;</span>
-        <a href="/todo" class="text-blue-600 hover:text-blue-700 font-bold hover:underline transition-colors">Demo To-Do List</a>
+      <div class="flex items-center justify-center space-x-6">
+        <a href="/" class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors">Home</a>
+        <span>&bull;</span>
+        <a href="/docs" class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors">Docs</a>
+        <span>&bull;</span>
+        <a href="/todo" class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors">To-Do Demo</a>
       </div>
     </footer>
 

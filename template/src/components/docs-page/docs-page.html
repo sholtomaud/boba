@@ -1,63 +1,168 @@
-<div class="container mx-auto p-8 max-w-4xl">
-  <header class="mb-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-4">Documentation</h1>
-    <p class="text-xl text-gray-600">Learn how to build minimalist web applications with Boba.</p>
-  </header>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 transition-colors duration-200">
+  <div class="flex flex-col lg:flex-row gap-10">
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Getting Started</h2>
-    <p class="mb-4 text-gray-700">Boba is designed for simplicity. It uses native Web Components and TypeScript with Node.js v25+ type stripping, meaning you can write TypeScript that runs almost directly in the browser.</p>
-    <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm">
-      <pre>npx github:sholtomaud/boba my-app
-cd my-app
-npm install
-npm start</pre>
-    </div>
-  </section>
+    <!-- VitePress Style Sidebar Navigation -->
+    <aside class="lg:w-64 flex-shrink-0">
+      <div class="sticky top-24 space-y-6">
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
+            Documentation Overview
+          </h3>
+          <nav class="space-y-1 text-sm font-medium">
+            <a href="#intro" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+              Getting Started
+            </a>
+            <a href="#components" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Web Components
+            </a>
+            <a href="#routing" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              Smart Routing
+            </a>
+            <a href="#state" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              State Management
+            </a>
+          </nav>
+        </div>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Components</h2>
-    <p class="mb-4 text-gray-700">Components in Boba are standard Web Components that extend <code>BaseComponent</code>. They encapsulate their own HTML and CSS.</p>
-    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-<pre>import { BaseComponent, html, css } from '../../core/base-component.ts';
+        <div class="p-4 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/60 text-xs text-sky-800 dark:text-sky-200">
+          <div class="font-bold mb-1 flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-sky-600 dark:text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Pro Tip
+          </div>
+          Boba runs natively on Node 25+ without any build step required for local dev.
+        </div>
+      </div>
+    </aside>
 
-const template = html`&lt;h1&gt;Hello World&lt;/h1&gt;`;
-const style = css`h1 { color: blue; }`;
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-4xl min-w-0">
 
-export class MyComponent extends BaseComponent {
-  static tagName = 'my-component';
-  constructor() {
-    super(template, style);
+      <!-- Page Header -->
+      <header class="border-b border-slate-200 dark:border-slate-800 pb-8 mb-10">
+        <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-3">
+          Documentation
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+          Everything you need to know about building enterprise-grade, minimalist web applications with Boba.
+        </p>
+      </header>
+
+      <!-- Section 1: Intro -->
+      <section id="intro" class="mb-14 scroll-mt-24">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center text-sm font-extrabold">1</span>
+          Getting Started
+        </h2>
+
+        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+          Boba is a zero-build framework leveraging browser standards (Web Components, Light DOM styling, ES Modules) and Node.js v25+ native type stripping for ultra-fast performance.
+        </p>
+
+        <!-- Command Box -->
+        <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs sm:text-sm border border-slate-800 shadow-sm mb-6 overflow-x-auto">
+          <div class="text-slate-500 mb-2"># Scaffold a new Boba application</div>
+          <div class="text-sky-400 mb-3">npx github:sholtomaud/boba my-boba-app</div>
+          <div class="text-slate-500 mb-2"># Navigate and install dependencies</div>
+          <div class="text-slate-200 mb-3">cd my-boba-app && npm install</div>
+          <div class="text-slate-500 mb-2"># Launch live dev server</div>
+          <div class="text-emerald-400">npm start</div>
+        </div>
+
+        <!-- VitePress-style Callout Note -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/80 border-l-4 border-sky-500 text-sm text-slate-700 dark:text-slate-300">
+          <span class="font-bold text-slate-900 dark:text-slate-100">Note:</span> Running <code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-xs">npm start</code> starts Vite dev server for on-the-fly type stripping and instant browser updates.
+        </div>
+      </section>
+
+      <!-- Section 2: Components -->
+      <section id="components" class="mb-14 scroll-mt-24">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-extrabold">2</span>
+          Web Components
+        </h2>
+
+        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+          Components inherit from <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-sky-600 dark:text-sky-400 font-mono text-xs">BaseComponent</code>, providing scoped styles, Light DOM integration for global Tailwind utility compatibility, and lifecycle hooks.
+        </p>
+
+        <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs sm:text-sm border border-slate-800 shadow-sm overflow-x-auto mb-6">
+<pre class="text-slate-300"><span class="text-sky-400">import</span> { BaseComponent } <span class="text-sky-400">from</span> <span class="text-emerald-300">'../../core/base-component.ts'</span>;
+
+<span class="text-sky-400">const</span> html = <span class="text-emerald-300">`&lt;h1 class="text-2xl font-bold text-slate-900"&gt;Hello World&lt;/h1&gt;`</span>;
+<span class="text-sky-400">const</span> css = <span class="text-emerald-300">`:host { display: block; }`</span>;
+
+<span class="text-sky-400">export class</span> HelloComponent <span class="text-sky-400">extends</span> BaseComponent {
+  <span class="text-sky-400">static</span> tagName = <span class="text-emerald-300">'hello-component'</span>;
+  <span class="text-sky-400">constructor</span>() {
+    <span class="text-sky-400">super</span>(html, css);
   }
 }
 
-customElements.define(MyComponent.tagName, MyComponent);</pre>
-    </div>
-  </section>
+customElements.define(HelloComponent.tagName, HelloComponent);</pre>
+        </div>
+      </section>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Routing</h2>
-    <p class="mb-4 text-gray-700">The lightweight router allows you to map paths to components easily in <code>main.ts</code>.</p>
-    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-<pre>const router = Router.getInstance();
-router.registerRoute({ path: '/', component: 'home-page' });
-router.registerRoute({ path: '/about', component: 'about-page' });</pre>
-    </div>
-  </section>
+      <!-- Section 3: Routing -->
+      <section id="routing" class="mb-14 scroll-mt-24">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-extrabold">3</span>
+          Smart Client Routing
+        </h2>
 
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Global State</h2>
-    <p class="mb-4 text-gray-700">Boba includes a simple <code>Store</code> class for reactive global state management using <code>EventTarget</code>.</p>
-    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-<pre>// In your store file
-export const appStore = new Store({ count: 0 });
+        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+          The built-in Boba Router supports client-side SPA navigation, path parameter extraction (<code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-purple-600 dark:text-purple-400 font-mono text-xs">:param</code>), and automatic subpath support for GitHub Pages deployments.
+        </p>
 
-// In your component
-init() {
-  appStore.addEventListener('change', (e) => {
-    this.render(e.detail.count);
-  });
-}</pre>
-    </div>
-  </section>
+        <div class="rounded-xl bg-slate-900 text-slate-100 p-5 font-mono text-xs sm:text-sm border border-slate-800 shadow-sm overflow-x-auto mb-6">
+<pre class="text-slate-300"><span class="text-sky-400">import</span> { Router } <span class="text-sky-400">from</span> <span class="text-emerald-300">'./core/router/router.ts'</span>;
+
+<span class="text-sky-400">const</span> router = Router.getInstance();
+router.registerRoute({ path: <span class="text-emerald-300">'/'</span>, component: <span class="text-emerald-300">'home-page'</span> });
+router.registerRoute({ path: <span class="text-emerald-300">'/user/:id'</span>, component: <span class="text-emerald-300">'user-profile'</span> });</pre>
+        </div>
+      </section>
+
+      <!-- Section 4: State -->
+      <section id="state" class="mb-14 scroll-mt-24">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm font-extrabold">4</span>
+          Global State
+        </h2>
+
+        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+          Lightweight state management backed by standard browser <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 font-mono text-xs">EventTarget</code> events.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-[var(--boba-surface)] p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+            <h3 class="font-bold text-slate-900 dark:text-slate-100 text-base mb-2">Define Store</h3>
+            <code class="block text-xs font-mono text-sky-600 dark:text-sky-400 bg-slate-100 dark:bg-slate-900/80 p-2 rounded-md mb-3">new Store({ count: 0 })</code>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Emits native custom events whenever state properties are updated.
+            </p>
+          </div>
+
+          <div class="bg-[var(--boba-surface)] p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+            <h3 class="font-bold text-slate-900 dark:text-slate-100 text-base mb-2">Subscribe</h3>
+            <code class="block text-xs font-mono text-purple-600 dark:text-purple-400 bg-slate-100 dark:bg-slate-900/80 p-2 rounded-md mb-3">store.addEventListener('change', ...)</code>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Components listen to state changes inside their <code class="font-mono">init()</code> lifecycle method.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="pt-8 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 text-center">
+        &copy; <span data-year></span> Boba Framework. Built for modern software engineering.
+      </footer>
+
+    </main>
+  </div>
 </div>

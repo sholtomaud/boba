@@ -1,7 +1,8 @@
-IMAGE_APP        := boba
-CONTAINER_BIN    := container
-NODE_VERSION     := $(shell cat .node-version)
-WORKDIR          := /app
+IMAGE_APP          := boba
+CONTAINER_BIN      := container
+NODE_VERSION       := $(shell cat .node-version)
+PLAYWRIGHT_VERSION := $(shell node -p "require('./package.json').devDependencies['@playwright/test'].replace(/[\^~]/g, '')")
+WORKDIR            := /app
 
 .PHONY: start image install dev build-app test-unit test clean
 
@@ -17,7 +18,7 @@ start: ## Start the Apple container system daemon
 # --------------------------------------------------
 
 image: start ## Build dev container image (node:$(NODE_VERSION)-slim)
-	$(CONTAINER_BIN) build -f Containerfile -t $(IMAGE_APP) --build-arg NODE_VERSION=$(NODE_VERSION) .
+	$(CONTAINER_BIN) build -f Containerfile -t $(IMAGE_APP) --build-arg NODE_VERSION=$(NODE_VERSION) --build-arg PLAYWRIGHT_VERSION=$(PLAYWRIGHT_VERSION) .
 
 # --------------------------------------------------
 # Compilation and serving targets

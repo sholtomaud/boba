@@ -6,13 +6,25 @@ on:
   workflow_dispatch: # Allow manual triggering
 
 jobs:
+  get-playwright-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Playwright version from package.json
+        id: get-version
+        run: |
+          VERSION=$(node -p "require('./package.json').devDependencies['@playwright/test'].replace(/[\^~]/g, '')")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
   patch-and-test:
     name: Patch & Test Dependencies
+    needs: get-playwright-version
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        playwright_version: ['1.62.0']
-    container: mcr.microsoft.com/playwright:v${{ matrix.playwright_version }}-noble
+    container: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}-noble
 
     steps:
       - name: Checkout code

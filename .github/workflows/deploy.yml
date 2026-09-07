@@ -14,12 +14,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test-and-prepare:
+  get-playwright-version:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        playwright_version: ['1.62.0']
-    container: mcr.microsoft.com/playwright:v${{ matrix.playwright_version }}-noble
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Playwright version from package.json
+        id: get-version
+        run: |
+          VERSION=$(node -p "require('./package.json').devDependencies['@playwright/test'].replace(/[\^~]/g, '')")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  test-and-prepare:
+    needs: get-playwright-version
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}-noble
     steps:
       - name: Checkout
         uses: actions/checkout@v4

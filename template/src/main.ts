@@ -1,11 +1,6 @@
 import './styles/global.css';
-import './components/home-page/home-page.ts';
-import './components/about-page/about-page.ts';
-import './components/todo-page/todo-page.ts';
-import './components/user-page/user-page.ts';
 import { Router } from './core/router/router.ts';
 import './components/nav-page/nav-page.ts';
-import './components/docs-page/docs-page.ts';
 
 // Setup BASE_URL for the router
 const isGitHubPages = window.location.hostname.endsWith('.github.io');

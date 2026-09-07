@@ -9,7 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.62.0-noble
+    strategy:
+      matrix:
+        playwright_version: ['1.62.0']
+    container: mcr.microsoft.com/playwright:v${{ matrix.playwright_version }}-noble
 
     steps:
       - name: Checkout code

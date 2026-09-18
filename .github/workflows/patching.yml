@@ -72,27 +72,36 @@ jobs:
           cd template
           npm test
 
-      # --- NEW AUTO-INCREMENT & COMMIT STEPS ---
+      # --- AUTO-INCREMENT, INDEX UPDATE & COMMIT STEPS ---
 
       - name: Increment package patch version
         id: bump_version
         run: |
-          # Increment patch version without creating a git commit tag immediately
-          NEW_VERSION=$(npm version patch --no-git-tag-version)
+          # Increment patch version in package.json without tagging
+          # 'npm version patch' automatically strips any 'v' prefix for package.json
+          NEW_VERSION_RAW=$(npm version patch --no-git-tag-version)
+          # NEW_VERSION_RAW output looks like "v1.0.1", strip leading 'v' if present for clean string parsing
+          NEW_VERSION=${NEW_VERSION_RAW#v}
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Update version string in index.html
+        run: |
+          # Replace pattern matching semver (e.g. v1.0.0) with new version string (e.g. v1.0.1)
+          sed -i -E "s/v[0-9]+\.[0-9]+\.[0-9]+/v${{ env.NEW_VERSION }}/g" index.html
 
       - name: Commit and push patched dependencies and version bump
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           
-          git add package.json package-lock.json template/package.json template/package-lock.json
+          # Stage package locks, package manifests, and updated index.html
+          git add package.json package-lock.json index.html template/package.json template/package-lock.json
           
-          # Only commit and push if there are modified files
+          # Only commit and push if dependencies or files actually changed
           if ! git diff --cached --quiet; then
-            git commit -m "chore(patch): automated dependency patching and bump to ${{ env.NEW_VERSION }} [skip ci]"
-            git tag ${{ env.NEW_VERSION }}
+            git commit -m "chore(patch): automated dependency patching and bump to v${{ env.NEW_VERSION }} [skip ci]"
+            git tag "v${{ env.NEW_VERSION }}"
             git push origin HEAD:${{ github.ref_name }} --tags
           else
-            echo "No dependency updates found. Skipping commit."
+            echo "No dependency updates or changes found. Skipping commit."
           fi

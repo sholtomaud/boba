@@ -91,6 +91,9 @@ jobs:
 
       - name: Commit and push patched dependencies and version bump
         run: |
+          # Fix git workspace permissions inside Docker container
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           

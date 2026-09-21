@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   get-playwright-version:
@@ -92,7 +93,9 @@ jobs:
           # Replace pattern matching semver (e.g. v1.0.0) with new version string (e.g. v1.0.1)
           sed -i -E "s/v[0-9]+\.[0-9]+\.[0-9]+/v${{ env.NEW_VERSION }}/g" index.html
 
-      - name: Commit and push patched dependencies and version bump
+      - name: Commit and create PR for patched dependencies
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Fix git workspace permissions inside Docker container
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -103,11 +106,17 @@ jobs:
           # Stage package locks, package manifests, and updated index.html
           git add package.json package-lock.json index.html template/package.json template/package-lock.json
           
-          # Only commit and push if dependencies or files actually changed
+          # Only commit and create PR if dependencies or files actually changed
           if ! git diff --cached --quiet; then
+            BRANCH_NAME="patch/deps-v${{ env.NEW_VERSION }}"
+            git checkout -b "$BRANCH_NAME"
             git commit -m "chore(patch): automated dependency patching and bump to v${{ env.NEW_VERSION }} [skip ci]"
-            git tag "v${{ env.NEW_VERSION }}"
-            git push origin HEAD:${{ github.ref_name }} --tags
+            git push origin "$BRANCH_NAME"
+            gh pr create \
+              --title "chore(patch): automated dependency patching and bump to v${{ env.NEW_VERSION }}" \
+              --body "Automated dependency update and version bump to v${{ env.NEW_VERSION }}." \
+              --head "$BRANCH_NAME" \
+              --base "${{ github.ref_name }}"
           else
             echo "No dependency updates or changes found. Skipping commit."
           fi

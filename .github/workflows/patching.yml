@@ -5,6 +5,9 @@ on:
     - cron: '0 0 * * 1' # Every Monday at midnight UTC
   workflow_dispatch: # Allow manual triggering
 
+permissions:
+  contents: write
+
 jobs:
   get-playwright-version:
     runs-on: ubuntu-latest

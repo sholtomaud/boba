@@ -93,6 +93,10 @@ jobs:
           # Replace pattern matching semver (e.g. v1.0.0) with new version string (e.g. v1.0.1)
           sed -i -E "s/v[0-9]+\.[0-9]+\.[0-9]+/v${{ env.NEW_VERSION }}/g" index.html
 
+      - name: Install GitHub CLI
+        run: |
+          apt-get update && apt-get install -y gh
+
       - name: Commit and create PR for patched dependencies
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

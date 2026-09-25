@@ -115,12 +115,12 @@ jobs:
             BRANCH_NAME="patch/deps-v${{ env.NEW_VERSION }}"
             git checkout -b "$BRANCH_NAME"
             git commit -m "chore(patch): automated dependency patching and bump to v${{ env.NEW_VERSION }} [skip ci]"
-            git push origin "$BRANCH_NAME"
+            git push --force origin "$BRANCH_NAME"
             gh pr create \
               --title "chore(patch): automated dependency patching and bump to v${{ env.NEW_VERSION }}" \
               --body "Automated dependency update and version bump to v${{ env.NEW_VERSION }}." \
               --head "$BRANCH_NAME" \
-              --base "${{ github.ref_name }}"
+              --base "${{ github.ref_name }}" || true
           else
             echo "No dependency updates or changes found. Skipping commit."
           fi

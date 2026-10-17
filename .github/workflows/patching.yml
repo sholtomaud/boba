@@ -46,7 +46,12 @@ jobs:
         run: npm install
 
       - name: Update root dependencies to latest patches
-        run: npm update
+        run: |
+          npm update
+          npm audit fix || true
+
+      - name: Verify no high severity vulnerabilities in root
+        run: npm audit --audit-level=high
 
       - name: Ensure Playwright browser binaries are installed
         run: npx playwright install
@@ -65,6 +70,12 @@ jobs:
           cd template
           npm install
           npm update
+          npm audit fix || true
+
+      - name: Verify no high severity vulnerabilities in template
+        run: |
+          cd template
+          npm audit --audit-level=high
 
       - name: Build template app
         run: |

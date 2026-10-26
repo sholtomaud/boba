@@ -23,7 +23,9 @@ export class TodoPageComponent extends BaseComponent {
 
   init() {
     this.taskInput = this.querySelector('#new-task-input') as HTMLInputElement;
-    this.addTaskButton = this.querySelector('#add-task-btn') as HTMLButtonElement;
+    this.addTaskButton = this.querySelector(
+      '#add-task-btn'
+    ) as HTMLButtonElement;
     this.taskList = this.querySelector('#task-list')!;
 
     this.addTaskButton.addEventListener('click', () => this.addTask());

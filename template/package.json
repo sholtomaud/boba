@@ -10,7 +10,10 @@
     "start": "vite --host",
     "dev": "vite --host",
     "build": "vite build --base ./",
-    "test": "node --test src/**/*.test.ts",
+    "test": "node --test 'src/**/*.test.ts'",
+    "typecheck": "tsc -p .",
+    "lint": "oxlint && prettier --check \"src/**/*.{ts,js}\"",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
     "e2e": "npx playwright test"
   },
   "devDependencies": {
@@ -18,9 +21,10 @@
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.1",
     "autoprefixer": "^10.5.2",
-    "eslint": "^10.6.0",
+    "oxlint": "^1.89.0",
     "playwright": "1.62.0",
     "postcss": "^8.5.16",
+    "prettier": "^3.9.10",
     "serve": "^14.2.6",
     "tailwindcss": "^4.3.2",
     "typescript": "^7.0.2",

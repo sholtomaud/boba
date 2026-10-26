@@ -9,6 +9,8 @@ describe('Template Helpers', () => {
   });
 
   test('css tagged template should return the correctly concatenated string', () => {
+    // Reformatting would change the template string under test.
+    // prettier-ignore
     const result = css`.class { color: ${'red'}; }`;
     assert.strictEqual(result, '.class { color: red; }');
   });

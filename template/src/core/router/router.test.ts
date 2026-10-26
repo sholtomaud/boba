@@ -6,10 +6,10 @@ import { Router } from './router.ts';
 (global as any).window = {
   location: { pathname: '/' },
   addEventListener: () => {},
-  history: { pushState: () => {} }
+  history: { pushState: () => {} },
 };
 (global as any).document = {
-  querySelector: () => ({ innerHTML: '' })
+  querySelector: () => ({ innerHTML: '' }),
 };
 (global as any).CustomEvent = class {};
 (global as any).customElements = { get: () => true };
@@ -42,7 +42,10 @@ describe('Router', () => {
 
   test('should match multiple dynamic segments', () => {
     const router = new Router();
-    router.registerRoute({ path: '/post/:year/:month/:day', component: 'blog-post' });
+    router.registerRoute({
+      path: '/post/:year/:month/:day',
+      component: 'blog-post',
+    });
 
     const match = (router as any).findRoute('/post/2026/04/02');
     assert.ok(match);

@@ -40,6 +40,9 @@ export default [
       // ...tseslint.configs.stylistic.rules, // Optional: for more stylistic rules
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+      // TypeScript already reports undefined identifiers, and no-undef
+      // misfires on type-only globals such as EventListener.
+      'no-undef': 'off',
     },
   },
 

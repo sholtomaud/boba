@@ -10,7 +10,7 @@
     "template"
   ],
   "engines": {
-    "node": ">=25.0.0"
+    "node": ">=26.0.0"
   },
   "scripts": {
     "dev": "npm --prefix template run dev",

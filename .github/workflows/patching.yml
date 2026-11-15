@@ -36,10 +36,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Node.js v25
+      - name: Set up Node.js v26
         uses: actions/setup-node@v7
         with:
-          node-version: 25.x
+          node-version: 26.x
           cache: 'npm'
 
       - name: Install root dependencies

@@ -1,6 +1,4 @@
 import { BaseComponent } from '../../core/base-component.ts';
-import { Router } from '../../core/router/router.ts';
-import { appStore } from '../../store/app-store.ts';
 import template from './home-page.html?raw';
 import style from './home-page.css?raw';
 
@@ -9,44 +7,6 @@ export class HomeComponent extends BaseComponent {
 
   constructor() {
     super(template, style);
-  }
-
-  init() {
-    this.setupEventListeners();
-    this.updateCounter(appStore.getState().count);
-
-    appStore.addEventListener('change', ((e: CustomEvent) => {
-      this.updateCounter(e.detail.count);
-    }) as EventListener);
-
-    this.querySelectorAll('a').forEach((link) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('/')) {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          Router.getInstance().navigate(href);
-        });
-      }
-    });
-  }
-
-  setupEventListeners() {
-    this.querySelector('#increment')?.addEventListener('click', () => {
-      const { count } = appStore.getState();
-      appStore.setState({ count: count + 1 });
-    });
-
-    this.querySelector('#decrement')?.addEventListener('click', () => {
-      const { count } = appStore.getState();
-      appStore.setState({ count: count - 1 });
-    });
-  }
-
-  updateCounter(count: number) {
-    const counterEl = this.querySelector('#home-counter');
-    if (counterEl) {
-      counterEl.textContent = count.toString();
-    }
   }
 }
 

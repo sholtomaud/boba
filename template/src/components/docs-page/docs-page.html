@@ -102,6 +102,8 @@
 my-app/
 ├── index.html              # Main entry HTML file
 ├── package.json            # Node.js dependencies & scripts
+├── public/                 # Static files: icons, web manifest, service worker
+├── scripts/boba.ts         # Project CLI: generators, manifest, MCP server
 ├── src/
 │   ├── main.ts             # Application bootstrapper & route definitions
 │   ├── core/               # Core framework abstractions
@@ -109,6 +111,7 @@ my-app/
 │   │   ├── store.ts           # EventTarget-backed state store
 │   │   └── router/            # Client-side router engine
 │   ├── components/         # Modular Web Components
+│   ├── services/           # DOM-free logic (API calls, validation)
 │   └── styles/
 │       └── global.css      # Tailwind v4 & design tokens
 └── e2e/                    # Playwright end-to-end tests
@@ -210,7 +213,7 @@ router.registerRoute({ path: <span class="text-slate-200">'/user/:name'</span>, 
           <div class="text-slate-500 mb-2"># Build static dist bundle</div>
           <div class="text-slate-200 mb-3">npm run build</div>
           <div class="text-slate-500 mb-2"># Preview static build locally</div>
-          <div class="text-slate-200">npx serve dist</div>
+          <div class="text-slate-200">npm run preview</div>
         </div>
       </section>
 

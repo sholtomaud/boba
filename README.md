@@ -19,8 +19,13 @@
 - [Anatomy of a Component](#anatomy-of-a-component)
 - [Routing](#routing)
 - [Global State](#global-state)
+- [How Components Talk to Each Other](#how-components-talk-to-each-other)
+- [Services, Forms and API Calls](#services-forms-and-api-calls)
+- [The `boba` CLI](#the-boba-cli)
+- [Offline and Installable (PWA)](#offline-and-installable-pwa)
 - [Available Scripts](#available-scripts)
 - [Testing](#testing)
+- [Deploying](#deploying)
 - [Developing Boba Itself](#developing-boba-itself)
 - [Contributing](#contributing)
 - [License](#license)
@@ -54,23 +59,28 @@ This drops you into a ready-to-go Boba project (see [Project Structure](#project
 ## Project Structure
 
 ```
+index.html                  # Entry page; sets the app's base URL
+public/                     # Static files: icons, web manifest, service worker, data
+scripts/boba.ts             # Project CLI: generators, manifest, MCP server
+e2e/                        # Playwright end-to-end tests
 src/
-├── components/            # Your app's web components, one folder per component
+├── components/             # Your app's web components, one folder per component
 │   └── home-page/
 │       ├── home-page.html  # Markup
 │       ├── home-page.css   # Styles (:host-scoped)
 │       └── home-page.ts    # Component class, wires html/css together
 ├── core/
 │   ├── base-component.ts   # BaseComponent — the class every component extends
+│   ├── store.ts            # Store — EventTarget-based state
 │   └── router/router.ts    # Lightweight client-side router
-├── store/                  # App-level Store instances (EventTarget-based state)
+├── services/               # DOM-free logic: API calls, validation
 ├── styles/                 # Global CSS (Tailwind entry point)
 └── main.ts                 # Entry point: registers routes, boots the router
 ```
 
 ## Anatomy of a Component
 
-Every component lives in its own folder as three files: markup, styles, and logic — no inline template strings.
+Every component lives in its own folder as three files: markup, styles, and logic — no inline template strings. `npm run boba -- generate component user-profile` creates them for you.
 
 ```
 src/components/user-profile/
@@ -123,21 +133,38 @@ The `.html`/`.css` files are pulled in via Vite's [`?raw` import](https://vite.d
 
 ### When markup is dynamic
 
-Not every component is static markup. `todo-page` renders a list that changes with app state (add/toggle/delete/filter). Rather than building HTML strings with loops and conditionals in TypeScript, it defines a `<template>` for one list item inside its `.html` file, then clones and populates that template imperatively in `.ts` using standard DOM APIs (`cloneNode`, `classList`, `textContent`). See [`src/components/todo-page/`](src/components/todo-page/) for a complete example of this pattern.
+Not every component is static markup. `todo-page` renders a list that changes with app state (add/toggle/delete/filter). Rather than building HTML strings with loops and conditionals in TypeScript, it defines a `<template>` for one list item inside its `.html` file, then clones and populates that template imperatively in `.ts` using standard DOM APIs (`cloneNode`, `classList`, `textContent`). See [`template/src/components/todo-page/`](template/src/components/todo-page/) for a complete example of this pattern.
 
 ## Routing
 
-Register routes in `main.ts` (or wherever you boot the app):
+Register routes in `main.ts`:
 
 ```typescript
 import { Router } from './core/router/router.ts';
-import './components/user-profile/user-profile.ts';
 
 const router = Router.getInstance();
+router.notFound = 'not-found-page'; // component shown for unknown URLs
 router.registerRoute({ path: '/', component: 'home-page' });
-router.registerRoute({ path: '/profile', component: 'user-profile' });
-router.registerRoute({ path: '/user/:id', component: 'user-profile' }); // dynamic params
+router.registerRoute({ path: '/user/:name', component: 'user-page' });
+router.start();
 ```
+
+- **Lazy loading** — a route's component is imported from `src/components/<tag>/<tag>.ts` the first time it is shown.
+- **Links** — write plain `<a href="/docs">` anywhere. The router handles the click (no page reload); links with `target`, external links and ctrl/cmd-clicks are left to the browser. From code, call `Router.getInstance().navigate('/docs')`.
+- **Parameters** — `/user/:name` matches `/user/ada`. The component receives the value as a property (`this.name`), plus `this.params` and `this.query` (the parsed query string), all set before `init()` runs.
+- **Guards** — `beforeEnter` runs before a route is shown. Return `false` to cancel, a path to redirect, or nothing to continue. It may be async.
+
+  ```typescript
+  router.registerRoute({
+    path: '/account',
+    component: 'account-page',
+    beforeEnter: () => (isLoggedIn() ? true : '/login'),
+  });
+  ```
+
+- **Navigation event** — the router is an `EventTarget` and dispatches `navigate` (detail: `{ path, params, query }`) after each navigation. `nav-page` uses it to highlight the current link.
+- **Errors** — an unknown URL, or a component that fails to load, shows the `router.notFound` component (a plain heading if you don't set one).
+- **Base URL** — the app can be served from a sub-path. `index.html` sets `window.BOBA_BASE_URL` (the repository folder on GitHub Pages, otherwise `/`) and a matching `<base>`; routes are always written without it.
 
 ## Global State
 
@@ -155,28 +182,113 @@ appStore.addEventListener('change', (e) => {
 appStore.setState({ count: appStore.getState().count + 1 });
 ```
 
+## How Components Talk to Each Other
+
+There is no framework-specific mechanism — use the platform, picking the narrowest tool that fits:
+
+| Direction | Use | Example |
+| --- | --- | --- |
+| Parent → child | **Properties** set on the element | `card.user = user` — the router passes route params this way |
+| Child → parent | **Events** that bubble | `this.dispatchEvent(new CustomEvent('user-selected', { detail: user, bubbles: true }))` |
+| Unrelated components | **A shared `Store`** exported from a module | both import `appStore`; one calls `setState`, the other listens for `change` |
+| Component → logic | **A service** (plain functions in `src/services/`) | `await fetchUsers()` |
+
+A parent listens for a child's events on itself, so it doesn't need a reference to the child — and `delegate()` keeps working when children are re-rendered:
+
+```typescript
+// in the parent's init()
+this.addEventListener('user-selected', (e) => {
+  this.querySelector('user-card').user = (e as CustomEvent).detail;
+});
+this.delegate('click', '.delete', (event, button) => this.remove(button.dataset.id));
+```
+
+Remove listeners you add to long-lived objects (a shared store, the router, `window`) in `disconnectedCallback()` if the component can be removed from the page.
+
+## Services, Forms and API Calls
+
+[`users-page`](template/src/components/users-page/) is a worked example of the patterns a real page needs:
+
+- **Service** — [`user-service.ts`](template/src/services/user-service.ts) fetches the data and holds the validation rule. It never touches the DOM, so it is unit-tested with `node --test` by passing in a stand-in for `fetch`.
+- **API call** — the component awaits the service in `init()`, with loading and error states in a `role="status"` element.
+- **Form handling** — a native `<form>`: `required`, `minlength` and `pattern` are validated by the browser, values are read with `FormData`, and the app's own rule is reported through the same UI with `setCustomValidity()`.
+
+## The `boba` CLI
+
+Every app includes a small, dependency-free CLI ([`scripts/boba.ts`](template/scripts/boba.ts)) that Node runs directly:
+
+```bash
+npm run boba -- generate component user-card   # src/components/user-card/{.ts,.html,.css}
+npm run boba -- generate service cart-service  # src/services/cart-service.ts + unit test
+npm run boba -- add route /cart user-card      # registers the route in src/main.ts
+npm run boba -- manifest                       # components, services and routes as JSON
+npm run boba -- mcp                            # the same, as an MCP server
+```
+
+`manifest` is read from the source each time, so it cannot go stale — pipe it to a file if a tool wants one.
+
+`mcp` serves the generators and the manifest to AI coding assistants over the [Model Context Protocol](https://modelcontextprotocol.io) (stdio). To use it, register the command in your assistant's MCP settings, for example:
+
+```json
+{ "mcpServers": { "boba": { "command": "node", "args": ["scripts/boba.ts", "mcp"] } } }
+```
+
+Because the script lives in your project, you can change what it generates.
+
+## Offline and Installable (PWA)
+
+Apps are installable and work offline with no plugin:
+
+- [`public/manifest.webmanifest`](template/public/manifest.webmanifest) and the icons in `public/` make the app installable. Replace `favicon.svg`, `icon-192.png` and `icon-512.png` with your own.
+- [`public/sw.js`](template/public/sw.js) is a ~50-line service worker, registered in production builds only. It always tries the network first, so a new deploy is picked up immediately, and falls back to its cache when offline. Pages are cached as they are visited.
+
+To opt out, delete `sw.js` and its registration in `main.ts`.
+
 ## Available Scripts
 
 | Script | Description |
 | --- | --- |
 | `npm run dev` / `npm start` | Start the Vite dev server (`--host`, so it's reachable from other devices/containers on your network) |
-| `npm run build` | Build optimized static assets for production |
+| `npm run build` | Build optimized static assets into `dist/` |
+| `npm run preview` | Serve the production build locally |
 | `npm test` | Run unit tests (`node --test`) |
 | `npm run e2e` | Run the Playwright end-to-end suite |
+| `npm run typecheck` | Type-check with `tsc` |
+| `npm run lint` / `npm run format` | Lint with oxlint and check / apply Prettier formatting |
+| `npm run boba -- <command>` | Generators and project manifest (see above) |
 
 ## Testing
 
 - **Unit tests** run directly on TypeScript source via `node --test` — no compilation step.
-- **End-to-end tests** use [Playwright](https://playwright.dev/), covering both the Vite dev server and a production build served statically. Every run captures a screenshot per test into the HTML report (`playwright-report/index.html`), so you can visually confirm a change works, not just that assertions passed.
+- **End-to-end tests** use [Playwright](https://playwright.dev/), covering both the Vite dev server and a production build. Every run captures a screenshot per test into the HTML report (`playwright-report/index.html`), so you can visually confirm a change works, not just that assertions passed.
 
 ```bash
-npm test        # unit tests
-npm run e2e      # e2e tests (starts dev + production servers automatically)
+npm test
 ```
+
+```bash
+npm run e2e
+```
+
+## Deploying
+
+`npm run build` produces a static `dist/` with relative asset URLs, so the same build works at a domain root or under a sub-path. The host must serve `index.html` for unknown paths so deep links reach the router.
+
+For **GitHub Pages**, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does exactly that and is a working example to copy.
 
 ## Developing Boba Itself
 
-The commands above are what a project *generated by* Boba uses. This repository (the framework/site source, not a generated app) additionally ships a `Makefile` that runs everything inside a reproducible container (via Apple's `container` CLI), so contributors don't need Node, Playwright, or Tailwind installed on the host:
+This repository is the `create-boba-app` scaffolder plus the app it scaffolds:
+
+```
+bin/create-boba-app.js   # the scaffolder: copies template/ into a new directory
+template/                # the app — what users get, and also the live demo site
+test/                    # tests for the scaffolder
+```
+
+There is one copy of the app. The root npm scripts run the template's own scripts, so `npm run dev`, `npm test`, `npm run e2e`, `npm run lint` and `npm run typecheck` at the root exercise exactly what a generated app contains (root `npm test` also tests the scaffolder).
+
+A `Makefile` runs everything inside a reproducible container (via Apple's `container` CLI), so contributors don't need Node or Playwright installed on the host:
 
 ```bash
 make image       # build the dev container image (once, or after Containerfile changes)
@@ -185,12 +297,35 @@ make dev         # Vite dev server on http://localhost:5173
 make build-app   # production build
 make test-unit   # unit tests
 make test        # Playwright e2e tests
-make clean       # remove node_modules, dist, and .vite
+make clean       # remove node_modules and build output
 ```
 
 ## Contributing
 
-Contributions are welcome! Check [`TODO.md`](TODO.md) for current priorities, and open a PR against `main`.
+Contributions are welcome. Boba's value is what it leaves out, so the bar for a change is:
+
+- **Platform first.** Prefer a browser or Node built-in over a dependency, and a few lines of code over a plugin. New dependencies need a strong reason.
+- **No build step for the language.** Code must run under Node's native type stripping: erasable TypeScript syntax only, and `.ts` extensions on every import.
+- **One component, one folder.** `name.ts`, `name.html`, `name.css`; kebab-case tag names; styles scoped with `:host`.
+- **Logic without the DOM goes in `src/services/`** with a `node --test` unit test next to it. Behaviour in the browser is covered by a Playwright test in `e2e/`.
+
+Workflow:
+
+1. Fork, then branch from `main`.
+2. Make the change in `template/` (the app) or `bin/` (the scaffolder), with tests.
+3. Run the checks — all of them must pass, and CI runs the same ones:
+
+   ```bash
+   npm install
+   ```
+
+   ```bash
+   npm run typecheck && npm run lint && npm test && npm run e2e
+   ```
+
+4. Open a pull request against `main` describing what changed and why. Keep it focused: one concern per PR.
+
+Bugs and ideas are tracked in [GitHub Issues](https://github.com/sholtomaud/boba/issues).
 
 ## License
 

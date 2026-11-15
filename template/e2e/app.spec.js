@@ -148,7 +148,7 @@ test('works offline after the first visit', async ({
   context,
 }, testInfo) => {
   test.skip(
-    testInfo.project.name !== 'production',
+    testInfo.project.name === 'chromium',
     'the service worker is only registered in production builds'
   );
   await page.goto('/');

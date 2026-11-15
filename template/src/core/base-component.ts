@@ -1,7 +1,3 @@
-import { html, css } from './template-helpers.ts';
-
-export { html, css };
-
 /**
  * Base class for Boba components: a Custom Element that renders its markup
  * and styles into the light DOM (no Shadow DOM, so global styles such as

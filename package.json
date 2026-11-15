@@ -10,7 +10,7 @@
     "template"
   ],
   "engines": {
-    "node": ">=25.0.0"
+    "node": ">=26.0.0"
   },
   "scripts": {
     "dev": "npm --prefix template run dev",
@@ -22,7 +22,7 @@
     "e2e": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "1.62.0",
+    "@playwright/test": "1.65.1",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.1",
     "oxlint": "^1.89.0",

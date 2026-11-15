@@ -15,12 +15,12 @@ concurrency:
 
 jobs:
   get-playwright-version:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Get Playwright version from package.json
         id: get-version
@@ -30,16 +30,16 @@ jobs:
 
   test-and-prepare:
     needs: get-playwright-version
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     container: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}-noble
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 25.x
+          node-version: 26.x
           cache: 'npm'
 
       - name: Install dependencies
@@ -60,11 +60,8 @@ jobs:
       - name: Prepare 404 page for SPA
         run: cp template/dist/index.html template/dist/404.html
 
-      - name: Add .nojekyll
-        run: touch template/dist/.nojekyll
-
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: template/dist
 
@@ -73,8 +70,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: test-and-prepare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

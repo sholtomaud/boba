@@ -1,13 +1,13 @@
 # 🧋 Boba
 
-**Simplicity in every bubble.** Boba is an ultra-minimalist, standards-based web framework that pairs native browser capabilities (Custom Elements, ES Modules) with Node.js v25+'s native TypeScript stripping — no build step, no virtual DOM, near-zero dependencies.
+**Simplicity in every bubble.** Boba is an ultra-minimalist, standards-based web framework that pairs native browser capabilities (Custom Elements, ES Modules) with Node.js v26+'s native TypeScript stripping — no build step, no virtual DOM, near-zero dependencies.
 
 ### 🔴 [Live Demo →](https://sholtomaud.github.io/boba/)
 
 [![CI](https://github.com/sholtomaud/boba/actions/workflows/ci.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/ci.yml)
 [![Deploy to GitHub Pages](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
-[![Node](https://img.shields.io/badge/node-%3E%3D25-brightgreen)](https://nodejs.org)
+[![Node](https://img.shields.io/badge/node-%3E%3D26-brightgreen)](https://nodejs.org)
 
 ---
 
@@ -32,7 +32,7 @@
 
 ## Why Boba
 
-- **Build-less workflow** — Node.js v25+ native type stripping means your TypeScript runs almost as-is. Vite is used in dev/build purely for convenience (HMR, bundling), not because the language needs transpiling.
+- **Build-less workflow** — Node.js v26+ native type stripping means your TypeScript runs almost as-is. Vite is used in dev/build purely for convenience (HMR, bundling), not because the language needs transpiling.
 - **Native standards, not abstractions** — Custom Elements, tagged template literals, and standard lifecycle callbacks instead of a framework-specific component model or virtual DOM diffing.
 - **Near-zero runtime dependencies** — no React, no Lit, no massive `node_modules` tree. Smaller install, smaller attack surface, no framework deprecation treadmill.
 - **A router and a store, and that's it** — a lightweight regex-based client router and an `EventTarget`-backed global store cover the two things most small apps actually need.
@@ -54,7 +54,7 @@ This drops you into a ready-to-go Boba project (see [Project Structure](#project
 
 ### Prerequisites
 
-- Node.js v25 or higher
+- Node.js v26 (LTS) or higher
 
 ## Project Structure
 
@@ -325,7 +325,7 @@ Workflow:
 
 4. Open a pull request against `main` describing what changed and why. Keep it focused: one concern per PR.
 
-Bugs and ideas are tracked in [GitHub Issues](https://github.com/sholtomaud/boba/issues).
+The work remaining before 1.0.0 is listed in [`TODO.md`](TODO.md). Bugs and other ideas are tracked in [GitHub Issues](https://github.com/sholtomaud/boba/issues).
 
 ## License
 

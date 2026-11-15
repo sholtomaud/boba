@@ -4,7 +4,7 @@ Welcome, AI Agent! This file provides guidance for working with the `Boba` repos
 
 ## 1. Project Overview
 
-This is a minimalist template repository for building modern web applications using Web Components and TypeScript. It features a client-side router and is set up for a build-less development workflow leveraging Node.js v25+ native type stripping.
+This is a minimalist template repository for building modern web applications using Web Components and TypeScript. It features a client-side router and is set up for a build-less development workflow leveraging Node.js v26+ native type stripping.
 
 ## 2. Key Technologies
 

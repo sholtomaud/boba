@@ -1,3 +1,7 @@
 :host {
   display: block;
 }
+:host a[aria-current='page'] {
+  color: var(--boba-text);
+  font-weight: 600;
+}

@@ -53,41 +53,32 @@ jobs:
       - name: Verify no high severity vulnerabilities in root
         run: npm audit --audit-level=high
 
-      - name: Ensure Playwright browser binaries are installed
-        run: npx playwright install
+      - name: Type-check and lint
+        run: |
+          npm run typecheck
+          npm run lint
 
-      - name: Build root app
-        run: npm run build
-
-      - name: Run root unit & integration tests
+      - name: Run unit tests (CLI and template)
         run: npm test
 
-      - name: Run root E2E tests
+      - name: Run E2E tests (builds the template app)
         run: npm run e2e
 
-      - name: Install and update template dependencies
+      # The template ships its own lockfile so scaffolded apps install the
+      # same audited versions.
+      - name: Update template dependencies
         run: |
           cd template
-          npm install
-          npm update
-          npm audit fix || true
+          npm install --package-lock-only
+          npm update --package-lock-only
+          npm audit fix --package-lock-only || true
 
       - name: Verify no high severity vulnerabilities in template
         run: |
           cd template
           npm audit --audit-level=high
 
-      - name: Build template app
-        run: |
-          cd template
-          npm run build
-
-      - name: Run template unit tests
-        run: |
-          cd template
-          npm test
-
-      # --- AUTO-INCREMENT, INDEX UPDATE & COMMIT STEPS ---
+      # --- AUTO-INCREMENT & COMMIT STEPS ---
 
       - name: Increment package patch version
         id: bump_version
@@ -98,11 +89,6 @@ jobs:
           # NEW_VERSION_RAW output looks like "v1.0.1", strip leading 'v' if present for clean string parsing
           NEW_VERSION=${NEW_VERSION_RAW#v}
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-
-      - name: Update version string in index.html
-        run: |
-          # Replace pattern matching semver (e.g. v1.0.0) with new version string (e.g. v1.0.1)
-          sed -i -E "s/v[0-9]+\.[0-9]+\.[0-9]+/v${{ env.NEW_VERSION }}/g" index.html
 
       - name: Install GitHub CLI
         run: |
@@ -118,8 +104,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Stage package locks, package manifests, and updated index.html
-          git add package.json package-lock.json index.html template/package.json template/package-lock.json
+          # Stage package locks and package manifests
+          git add package.json package-lock.json template/package.json template/package-lock.json
           
           # Only commit and create PR if dependencies or files actually changed
           if ! git diff --cached --quiet; then

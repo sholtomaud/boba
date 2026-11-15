@@ -2,41 +2,25 @@ import './styles/global.css';
 import { Router } from './core/router/router.ts';
 import './components/nav-page/nav-page.ts';
 
-// Setup BASE_URL for the router, unless the page hosting the app already
-// set one (e.g. a preview served from a sub-path).
-if (!window.BOBA_BASE_URL) {
-  const isGitHubPages = window.location.hostname.endsWith('.github.io');
-  const pathSegments = window.location.pathname.split('/');
-  const repoName =
-    isGitHubPages && pathSegments.length > 1 && pathSegments[1]
-      ? pathSegments[1]
-      : null;
-  window.BOBA_BASE_URL = repoName ? `/${repoName}/` : '/';
-}
-
-function getInitialAppPath() {
-  const pathname = window.location.pathname;
-  const BASE_URL = window.BOBA_BASE_URL || '/';
-  const normalizedBaseUrl =
-    BASE_URL.endsWith('/') || BASE_URL === '/' ? BASE_URL : BASE_URL + '/';
-
-  if (pathname.startsWith(normalizedBaseUrl) && normalizedBaseUrl.length > 1) {
-    let appPath = pathname.substring(normalizedBaseUrl.length);
-    if (!appPath.startsWith('/')) {
-      appPath = '/' + appPath;
-    }
-    return appPath === '' ? '/' : appPath;
-  }
-  return pathname.startsWith('/') ? pathname : '/' + pathname;
-}
-
-// Initialize router and register routes
 const router = Router.getInstance();
+router.notFound = 'not-found-page';
 router.registerRoute({ path: '/', component: 'home-page' });
 router.registerRoute({ path: '/docs', component: 'docs-page' });
 router.registerRoute({ path: '/about', component: 'about-page' });
 router.registerRoute({ path: '/todo', component: 'todo-page' });
+router.registerRoute({ path: '/users', component: 'users-page' });
 router.registerRoute({ path: '/user/:name', component: 'user-page' });
+router.start();
 
-// Initial load
-router.navigate(getInitialAppPath());
+// Offline support (production builds only, so it never caches dev modules).
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  const firstVisit = !navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js');
+  navigator.serviceWorker.ready.then(({ active }) => {
+    // This load happened before the worker could cache it; hand it the URLs.
+    if (firstVisit) {
+      const loaded = performance.getEntriesByType('resource');
+      active?.postMessage(loaded.map((entry) => entry.name));
+    }
+  });
+}

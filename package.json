@@ -2,7 +2,6 @@
   "name": "create-boba-app",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/main.ts",
   "bin": {
     "create-boba-app": "bin/create-boba-app.js"
   },
@@ -14,31 +13,23 @@
     "node": ">=25.0.0"
   },
   "scripts": {
-    "dev": "vite --host",
-    "build": "vite build --base ./",
-    "test": "node --test test/*.test.ts",
-    "e2e": "npx playwright test"
+    "dev": "npm --prefix template run dev",
+    "build": "npm --prefix template run build",
+    "test": "node --test test/*.test.ts && npm --prefix template test",
+    "typecheck": "npm --prefix template run typecheck",
+    "lint": "oxlint bin test && prettier --check bin test && npm --prefix template run lint",
+    "format": "prettier --write bin test && npm --prefix template run format",
+    "e2e": "playwright test"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@playwright/test": "1.62.0",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.1",
-    "@typescript-eslint/eslint-plugin": "^8.63.0",
-    "@typescript-eslint/parser": "^8.63.0",
-    "autoprefixer": "^10.5.2",
-    "eslint": "^10.6.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.6",
-    "globals": "^17.7.0",
-    "playwright": "1.62.0",
+    "oxlint": "^1.89.0",
     "postcss": "^8.5.25",
-    "serve": "^14.2.6",
+    "prettier": "^3.9.10",
     "tailwindcss": "^4.3.2",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vite": "^8.1.6"
-  },
-  "overrides": {
-    "compression": "^1.8.2"
   }
 }

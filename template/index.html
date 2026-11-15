@@ -7,7 +7,22 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws:;"
     />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      // Where the app is mounted: the repository folder on GitHub Pages,
+      // otherwise the site root. A page hosting the app elsewhere can set
+      // BOBA_BASE_URL before this runs. The <base> makes the relative URLs
+      // below resolve from there, so deep links such as /user/ada load.
+      const repo = location.hostname.endsWith('.github.io')
+        ? location.pathname.split('/')[1]
+        : '';
+      window.BOBA_BASE_URL ||= repo ? `/${repo}/` : '/';
+      const base = document.createElement('base');
+      base.href = window.BOBA_BASE_URL;
+      document.head.append(base);
+    </script>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>Boba App</title>
     <script type="module" src="src/main.ts"></script>
   </head>

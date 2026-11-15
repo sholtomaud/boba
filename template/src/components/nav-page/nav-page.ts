@@ -1,6 +1,5 @@
-import { Router } from '../../core/router/router.ts';
+import { Router, type RouteLocation } from '../../core/router/router.ts';
 import { BaseComponent } from '../../core/base-component.ts';
-import { appStore } from '../../store/app-store.ts';
 import template from './nav-page.html?raw';
 import style from './nav-page.css?raw';
 
@@ -12,29 +11,17 @@ export class NavComponent extends BaseComponent {
   }
 
   init() {
-    this.querySelectorAll('a').forEach((link) => {
-      const href = link.getAttribute('href');
-      if (href && (href.startsWith('/') || href === '')) {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          Router.getInstance().navigate(href);
-        });
-      }
+    // Mark the link of the current page; see the aria-current rule in the CSS.
+    Router.getInstance().addEventListener('navigate', (event) => {
+      const { path } = (event as CustomEvent<RouteLocation>).detail;
+      this.querySelectorAll('nav a, [data-mobile-nav] a').forEach((link) => {
+        if (link.getAttribute('href') === path) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
     });
-
-    appStore.addEventListener('change', ((e: CustomEvent) => {
-      this.updateCounter(e.detail.count);
-    }) as EventListener);
-
-    // Initial value
-    this.updateCounter(appStore.getState().count);
-  }
-
-  updateCounter(count: number) {
-    const counterEl = this.querySelector('#nav-counter');
-    if (counterEl) {
-      counterEl.textContent = count.toString();
-    }
   }
 }
 

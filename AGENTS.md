@@ -16,15 +16,18 @@ This is a minimalist template repository for building modern web applications us
 
 ## 3. Directory Structure
 
-- `src/`: Contains all source code.
-  - `src/components/`: Houses individual web components, typically one directory per component.
-  - `src/core/`: Core application logic.
-    - `src/core/base-component.ts`: A base class that components can extend.
-    - `src/core/router/`: Client-side routing implementation.
-  - `src/main.ts`: The main entry point of the application.
-  - `src/styles/`: Global styles and CSS variables.
-- `index.html`: The main HTML entry point for the application.
-- `e2e/`: End-to-end tests using Playwright.
+- `bin/create-boba-app.js`: The scaffolder. Copies `template/` into a new directory.
+- `template/`: The app. It is what users get **and** the demo site deployed to GitHub Pages — there is no second copy, so make app changes here.
+  - `template/src/components/`: Web components, one directory per component (`.ts`, `.html`, `.css`).
+  - `template/src/core/`: `base-component.ts`, `store.ts` and `router/router.ts`.
+  - `template/src/services/`: DOM-free logic with unit tests alongside.
+  - `template/src/main.ts`: Entry point; registers routes.
+  - `template/scripts/boba.ts`: The app's CLI (generators, manifest, MCP server).
+  - `template/public/`: Static files, including the web manifest and service worker.
+  - `template/e2e/`: End-to-end tests using Playwright.
+- `test/`: Tests for the scaffolder.
+
+Root npm scripts delegate to the template's scripts (`npm run dev`, `build`, `lint`, `typecheck`, `format`).
 
 ## 4. Development Workflow
 
@@ -34,8 +37,9 @@ The following commands MUST be run and MUST pass before pushing any commit to Gi
 
 1. **Install Dependencies:** `npm install`
 2. **Install Playwright Browsers:** `npx playwright install --with-deps` (required for tests)
-3. **Run CLI Tests:** `npm test` (uses node --test)
-4. **Run E2E Tests:** `npx playwright test`
+3. **Type-check and Lint:** `npm run typecheck` and `npm run lint`
+4. **Run Unit Tests:** `npm test` (uses node --test; covers the scaffolder and the template)
+5. **Run E2E Tests:** `npx playwright test`
 
 **ALL of these must complete successfully with zero errors before any git push.**
 
@@ -45,15 +49,17 @@ Follow the standard feature branch and PR workflow as described in the original 
 
 ## 5. Routing
 
-- Client-side routing is handled by the `Router` class in `src/core/router/router.ts`.
-- Routes are defined and registered in `src/main.ts`.
-- The router uses `window.BOBA_BASE_URL` to correctly determine the application-specific path.
+- Client-side routing is handled by the `Router` class in `template/src/core/router/router.ts`.
+- Routes are defined and registered in `template/src/main.ts`.
+- `template/index.html` sets `window.BOBA_BASE_URL` and a matching `<base>`; the router uses it to determine the application-specific path.
+- The router handles clicks on in-app links itself; components should not add their own link handlers.
 
 ## 6. Component Structure
 
-- Components are located in their own subdirectory within `src/components/`.
-- A component consists of a `.ts` file for the logic, which includes the HTML and CSS as strings.
-- Most components extend the `BaseComponent` class.
+- Components are located in their own subdirectory within `template/src/components/`.
+- A component consists of a `.ts` file for the logic, which imports its `.html` and `.css` files as strings (`?raw`).
+- Components extend the `BaseComponent` class.
+- `npm run boba -- generate component <tag-name>` (in `template/`) scaffolds one.
 
 ## 7. Coding Style & Conventions
 

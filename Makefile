@@ -33,11 +33,11 @@ dev: start ## Start Vite dev server inside container
 build-app: start ## Compile optimized static assets (Vite)
 	$(CONTAINER_BIN) run --rm -v $(shell pwd):$(WORKDIR) $(IMAGE_APP) npm run build
 
-test-unit: start ## Run Vitest unit tests inside container
-	$(CONTAINER_BIN) run --rm -v $(shell pwd):$(WORKDIR) $(IMAGE_APP) npm run test:unit
+test-unit: start ## Run unit tests inside container
+	$(CONTAINER_BIN) run --rm -v $(shell pwd):$(WORKDIR) $(IMAGE_APP) npm test
 
-test: start ## Run Playwright E2E integration tests inside container
-	$(CONTAINER_BIN) run --rm -it -p 5173:5173 -v $(shell pwd):$(WORKDIR) $(IMAGE_APP) npm run test
+test: start ## Run Playwright E2E tests inside container
+	$(CONTAINER_BIN) run --rm -v $(shell pwd):$(WORKDIR) $(IMAGE_APP) npm run e2e
 
 clean: ## Clear compiled directories and node dependencies
-	rm -rf node_modules dist .vite
+	rm -rf node_modules template/node_modules template/dist

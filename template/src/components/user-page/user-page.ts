@@ -4,21 +4,15 @@ import style from './user-page.css?raw';
 
 export class UserPageComponent extends BaseComponent {
   static tagName = 'user-page';
-  name: string = 'Guest';
+  /** Set by the router from the `/user/:name` route parameter. */
+  name = 'Guest';
 
   constructor() {
     super(template, style);
   }
 
   init() {
-    this.render();
-  }
-
-  render() {
-    const nameElement = this.querySelector('#user-name');
-    if (nameElement) {
-      nameElement.textContent = this.name;
-    }
+    this.querySelector('#user-name')!.textContent = this.name;
   }
 }
 

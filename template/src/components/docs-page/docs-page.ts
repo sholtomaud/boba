@@ -4,6 +4,7 @@ import style from './docs-page.css?raw';
 
 export class DocsPageComponent extends BaseComponent {
   static tagName = 'docs-page';
+
   constructor() {
     super(template, style);
   }

@@ -9,7 +9,12 @@ export class AboutComponent extends BaseComponent {
     super(template, style);
   }
 
-  init() {}
+  init() {
+    const yearEl = this.querySelector('[data-year]');
+    if (yearEl) {
+      yearEl.textContent = String(new Date().getFullYear());
+    }
+  }
 }
 
 if (!customElements.get(AboutComponent.tagName)) {

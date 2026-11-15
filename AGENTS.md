@@ -4,7 +4,7 @@ Welcome, AI Agent! This file provides guidance for working with the `Boba` repos
 
 ## 1. Project Overview
 
-This is a minimalist template repository for building modern web applications using Web Components and TypeScript. It features a client-side router and is set up for a build-less development workflow leveraging Node.js v26+ native type stripping.
+This is a minimalist template repository for building modern web applications using Web Components and TypeScript. It features a client-side router and a store. Unit tests and the CLI run on Node.js v26+ native type stripping with no compile step; Vite serves and bundles the browser code. Do not describe the project as "zero-build" or "no build": claims on the website and in the README must be true of the code as it is.
 
 ## 2. Key Technologies
 

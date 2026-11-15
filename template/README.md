@@ -1,6 +1,6 @@
 # Boba App
 
-A web app built with [Boba](https://github.com/sholtomaud/boba): Web Components and TypeScript, with no build step for the language. Requires Node.js 26 or higher.
+A web app built with [Boba](https://github.com/sholtomaud/boba): native Web Components and TypeScript, with no framework runtime. Vite serves and bundles the app; tests run on Node's native type stripping. Requires Node.js 26 or higher.
 
 ```bash
 npm install

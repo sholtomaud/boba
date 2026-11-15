@@ -1,8 +1,8 @@
 # 🧋 Boba
 
-**Simplicity in every bubble.** Boba is an ultra-minimalist, standards-based web framework that pairs native browser capabilities (Custom Elements, ES Modules) with Node.js v26+'s native TypeScript stripping — no build step, no virtual DOM, near-zero dependencies.
+**Simplicity in every bubble.** Boba is a minimalist, standards-based starting point for web apps: native Web Components (Custom Elements, ES modules) in the browser, and TypeScript that Node.js v26+ runs without a compile step. No framework runtime, no virtual DOM, zero runtime dependencies.
 
-### 🔴 [Live Demo →](https://sholtomaud.github.io/boba/)
+### 🔴 [Website →](https://sholtomaud.github.io/boba/)
 
 [![CI](https://github.com/sholtomaud/boba/actions/workflows/ci.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/ci.yml)
 [![Deploy to GitHub Pages](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml)
@@ -33,12 +33,14 @@
 
 ## Why Boba
 
-- **Build-less workflow** — Node.js v26+ native type stripping means your TypeScript runs almost as-is. Vite is used in dev/build purely for convenience (HMR, bundling), not because the language needs transpiling.
-- **Native standards, not abstractions** — Custom Elements, `<template>` elements, and standard lifecycle callbacks instead of a framework-specific component model or virtual DOM diffing.
-- **Near-zero runtime dependencies** — no React, no Lit, no massive `node_modules` tree. Smaller install, smaller attack surface, no framework deprecation treadmill.
+- **No framework runtime** — components are native Custom Elements with `<template>` elements and standard lifecycle callbacks. The only code that reaches the browser is yours plus a router, a store and a base class you can read in a sitting. An app has zero runtime dependencies.
+- **No compile step in Node** — Node.js v26+ strips types natively, so unit tests and the project CLI run straight from TypeScript source.
+- **A short, plain toolchain** — the browser cannot run TypeScript, so Vite serves the app in development and bundles it for production, and Tailwind compiles the styles. That is the whole build; there is no framework compiler or plugin stack on top.
 - **A router and a store, and that's it** — a lightweight regex-based client router and an `EventTarget`-backed global store cover the two things most small apps actually need.
 
-Read more on the [live demo's About page](https://sholtomaud.github.io/boba/about).
+What Boba does not do: it has no data binding or declarative rendering. Components update their own DOM when state changes, which is simple and explicit but more code than a framework needs. See the [roadmap](TODO.md).
+
+Read more on the [website's About page](https://sholtomaud.github.io/boba/about).
 
 ## Quick Start
 
@@ -342,7 +344,7 @@ make clean       # remove node_modules and build output
 Contributions are welcome. Boba's value is what it leaves out, so the bar for a change is:
 
 - **Platform first.** Prefer a browser or Node built-in over a dependency, and a few lines of code over a plugin. New dependencies need a strong reason.
-- **No build step for the language.** Code must run under Node's native type stripping: erasable TypeScript syntax only, and `.ts` extensions on every import.
+- **Runs under Node's type stripping.** Code must run under Node's native type stripping: erasable TypeScript syntax only, and `.ts` extensions on every import.
 - **One component, one folder.** `name.ts`, `name.html`, `name.css`; kebab-case tag names; styles scoped with `:host`.
 - **Logic without the DOM goes in `src/services/`** with a `node --test` unit test next to it. Behaviour in the browser is covered by a Playwright test in `e2e/`.
 

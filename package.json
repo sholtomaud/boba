@@ -38,7 +38,7 @@
     "vite": "^8.1.6"
   },
   "license": "MIT",
-  "description": "Scaffold a Boba app: Web Components and TypeScript with no build step for the language",
+  "description": "Scaffold a Boba app: native Web Components and TypeScript with no framework runtime",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sholtomaud/boba.git"

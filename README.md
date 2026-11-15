@@ -279,6 +279,8 @@ npm run e2e
 
 `npm run build` produces a static `dist/` with relative asset URLs, so the same build works at a domain root or under a sub-path. The host must serve `index.html` for unknown paths so deep links reach the router.
 
+Because the mount path is only known once the page runs, Firefox logs two console errors when a nested URL such as `/user/ada` is opened directly: it preloads the script and stylesheet relative to the page before `<base>` is set, then loads the right files. The page works; other browsers stay quiet.
+
 For **GitHub Pages**, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
 
 ### Content Security Policy

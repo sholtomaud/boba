@@ -17,7 +17,7 @@ This is a minimalist template repository for building modern web applications us
 ## 3. Directory Structure
 
 - `bin/create-boba-app.js`: The scaffolder. Copies `template/` into a new directory.
-- `template/`: The app. It is what users get **and** the demo site deployed to GitHub Pages — there is no second copy, so make app changes here.
+- `template/`: The app, exactly as users get it — a neutral starter. Make app changes here.
   - `template/src/components/`: Web components, one directory per component (`.ts`, `.html`, `.css`).
   - `template/src/core/`: `base-component.ts`, `store.ts` and `router/router.ts`.
   - `template/src/services/`: DOM-free logic with unit tests alongside.
@@ -25,6 +25,7 @@ This is a minimalist template repository for building modern web applications us
   - `template/scripts/boba.ts`: The app's CLI (generators, manifest, MCP server).
   - `template/public/`: Static files, including the web manifest and service worker.
   - `template/e2e/`: End-to-end tests using Playwright.
+- `site/overlay/`: Pages only the Boba website has (home, docs, about, nav). `site/assemble.js` copies `template/` plus this overlay into `.site/` (git-ignored); that is what deploys to GitHub Pages.
 - `test/`: Tests for the scaffolder.
 
 Root npm scripts delegate to the template's scripts (`npm run dev`, `build`, `lint`, `typecheck`, `format`).
@@ -40,6 +41,7 @@ The following commands MUST be run and MUST pass before pushing any commit to Gi
 3. **Type-check and Lint:** `npm run typecheck` and `npm run lint`
 4. **Run Unit Tests:** `npm test` (uses node --test; covers the scaffolder and the template)
 5. **Run E2E Tests:** `npx playwright test`
+6. **Run Site Checks:** `npm run site:check` (the template plus the website's pages)
 
 **ALL of these must complete successfully with zero errors before any git push.**
 

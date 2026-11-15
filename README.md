@@ -274,19 +274,31 @@ npm run e2e
 
 `npm run build` produces a static `dist/` with relative asset URLs, so the same build works at a domain root or under a sub-path. The host must serve `index.html` for unknown paths so deep links reach the router.
 
-For **GitHub Pages**, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does exactly that and is a working example to copy.
+For **GitHub Pages**, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
 
 ## Developing Boba Itself
 
-This repository is the `create-boba-app` scaffolder plus the app it scaffolds:
+This repository holds the scaffolder, the app it scaffolds, and the Boba website:
 
 ```
 bin/create-boba-app.js   # the scaffolder: copies template/ into a new directory
-template/                # the app — what users get, and also the live demo site
+template/                # the app, exactly as users get it
+site/overlay/            # the website's own pages: home, docs, about, nav
+site/assemble.js         # builds the website's source in .site/ (template + overlay)
 test/                    # tests for the scaffolder
 ```
 
-There is one copy of the app. The root npm scripts run the template's own scripts, so `npm run dev`, `npm test`, `npm run e2e`, `npm run lint` and `npm run typecheck` at the root exercise exactly what a generated app contains (root `npm test` also tests the scaffolder).
+`template/` is the single source for the app. The root npm scripts run the template's own scripts, so `npm run dev`, `npm test`, `npm run e2e`, `npm run lint` and `npm run typecheck` at the root exercise exactly what a generated app contains (root `npm test` also tests the scaffolder, from a packed tarball).
+
+The website is that same app with a few pages laid over it, so it always runs on the current template:
+
+| Script | Description |
+| --- | --- |
+| `npm run site:dev` | Assemble the site and start its dev server. Re-run after editing `site/overlay/` or `template/` |
+| `npm run site:build` | Assemble and build the site into `.site/dist/` |
+| `npm run site:check` | Assemble, type-check and run the app's and the site's e2e tests against it |
+
+When the site is assembled on GitHub Actions, the commit and workflow run are recorded in `data/build.json`, and the home page shows them. Local builds have no record and show no status.
 
 A `Makefile` runs everything inside a reproducible container (via Apple's `container` CLI), so contributors don't need Node or Playwright installed on the host:
 
@@ -312,7 +324,7 @@ Contributions are welcome. Boba's value is what it leaves out, so the bar for a 
 Workflow:
 
 1. Fork, then branch from `main`.
-2. Make the change in `template/` (the app) or `bin/` (the scaffolder), with tests.
+2. Make the change in `template/` (the app), `bin/` (the scaffolder) or `site/overlay/` (the website's pages), with tests.
 3. Run the checks — all of them must pass, and CI runs the same ones:
 
    ```bash
@@ -320,7 +332,7 @@ Workflow:
    ```
 
    ```bash
-   npm run typecheck && npm run lint && npm test && npm run e2e
+   npm run typecheck && npm run lint && npm test && npm run e2e && npm run site:check
    ```
 
 4. Open a pull request against `main` describing what changed and why. Keep it focused: one concern per PR.

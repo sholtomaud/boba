@@ -51,6 +51,10 @@ jobs:
       - name: E2E Tests
         run: npx playwright test
 
+      # The Boba website: the template plus the pages in site/overlay.
+      - name: Site checks
+        run: npm run site:check
+
       # What users actually get: pack the repo as npm does for
       # `npx github:sholtomaud/boba`, scaffold from the tarball, and run the
       # new app's own checks.

@@ -5,7 +5,6 @@ What must be true before tagging `v1.0.0`. The supported install path is `npx gi
 ## Blockers
 
 - `[ ]` **Delete the stray `v1.0.1` tag.** It exists on GitHub with no release behind it, and would sit above `v1.0.0` in version order. Remove it before tagging the release.
-- `[ ]` **Decide what a new app starts with.** The template is also Boba's own site, so new apps begin with Boba's marketing pages (home, docs, about) and links to this repository. Either accept that as the starter, or keep the showcase pages out of what gets scaffolded.
 
 ## Should fix
 
@@ -18,7 +17,7 @@ What must be true before tagging `v1.0.0`. The supported install path is `npx gi
 ## Nice to have
 
 - `[ ]` **Harden `BaseComponent`.** It has no unit tests, and re-attaching an element runs `init()` again, which duplicates listeners added with `delegate()`.
-- `[ ]` **Retire or update `docs/`.** The two dated review documents describe the layout before `template/` became the single source.
+- `[ ]` **Retire or update `docs/`.** The two dated review documents describe an earlier layout of the repository.
 
 ## Releasing
 

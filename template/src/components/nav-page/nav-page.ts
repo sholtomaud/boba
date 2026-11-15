@@ -14,7 +14,7 @@ export class NavComponent extends BaseComponent {
     // Mark the link of the current page; see the aria-current rule in the CSS.
     Router.getInstance().addEventListener('navigate', (event) => {
       const { path } = (event as CustomEvent<RouteLocation>).detail;
-      this.querySelectorAll('nav a, [data-mobile-nav] a').forEach((link) => {
+      this.querySelectorAll('[data-nav] a').forEach((link) => {
         if (link.getAttribute('href') === path) {
           link.setAttribute('aria-current', 'page');
         } else {

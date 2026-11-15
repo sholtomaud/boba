@@ -53,7 +53,7 @@ Follow the standard feature branch and PR workflow as described in the original 
 
 - Client-side routing is handled by the `Router` class in `template/src/core/router/router.ts`.
 - Routes are defined and registered in `template/src/main.ts`.
-- `template/index.html` sets `window.BOBA_BASE_URL` and a matching `<base>`; the router uses it to determine the application-specific path.
+- The path the app is served from is set at build time (`vite build --base /path/`). Vite writes it into the `<base href>` in `template/index.html`, and the router reads it from there. There is no runtime detection.
 - The router handles clicks on in-app links itself; components should not add their own link handlers.
 
 ## 6. Component Structure

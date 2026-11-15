@@ -9,7 +9,7 @@
   "scripts": {
     "start": "vite --host",
     "dev": "vite --host",
-    "build": "vite build --base ./",
+    "build": "vite build",
     "preview": "vite preview",
     "boba": "node scripts/boba.ts",
     "test": "node --test \"{src,scripts}/**/*.test.ts\"",

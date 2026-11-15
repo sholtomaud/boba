@@ -5,7 +5,13 @@ import path from 'node:path';
 import readline from 'node:readline/promises';
 
 // Local install and build output of the template itself; never part of an app.
-const SKIP = ['node_modules', 'dist', 'playwright-report', 'test-results'];
+const SKIP = [
+  'node_modules',
+  'dist',
+  'dist-subpath',
+  'playwright-report',
+  'test-results',
+];
 
 async function main() {
   let projectName = process.argv[2];

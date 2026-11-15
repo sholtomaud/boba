@@ -58,6 +58,7 @@ const otherBrowsers = [
 
 export default defineConfig({
   testDir: './e2e',
+  testIgnore: 'subpath.spec.js',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -77,6 +78,17 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], launchOptions, ...production },
     },
     ...otherBrowsers,
+    {
+      // The app built for, and served from, a sub-path.
+      name: 'subpath',
+      testMatch: 'subpath.spec.js',
+      testIgnore: [],
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions,
+        baseURL: 'http://localhost:3001/sub/path/',
+      },
+    },
   ],
   webServer: [
     {
@@ -87,6 +99,12 @@ export default defineConfig({
     {
       command: 'npm run build && npm run preview -- --port 3000 --strictPort',
       url: 'http://localhost:3000',
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command:
+        'npm run build -- --base /sub/path/ --outDir dist-subpath && npm run preview -- --base /sub/path/ --outDir dist-subpath --port 3001 --strictPort',
+      url: 'http://localhost:3001/sub/path/',
       reuseExistingServer: !process.env.CI,
     },
   ],

@@ -6,6 +6,8 @@ What must be true before tagging `v1.0.0`. The supported install path is `npx gi
 
 - `[ ]` **Delete the stray `v1.0.1` tag.** It exists on GitHub with no release behind it, and would sit above `v1.0.0` in version order. Remove it before tagging the release.
 
+- `[ ]` **Make every claim on the website and in the README true.** The site says "zero-build" and "no transpilation", but the browser code is transpiled and bundled by Vite; only tests and the CLI run on Node's type stripping. Audit each claim on the home, docs and about pages and in the README, and rewrite the ones that overstate.
+
 ## Nice to have
 
 - `[ ]` **Harden `BaseComponent`.** It has no unit tests, and re-attaching an element runs `init()` again, which duplicates listeners added with `delegate()`.

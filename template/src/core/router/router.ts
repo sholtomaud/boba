@@ -1,10 +1,3 @@
-declare global {
-  interface Window {
-    /** Path the app is mounted at, e.g. `/` or `/my-repo/`. Set in index.html. */
-    BOBA_BASE_URL?: string;
-  }
-}
-
 /** Values of the `:name` segments of the matched route, keyed by name. */
 export type RouteParams = Record<string, string>;
 /** The parsed query string of the current URL. */
@@ -93,9 +86,13 @@ export class Router extends EventTarget {
     return Router.instance;
   }
 
-  /** The mount path of the app, always with a trailing slash. */
+  /**
+   * The path the app is served from, with a trailing slash: `/`, or e.g.
+   * `/my-repo/` for a build made with `vite build --base /my-repo/`. It is
+   * read from the page's `<base href>`, which index.html sets at build time.
+   */
   get baseUrl(): string {
-    const base = window.BOBA_BASE_URL || '/';
+    const base = new URL(document.baseURI).pathname;
     return base.endsWith('/') ? base : base + '/';
   }
 

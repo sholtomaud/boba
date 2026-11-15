@@ -165,11 +165,7 @@ router.start();
 
 - **Navigation event** — the router is an `EventTarget` and dispatches `navigate` (detail: `{ path, params, query }`) after each navigation. `nav-page` uses it to highlight the current link.
 - **Errors** — an unknown URL, or a component that fails to load, shows the `router.notFound` component (a plain heading if you don't set one).
-- **Base URL** — the app can be served from a sub-path; routes are always written without it. `index.html` works the mount path out when the page loads: the repository folder on GitHub Pages, otherwise `/`. If that guess is wrong for your host — for example a user or organization site served from the root of `*.github.io` — state it in `index.html`:
-
-  ```html
-  <meta name="boba-base" content="/" />
-  ```
+- **Base URL** — routes are always written without the path the app is served from. An app served from a sub-path is built for it (`npm run build -- --base /my-app/`); see [Deploying](#deploying).
 
 ## Global State
 
@@ -277,15 +273,21 @@ npm run e2e
 
 ## Deploying
 
-`npm run build` produces a static `dist/` with relative asset URLs, so the same build works at a domain root or under a sub-path. The host must serve `index.html` for unknown paths so deep links reach the router.
+`npm run build` produces a static `dist/` to serve from the root of a domain. The host must serve `index.html` for unknown paths so deep links reach the router.
 
-Because the mount path is only known once the page runs, Firefox logs two console errors when a nested URL such as `/user/ada` is opened directly: it preloads the script and stylesheet relative to the page before `<base>` is set, then loads the right files. The page works; other browsers stay quiet.
+If the app is served from a sub-path, say so when building:
 
-For **GitHub Pages**, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
+```bash
+npm run build -- --base /my-app/
+```
+
+That one setting is used for the asset URLs, the router, and the relative URLs the app requests (through the `<base>` element in `index.html`).
+
+For **GitHub Pages** project sites the sub-path is the repository name. Build with `--base /<repository>/`, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
 
 ### Content Security Policy
 
-`index.html` ships a Content Security Policy that only allows scripts from the app itself. Its one inline script (which sets the base URL) is allowed by hash, not by `'unsafe-inline'`. If you edit that script, `npm test` fails and prints the new hash to put in the policy. Styles still allow `'unsafe-inline'`, because components add their `<style>` elements at runtime.
+`index.html` ships a Content Security Policy that only allows scripts from the app's own origin: no inline scripts and no `'unsafe-inline'`. Styles still allow `'unsafe-inline'`, because components add their `<style>` elements at runtime.
 
 ## Stability and Upgrades
 
@@ -295,7 +297,7 @@ Boba follows [Semantic Versioning](https://semver.org) from 1.0.0; changes are l
 - `Router` — `getInstance()`, `registerRoute()`, `start()`, `navigate()`, `notFound`, the `navigate` event, and what a routed component receives (`params`, `query`, and route parameters as properties).
 - `Store` — `getState()`, `setState()` and the `change` event.
 - The `npm run boba` commands and the shape of `manifest`'s output.
-- `window.BOBA_BASE_URL` and `<meta name="boba-base">`.
+- The `--base` build option as the one place the app's path is set.
 
 **A new app is a copy, not a dependency.** `create-boba-app` copies these files into your project and they are yours from then on: there is no `boba` package to update, and a newer Boba release does not change an existing app. To pick up a fix, compare your `src/core/` with the current [`template/src/core/`](template/src/core/) and apply what you want; the changelog says what changed and why.
 

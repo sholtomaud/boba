@@ -20,7 +20,6 @@ beforeEach(() => {
   outlet = { innerHTML: '', replaceChildren: (el) => rendered.push(el) };
   Object.assign(globalThis, {
     window: {
-      BOBA_BASE_URL: '/',
       location: { pathname: '/', search: '', hash: '' },
       addEventListener: () => {},
       history: {
@@ -28,6 +27,7 @@ beforeEach(() => {
       },
     },
     document: {
+      baseURI: 'http://localhost/',
       querySelector: () => outlet,
       createElement: (tagName: string) => ({ tagName }),
       addEventListener: (_: string, listener: typeof clickListener) => {
@@ -85,7 +85,7 @@ describe('Router', () => {
   });
 
   test('works under a base URL', async () => {
-    window.BOBA_BASE_URL = '/my-repo';
+    Object.assign(document, { baseURI: 'http://localhost/my-repo/' });
     const router = new Router();
     router.registerRoute({ path: '/docs', component: 'docs-page' });
 

@@ -5,28 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'sha256-JFNibB22DFZsDU5jlA6SfKYLabFcHxbYTuSlphh4h6Q='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws:;"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws:;"
     />
     <meta name="theme-color" content="#0f172a" />
-    <script>
-      // Where the app is mounted. A <meta name="boba-base" content="/path/">
-      // in this page sets it; so does a page hosting the app that defines
-      // window.BOBA_BASE_URL first. Otherwise it is guessed: the repository
-      // folder on GitHub Pages, the site root anywhere else. The <base> makes
-      // the relative URLs below resolve from there, so deep links such as
-      // /user/ada load.
-      //
-      // The Content-Security-Policy above allows this script by its hash. If
-      // you edit it, `npm test` reports the new hash to put there.
-      const meta = document.querySelector('meta[name="boba-base"]');
-      const repo = location.hostname.endsWith('.github.io')
-        ? location.pathname.split('/')[1]
-        : '';
-      window.BOBA_BASE_URL ||= meta?.content || (repo ? `/${repo}/` : '/');
-      const base = document.createElement('base');
-      base.href = window.BOBA_BASE_URL;
-      document.head.append(base);
-    </script>
+    <!-- The path the app is served from, set at build time (vite build
+         --base). Relative URLs in the app, such as data/users.json, resolve
+         from here whatever page is open. -->
+    <base href="%BASE_URL%" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="manifest" href="manifest.webmanifest" />
     <title>Boba App</title>

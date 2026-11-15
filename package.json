@@ -17,9 +17,13 @@
     "build": "npm --prefix template run build",
     "test": "node --test test/*.test.ts && npm --prefix template test",
     "typecheck": "npm --prefix template run typecheck",
-    "lint": "oxlint bin test && prettier --check bin test && npm --prefix template run lint",
-    "format": "prettier --write bin test && npm --prefix template run format",
-    "e2e": "playwright test"
+    "lint": "oxlint bin test site && prettier --check bin test site && npm --prefix template run lint",
+    "format": "prettier --write bin test site && npm --prefix template run format",
+    "e2e": "playwright test",
+    "site": "node site/assemble.js",
+    "site:dev": "npm run site && npm --prefix .site run dev",
+    "site:build": "npm run site && npm --prefix .site run build",
+    "site:check": "npm run site && npm --prefix .site run typecheck && playwright test -c .site"
   },
   "devDependencies": {
     "@playwright/test": "1.65.1",
@@ -31,5 +35,11 @@
     "tailwindcss": "^4.3.2",
     "typescript": "^7.0.2",
     "vite": "^8.1.6"
+  },
+  "license": "MIT",
+  "description": "Scaffold a Boba app: Web Components and TypeScript with no build step for the language",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sholtomaud/boba.git"
   }
 }

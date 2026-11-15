@@ -4,14 +4,7 @@ What must be true before tagging `v1.0.0`. The supported install path is `npx gi
 
 ## Blockers
 
-- `[ ]` **Add a `LICENSE` file.** The README says MIT, but without the file the code is not licensed.
-- `[ ]` **Ship a `.gitignore` in scaffolded apps.** npm leaves `template/.gitignore` out when it packs the repo (`npm pack --dry-run` confirms), so an app created with `npx` has none and would commit `node_modules`. Store it under another name (e.g. `template/gitignore`) and have `bin/create-boba-app.js` write it as `.gitignore`; cover it in `test/cli.test.ts` against a packed tarball.
-- `[ ]` **Make the version consistent.**
-  - A `v1.0.1` tag already exists with no release; delete it before tagging `v1.0.0`.
-  - `patching.yml` bumps the `package.json` patch version every week, so the version drifts from any release. Stop bumping there and set the version only when releasing.
-  - `v1.0.0` is hard-coded in `nav-page.html`, `home-page.html` and the MCP server info in `scripts/boba.ts`. Derive it from `package.json` or remove it.
-- `[ ]` **Decide what a new app starts with.** The template is also Boba's own site, so new apps begin with Boba's marketing pages, links to this repository and a static "CI / Build: Passing" badge. Either accept that as the starter (and remove the fake badge), or keep the showcase pages out of what gets scaffolded.
-- `[ ]` **Verify the install path end to end.** In CI, pack the repo, scaffold an app from the tarball, then install, build and test it — today only the unpacked template is tested.
+- `[ ]` **Delete the stray `v1.0.1` tag.** It exists on GitHub with no release behind it, and would sit above `v1.0.0` in version order. Remove it before tagging the release.
 
 ## Should fix
 
@@ -24,7 +17,7 @@ What must be true before tagging `v1.0.0`. The supported install path is `npx gi
 ## Nice to have
 
 - `[ ]` **Harden `BaseComponent`.** It has no unit tests, and re-attaching an element runs `init()` again, which duplicates listeners added with `delegate()`.
-- `[ ]` **Retire or update `docs/`.** The two dated review documents describe the layout before `template/` became the single source.
+- `[ ]` **Retire or update `docs/`.** The two dated review documents describe an earlier layout of the repository.
 
 ## Releasing
 

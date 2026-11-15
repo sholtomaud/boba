@@ -45,25 +45,35 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
       - name: Run unit tests
         run: npm test
 
       - name: Run E2E tests
         run: npx playwright test
 
-      # template/ is both the scaffold and this site; build it as a user would.
+      # The site is the app template plus the pages in site/overlay.
+      # Assembling it here also records this commit and run for the home page.
+      - name: Assemble and test the site
+        run: npm run site:check
+
       - name: Build
-        run: npm run build
+        run: npm --prefix .site run build
 
       # GitHub Pages serves 404.html for unknown paths, which lets the router
       # handle deep links such as /boba/docs.
       - name: Prepare 404 page for SPA
-        run: cp template/dist/index.html template/dist/404.html
+        run: cp .site/dist/index.html .site/dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: template/dist
+          path: .site/dist
 
   deploy:
     environment:

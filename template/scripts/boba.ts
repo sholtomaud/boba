@@ -131,11 +131,12 @@ export function manifest(root: string) {
     fs.existsSync(path.join(root, dir))
       ? fs.readdirSync(path.join(root, dir))
       : [];
-  const { name } = JSON.parse(
+  const { name, version } = JSON.parse(
     fs.readFileSync(path.join(root, 'package.json'), 'utf8')
   );
   return {
     name,
+    version,
     components: list('src/components').map((tag) => ({
       tag,
       path: `src/components/${tag}/${tag}.ts`,
@@ -223,7 +224,7 @@ export function handleMcp(root: string, request: RpcRequest) {
       return reply({
         protocolVersion: params.protocolVersion ?? '2025-06-18',
         capabilities: { tools: {} },
-        serverInfo: { name: 'boba', version: '1.0.0' },
+        serverInfo: { name: 'boba', version: manifest(root).version },
       });
     case 'ping':
       return reply({});

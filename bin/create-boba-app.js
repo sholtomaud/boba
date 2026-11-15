@@ -38,6 +38,13 @@ async function main() {
       filter: (source) => !SKIP.includes(path.basename(source)),
     });
 
+    // npm leaves files named .gitignore out of packages, so the template
+    // stores its one under another name.
+    await fs.promises.rename(
+      path.join(projectPath, 'gitignore'),
+      path.join(projectPath, '.gitignore')
+    );
+
     const packageJsonPath = path.join(projectPath, 'package.json');
     const packageJson = JSON.parse(
       await fs.promises.readFile(packageJsonPath, 'utf-8')

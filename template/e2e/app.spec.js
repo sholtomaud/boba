@@ -12,12 +12,13 @@ test('nav links navigate without reloading and mark the current page', async ({
   await page.evaluate(() => (window.stillSamePage = true));
 
   for (const [name, path, tag] of [
-    ['Docs', '/docs', 'docs-page'],
-    ['About', '/about', 'about-page'],
     ['To-Do', '/todo', 'todo-page'],
     ['Users', '/users', 'users-page'],
   ]) {
-    const link = page.locator('app-nav nav').getByRole('link', { name });
+    const link = page
+      .locator('app-nav [data-nav]')
+      .getByRole('link', { name })
+      .first();
     await link.click();
     await expect(page).toHaveURL(path);
     await expect(page.locator(`#router-outlet > ${tag}`)).toBeVisible();
@@ -30,28 +31,18 @@ test('nav links navigate without reloading and mark the current page', async ({
 });
 
 test('links inside pages are handled by the router', async ({ page }) => {
-  await page.goto('/about');
+  await page.goto('/user/Ada');
   await page.evaluate(() => (window.stillSamePage = true));
-  await page
-    .locator('about-page footer')
-    .getByRole('link', { name: 'Docs' })
-    .click();
-  await expect(page.locator('docs-page')).toBeVisible();
+  await page.getByRole('link', { name: 'Back to all users' }).click();
+  await expect(page.locator('users-page')).toBeVisible();
   expect(await page.evaluate(() => window.stillSamePage)).toBe(true);
-});
-
-test('in-page anchors stay on the page', async ({ page }) => {
-  await page.goto('/docs');
-  await page.locator('docs-page a[href="#routing"]').click();
-  await expect(page).toHaveURL('/docs#routing');
-  await expect(page.locator('docs-page #routing')).toBeInViewport();
 });
 
 test('deep links load, including nested routes with parameters', async ({
   page,
 }) => {
-  await page.goto('/docs');
-  await expect(page.locator('docs-page')).toBeVisible();
+  await page.goto('/todo');
+  await expect(page.locator('todo-page')).toBeVisible();
 
   await page.goto('/user/Grace%20Hopper');
   await expect(page.locator('user-page #user-name')).toHaveText('Grace Hopper');
@@ -172,12 +163,12 @@ test('works offline after the first visit', async ({
     .toBeGreaterThan(2);
 
   // Route components are cached as they are visited.
-  await page.locator('app-nav nav').getByRole('link', { name: 'Docs' }).click();
-  await expect(page.locator('docs-page')).toBeVisible();
+  await page.locator('app-nav').getByRole('link', { name: 'To-Do' }).click();
+  await expect(page.locator('todo-page')).toBeVisible();
 
   await context.setOffline(true);
   await page.goto('/');
   await expect(page.locator('home-page')).toBeVisible();
-  await page.goto('/docs');
-  await expect(page.locator('docs-page')).toBeVisible();
+  await page.goto('/todo');
+  await expect(page.locator('todo-page')).toBeVisible();
 });

@@ -40,4 +40,4 @@ test: start ## Run Playwright E2E tests inside container
 	$(CONTAINER_BIN) run --rm -v $(shell pwd):$(WORKDIR) $(IMAGE_APP) npm run e2e
 
 clean: ## Clear compiled directories and node dependencies
-	rm -rf node_modules template/node_modules template/dist
+	rm -rf node_modules template/node_modules template/dist .site

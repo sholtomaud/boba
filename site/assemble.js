@@ -6,7 +6,13 @@ import { addRoute } from '../template/scripts/boba.ts';
 
 const root = path.join(import.meta.dirname, '..');
 const out = path.join(root, '.site');
-const SKIP = ['node_modules', 'dist', 'playwright-report', 'test-results'];
+const SKIP = [
+  'node_modules',
+  'dist',
+  'dist-subpath',
+  'playwright-report',
+  'test-results',
+];
 
 fs.rmSync(out, { recursive: true, force: true });
 fs.cpSync(path.join(root, 'template'), out, {

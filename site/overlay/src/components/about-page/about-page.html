@@ -17,8 +17,9 @@
       <p
         class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal"
       >
-        An ultra-minimalist, standards-based frontend web framework built to
-        pair modern browser capabilities with Node.js native type stripping.
+        A minimalist, standards-based way to build web apps: native Web
+        Components in the browser, and TypeScript that Node.js runs without a
+        compile step.
       </p>
     </header>
 
@@ -49,10 +50,10 @@
             Standards-First Philosophy
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            By utilizing native browser Custom Elements, template interpolation,
-            and standard lifecycle callbacks, Boba has virtually zero runtime
-            overhead. Your codebase remains evergreen and safe from framework
-            deprecation cycles.
+            Components are native Custom Elements with standard lifecycle
+            callbacks and <code>&lt;template&gt;</code> elements. There is no
+            framework runtime to load, and nothing to migrate when a framework
+            changes its API.
           </p>
         </div>
         <div
@@ -84,18 +85,19 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-            Zero-Build Experience
+            No Compile Step in Node
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            Leveraging Node.js v26+ native type stripping means you can run your
-            tests and server logic directly on TypeScript source code. No heavy
-            dev servers and no continuous compilation loops.
+            Node.js v26+ strips types natively, so unit tests and the project
+            CLI run directly from TypeScript source. The browser code still goes
+            through Vite, which serves it in development and bundles it for
+            production.
           </p>
         </div>
         <div
           class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-slate-700 dark:text-slate-300"
         >
-          TypeScript Native Execution
+          Native Type Stripping for Tests & Tooling
         </div>
       </div>
 
@@ -124,19 +126,20 @@
             Minimal Attack Surface
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            By avoiding massive node dependency trees (no heavy framework
-            packages or thousands of transient libraries), Boba slashes package
-            installation times and avoids supply chain risks entirely.
+            Nothing third-party ships to your users: an app has no runtime
+            dependencies. Development uses a short list of tools (Vite,
+            Tailwind, TypeScript, Playwright, oxlint, Prettier), which keeps the
+            dependency tree to audit small.
           </p>
         </div>
         <div
           class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-slate-700 dark:text-slate-300"
         >
-          Zero External Runtime Dependencies
+          Zero Runtime Dependencies
         </div>
       </div>
 
-      <!-- Card 4: Reactive Engine -->
+      <!-- Card 4: State & Routing -->
       <div
         class="bg-[var(--boba-surface)] p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 transition-all flex flex-col justify-between group shadow-sm"
       >
@@ -158,18 +161,19 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-            Reactive Binding & Routing
+            State & Routing
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            Built-in EventTarget-based global store and dynamic router bringing
-            route parameters, query parsing, and SPA navigation guards out of
-            the box.
+            An EventTarget-based store that emits change events, and a router
+            with route parameters, query parsing, guards and lazy-loaded pages.
+            Components update their own DOM when state changes; there is no
+            automatic data binding.
           </p>
         </div>
         <div
           class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center text-xs font-semibold text-slate-700 dark:text-slate-300"
         >
-          Native Declarative Engine
+          Built on EventTarget & the History API
         </div>
       </div>
     </div>
@@ -195,19 +199,16 @@
           </h4>
           <ul class="text-xs space-y-2.5 text-slate-700 dark:text-slate-300">
             <li class="flex items-center gap-2">
-              <span class="text-emerald-500 font-bold">✔</span> Fast Light DOM
+              <span>•</span> Light DOM, global styles apply
             </li>
             <li class="flex items-center gap-2">
-              <span class="text-emerald-500 font-bold">✔</span> No Build
-              Pipeline
+              <span>•</span> No framework runtime
             </li>
             <li class="flex items-center gap-2">
-              <span class="text-emerald-500 font-bold">✔</span> Near-Zero
-              Dependencies
+              <span>•</span> Vite for dev server & bundling
             </li>
             <li class="flex items-center gap-2">
-              <span class="text-emerald-500 font-bold">✔</span> Browser Native
-              APIs
+              <span>•</span> DOM updated by hand
             </li>
           </ul>
         </div>
@@ -222,16 +223,16 @@
           </h4>
           <ul class="text-xs space-y-2.5 text-slate-500 dark:text-slate-400">
             <li class="flex items-center gap-2">
-              <span>⚠</span> Heavy Shadow DOM isolation
+              <span>•</span> Shadow DOM encapsulation
             </li>
             <li class="flex items-center gap-2">
-              <span>⚠</span> Compiles custom code
+              <span>•</span> Small runtime library
             </li>
             <li class="flex items-center gap-2">
-              <span>⚠</span> Third-party runtime library
+              <span>•</span> Reactive templates
             </li>
             <li class="flex items-center gap-2">
-              <span>⚠</span> Stylesheet injection overhead
+              <span>•</span> Lit needs no build; Stencil compiles
             </li>
           </ul>
         </div>
@@ -246,16 +247,16 @@
           </h4>
           <ul class="text-xs space-y-2.5 text-slate-500 dark:text-slate-400">
             <li class="flex items-center gap-2">
-              <span>✖</span> High supply chain risk
+              <span>•</span> Framework runtime
             </li>
             <li class="flex items-center gap-2">
-              <span>✖</span> Forced, slow build cycle
+              <span>•</span> Declarative rendering
             </li>
             <li class="flex items-center gap-2">
-              <span>✖</span> Virtual DOM diff overhead
+              <span>•</span> Virtual DOM or compiler
             </li>
             <li class="flex items-center gap-2">
-              <span>✖</span> Legacy syntax transformations
+              <span>•</span> Large ecosystem
             </li>
           </ul>
         </div>

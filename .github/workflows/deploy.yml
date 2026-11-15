@@ -65,8 +65,9 @@ jobs:
       - name: Assemble and test the site
         run: npm run site:check
 
+      # GitHub Pages serves this site from /<repository>/.
       - name: Build
-        run: npm --prefix .site run build
+        run: npm --prefix .site run build -- --base "/${{ github.event.repository.name }}/"
 
       # GitHub Pages serves 404.html for unknown paths, which lets the router
       # handle deep links such as /boba/docs.

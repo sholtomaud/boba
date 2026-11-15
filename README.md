@@ -1,8 +1,8 @@
 # 🧋 Boba
 
-**Simplicity in every bubble.** Boba is an ultra-minimalist, standards-based web framework that pairs native browser capabilities (Custom Elements, ES Modules) with Node.js v26+'s native TypeScript stripping — no build step, no virtual DOM, near-zero dependencies.
+**Simplicity in every bubble.** Boba is a minimalist, standards-based starting point for web apps: native Web Components (Custom Elements, ES modules) in the browser, and TypeScript that Node.js v26+ runs without a compile step. No framework runtime, no virtual DOM, zero runtime dependencies.
 
-### 🔴 [Live Demo →](https://sholtomaud.github.io/boba/)
+### 🔴 [Website →](https://sholtomaud.github.io/boba/)
 
 [![CI](https://github.com/sholtomaud/boba/actions/workflows/ci.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/ci.yml)
 [![Deploy to GitHub Pages](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml)
@@ -33,12 +33,14 @@
 
 ## Why Boba
 
-- **Build-less workflow** — Node.js v26+ native type stripping means your TypeScript runs almost as-is. Vite is used in dev/build purely for convenience (HMR, bundling), not because the language needs transpiling.
-- **Native standards, not abstractions** — Custom Elements, `<template>` elements, and standard lifecycle callbacks instead of a framework-specific component model or virtual DOM diffing.
-- **Near-zero runtime dependencies** — no React, no Lit, no massive `node_modules` tree. Smaller install, smaller attack surface, no framework deprecation treadmill.
+- **No framework runtime** — components are native Custom Elements with `<template>` elements and standard lifecycle callbacks. The only code that reaches the browser is yours plus a router, a store and a base class you can read in a sitting. An app has zero runtime dependencies.
+- **No compile step in Node** — Node.js v26+ strips types natively, so unit tests and the project CLI run straight from TypeScript source.
+- **A short, plain toolchain** — the browser cannot run TypeScript, so Vite serves the app in development and bundles it for production, and Tailwind compiles the styles. That is the whole build; there is no framework compiler or plugin stack on top.
 - **A router and a store, and that's it** — a lightweight regex-based client router and an `EventTarget`-backed global store cover the two things most small apps actually need.
 
-Read more on the [live demo's About page](https://sholtomaud.github.io/boba/about).
+What Boba does not do: it has no data binding or declarative rendering. Components update their own DOM when state changes, which is simple and explicit but more code than a framework needs. See the [roadmap](TODO.md).
+
+Read more on the [website's About page](https://sholtomaud.github.io/boba/about).
 
 ## Quick Start
 
@@ -165,11 +167,7 @@ router.start();
 
 - **Navigation event** — the router is an `EventTarget` and dispatches `navigate` (detail: `{ path, params, query }`) after each navigation. `nav-page` uses it to highlight the current link.
 - **Errors** — an unknown URL, or a component that fails to load, shows the `router.notFound` component (a plain heading if you don't set one).
-- **Base URL** — the app can be served from a sub-path; routes are always written without it. `index.html` works the mount path out when the page loads: the repository folder on GitHub Pages, otherwise `/`. If that guess is wrong for your host — for example a user or organization site served from the root of `*.github.io` — state it in `index.html`:
-
-  ```html
-  <meta name="boba-base" content="/" />
-  ```
+- **Base URL** — routes are always written without the path the app is served from. An app served from a sub-path is built for it (`npm run build -- --base /my-app/`); see [Deploying](#deploying).
 
 ## Global State
 
@@ -277,15 +275,21 @@ npm run e2e
 
 ## Deploying
 
-`npm run build` produces a static `dist/` with relative asset URLs, so the same build works at a domain root or under a sub-path. The host must serve `index.html` for unknown paths so deep links reach the router.
+`npm run build` produces a static `dist/` to serve from the root of a domain. The host must serve `index.html` for unknown paths so deep links reach the router.
 
-Because the mount path is only known once the page runs, Firefox logs two console errors when a nested URL such as `/user/ada` is opened directly: it preloads the script and stylesheet relative to the page before `<base>` is set, then loads the right files. The page works; other browsers stay quiet.
+If the app is served from a sub-path, say so when building:
 
-For **GitHub Pages**, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
+```bash
+npm run build -- --base /my-app/
+```
+
+That one setting is used for the asset URLs, the router, and the relative URLs the app requests (through the `<base>` element in `index.html`).
+
+For **GitHub Pages** project sites the sub-path is the repository name. Build with `--base /<repository>/`, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
 
 ### Content Security Policy
 
-`index.html` ships a Content Security Policy that only allows scripts from the app itself. Its one inline script (which sets the base URL) is allowed by hash, not by `'unsafe-inline'`. If you edit that script, `npm test` fails and prints the new hash to put in the policy. Styles still allow `'unsafe-inline'`, because components add their `<style>` elements at runtime.
+`index.html` ships a Content Security Policy that only allows scripts from the app's own origin: no inline scripts and no `'unsafe-inline'`. Styles still allow `'unsafe-inline'`, because components add their `<style>` elements at runtime.
 
 ## Stability and Upgrades
 
@@ -295,7 +299,7 @@ Boba follows [Semantic Versioning](https://semver.org) from 1.0.0; changes are l
 - `Router` — `getInstance()`, `registerRoute()`, `start()`, `navigate()`, `notFound`, the `navigate` event, and what a routed component receives (`params`, `query`, and route parameters as properties).
 - `Store` — `getState()`, `setState()` and the `change` event.
 - The `npm run boba` commands and the shape of `manifest`'s output.
-- `window.BOBA_BASE_URL` and `<meta name="boba-base">`.
+- The `--base` build option as the one place the app's path is set.
 
 **A new app is a copy, not a dependency.** `create-boba-app` copies these files into your project and they are yours from then on: there is no `boba` package to update, and a newer Boba release does not change an existing app. To pick up a fix, compare your `src/core/` with the current [`template/src/core/`](template/src/core/) and apply what you want; the changelog says what changed and why.
 
@@ -340,7 +344,7 @@ make clean       # remove node_modules and build output
 Contributions are welcome. Boba's value is what it leaves out, so the bar for a change is:
 
 - **Platform first.** Prefer a browser or Node built-in over a dependency, and a few lines of code over a plugin. New dependencies need a strong reason.
-- **No build step for the language.** Code must run under Node's native type stripping: erasable TypeScript syntax only, and `.ts` extensions on every import.
+- **Runs under Node's type stripping.** Code must run under Node's native type stripping: erasable TypeScript syntax only, and `.ts` extensions on every import.
 - **One component, one folder.** `name.ts`, `name.html`, `name.css`; kebab-case tag names; styles scoped with `:host`.
 - **Logic without the DOM goes in `src/services/`** with a `node --test` unit test next to it. Behaviour in the browser is covered by a Playwright test in `e2e/`.
 

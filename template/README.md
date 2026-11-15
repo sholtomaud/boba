@@ -16,7 +16,7 @@ npm start
 | `npm run build` | Build static files into `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm test` | Unit tests (`node --test`) |
-| `npm run e2e` | End-to-end tests (Playwright) |
+| `npm run e2e` | End-to-end tests (Playwright). Run `npx playwright install` once first; Firefox and WebKit are tested when installed |
 | `npm run typecheck` / `npm run lint` / `npm run format` | Static checks and formatting |
 | `npm run boba -- <command>` | `generate component`, `generate service`, `add route`, `manifest`, `mcp` |
 

@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { chromium, defineConfig, devices } from '@playwright/test';
+import {
+  chromium,
+  firefox,
+  webkit,
+  defineConfig,
+  devices,
+} from '@playwright/test';
 
 // Playwright expects the exact Chromium build it pins. Where that build isn't
 // installed and can't be downloaded (e.g. a sandbox that blocks the Playwright
@@ -37,6 +43,19 @@ function fallbackChromium() {
 const executablePath = fallbackChromium();
 const launchOptions = executablePath ? { executablePath } : {};
 
+// Firefox and WebKit run against the production build. CI always runs them;
+// locally they run when installed (`npx playwright install`).
+const production = { baseURL: 'http://localhost:3000' };
+const otherBrowsers = [
+  { name: 'firefox', type: firefox, device: 'Desktop Firefox' },
+  { name: 'webkit', type: webkit, device: 'Desktop Safari' },
+]
+  .filter(({ type }) => process.env.CI || fs.existsSync(type.executablePath()))
+  .map(({ name, device }) => ({
+    name,
+    use: { ...devices[device], ...production },
+  }));
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -55,12 +74,9 @@ export default defineConfig({
     },
     {
       name: 'production',
-      use: {
-        ...devices['Desktop Chrome'],
-        launchOptions,
-        baseURL: 'http://localhost:3000',
-      },
+      use: { ...devices['Desktop Chrome'], launchOptions, ...production },
     },
+    ...otherBrowsers,
   ],
   webServer: [
     {

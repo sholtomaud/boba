@@ -32,6 +32,9 @@ jobs:
     needs: get-playwright-version
     runs-on: ubuntu-26.04
     container: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}-noble
+    env:
+      # Firefox will not start unless $HOME belongs to the user running it.
+      HOME: /root
     steps:
       - name: Checkout
         uses: actions/checkout@v7

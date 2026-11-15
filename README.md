@@ -26,6 +26,7 @@
 - [Available Scripts](#available-scripts)
 - [Testing](#testing)
 - [Deploying](#deploying)
+- [Stability and Upgrades](#stability-and-upgrades)
 - [Developing Boba Itself](#developing-boba-itself)
 - [Contributing](#contributing)
 - [License](#license)
@@ -33,7 +34,7 @@
 ## Why Boba
 
 - **Build-less workflow** — Node.js v26+ native type stripping means your TypeScript runs almost as-is. Vite is used in dev/build purely for convenience (HMR, bundling), not because the language needs transpiling.
-- **Native standards, not abstractions** — Custom Elements, tagged template literals, and standard lifecycle callbacks instead of a framework-specific component model or virtual DOM diffing.
+- **Native standards, not abstractions** — Custom Elements, `<template>` elements, and standard lifecycle callbacks instead of a framework-specific component model or virtual DOM diffing.
 - **Near-zero runtime dependencies** — no React, no Lit, no massive `node_modules` tree. Smaller install, smaller attack surface, no framework deprecation treadmill.
 - **A router and a store, and that's it** — a lightweight regex-based client router and an `EventTarget`-backed global store cover the two things most small apps actually need.
 
@@ -164,7 +165,11 @@ router.start();
 
 - **Navigation event** — the router is an `EventTarget` and dispatches `navigate` (detail: `{ path, params, query }`) after each navigation. `nav-page` uses it to highlight the current link.
 - **Errors** — an unknown URL, or a component that fails to load, shows the `router.notFound` component (a plain heading if you don't set one).
-- **Base URL** — the app can be served from a sub-path. `index.html` sets `window.BOBA_BASE_URL` (the repository folder on GitHub Pages, otherwise `/`) and a matching `<base>`; routes are always written without it.
+- **Base URL** — the app can be served from a sub-path; routes are always written without it. `index.html` works the mount path out when the page loads: the repository folder on GitHub Pages, otherwise `/`. If that guess is wrong for your host — for example a user or organization site served from the root of `*.github.io` — state it in `index.html`:
+
+  ```html
+  <meta name="boba-base" content="/" />
+  ```
 
 ## Global State
 
@@ -260,7 +265,7 @@ To opt out, delete `sw.js` and its registration in `main.ts`.
 ## Testing
 
 - **Unit tests** run directly on TypeScript source via `node --test` — no compilation step.
-- **End-to-end tests** use [Playwright](https://playwright.dev/), covering both the Vite dev server and a production build. Every run captures a screenshot per test into the HTML report (`playwright-report/index.html`), so you can visually confirm a change works, not just that assertions passed.
+- **End-to-end tests** use [Playwright](https://playwright.dev/), covering both the Vite dev server and a production build in Chromium, plus the production build in Firefox and WebKit when those browsers are installed (`npx playwright install`; CI always runs all three). Every run captures a screenshot per test into the HTML report (`playwright-report/index.html`), so you can visually confirm a change works, not just that assertions passed.
 
 ```bash
 npm test
@@ -274,7 +279,25 @@ npm run e2e
 
 `npm run build` produces a static `dist/` with relative asset URLs, so the same build works at a domain root or under a sub-path. The host must serve `index.html` for unknown paths so deep links reach the router.
 
+Because the mount path is only known once the page runs, Firefox logs two console errors when a nested URL such as `/user/ada` is opened directly: it preloads the script and stylesheet relative to the page before `<base>` is set, then loads the right files. The page works; other browsers stay quiet.
+
 For **GitHub Pages**, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
+
+### Content Security Policy
+
+`index.html` ships a Content Security Policy that only allows scripts from the app itself. Its one inline script (which sets the base URL) is allowed by hash, not by `'unsafe-inline'`. If you edit that script, `npm test` fails and prints the new hash to put in the policy. Styles still allow `'unsafe-inline'`, because components add their `<style>` elements at runtime.
+
+## Stability and Upgrades
+
+Boba follows [Semantic Versioning](https://semver.org) from 1.0.0; changes are listed in [`CHANGELOG.md`](CHANGELOG.md). The public API, which will not change incompatibly within a major version, is:
+
+- `BaseComponent` — the constructor, `init()`, `delegate()` and `:host` style scoping.
+- `Router` — `getInstance()`, `registerRoute()`, `start()`, `navigate()`, `notFound`, the `navigate` event, and what a routed component receives (`params`, `query`, and route parameters as properties).
+- `Store` — `getState()`, `setState()` and the `change` event.
+- The `npm run boba` commands and the shape of `manifest`'s output.
+- `window.BOBA_BASE_URL` and `<meta name="boba-base">`.
+
+**A new app is a copy, not a dependency.** `create-boba-app` copies these files into your project and they are yours from then on: there is no `boba` package to update, and a newer Boba release does not change an existing app. To pick up a fix, compare your `src/core/` with the current [`template/src/core/`](template/src/core/) and apply what you want; the changelog says what changed and why.
 
 ## Developing Boba Itself
 

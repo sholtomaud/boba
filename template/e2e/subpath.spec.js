@@ -30,10 +30,13 @@ test('nested deep links load under a sub-path', async ({ page }) => {
 
   await page.goto('./user/Ada', { waitUntil: 'networkidle' });
   await expect(page.locator('#user-name')).toHaveText('Ada');
-  await expect(page.locator('app-nav img')).toHaveJSProperty('complete', true);
-  expect(
-    await page.locator('app-nav img').evaluate((img) => img.naturalWidth)
-  ).toBeGreaterThan(0);
+  // A relative URL requested from a nested page resolves from the base.
+  const icon = await page.evaluate(async () => {
+    const response = await fetch('favicon.svg');
+    return { url: response.url, type: response.headers.get('content-type') };
+  });
+  expect(icon.url).toMatch(/\/sub\/path\/favicon\.svg$/);
+  expect(icon.type).toContain('image/svg+xml');
 
   await page.goto('./no/such/page');
   await expect(page.locator('not-found-page')).toBeVisible();

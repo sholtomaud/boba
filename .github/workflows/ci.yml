@@ -8,12 +8,12 @@ on:
 
 jobs:
   get-playwright-version:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Get Playwright version from package.json
         id: get-version
@@ -23,15 +23,15 @@ jobs:
 
   test:
     needs: get-playwright-version
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     container: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}-noble
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js v25
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 25.x
           cache: 'npm'

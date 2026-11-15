@@ -77,53 +77,6 @@
 
     </div>
 
-    <!-- System & CI Status Dashboard Panel -->
-    <div class="bg-[var(--boba-surface)] p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm mb-16">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800 mb-6 gap-4">
-        <div>
-          <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <svg class="w-5 h-5 text-slate-700 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            System Status & CI Metrics
-          </h2>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Real-time status monitoring from GitHub Actions workflow runs.</p>
-        </div>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-          <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-          All Systems Operational
-        </span>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-
-        <div class="bg-slate-50 dark:bg-slate-900/60 p-4 rounded-lg border border-slate-200 dark:border-slate-800/80">
-          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Unit Test Suite</div>
-          <div class="flex items-center gap-2">
-            <span class="text-base font-bold text-slate-800 dark:text-slate-200">PASSING</span>
-            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">(node --test)</span>
-          </div>
-        </div>
-
-        <div class="bg-slate-50 dark:bg-slate-900/60 p-4 rounded-lg border border-slate-200 dark:border-slate-800/80">
-          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Playwright E2E Suite</div>
-          <div class="flex items-center gap-2">
-            <span class="text-base font-bold text-slate-800 dark:text-slate-200">PASSING</span>
-            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">(dev + production)</span>
-          </div>
-        </div>
-
-        <div class="bg-slate-50 dark:bg-slate-900/60 p-4 rounded-lg border border-slate-200 dark:border-slate-800/80">
-          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Current Version Tag</div>
-          <div class="flex items-center gap-2">
-            <span id="version-tag" class="text-base font-bold text-slate-800 dark:text-slate-200 font-mono">v1.0.0</span>
-            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">(Stable Release)</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <!-- Footer -->
     <footer class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
       <div>

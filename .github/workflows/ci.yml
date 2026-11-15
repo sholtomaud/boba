@@ -50,3 +50,19 @@ jobs:
 
       - name: E2E Tests
         run: npx playwright test
+
+      # What users actually get: pack the repo as npm does for
+      # `npx github:sholtomaud/boba`, scaffold from the tarball, and run the
+      # new app's own checks.
+      - name: Scaffolded app works
+        run: |
+          TARBALL="$PWD/$(npm pack --silent)"
+          cd "$(mktemp -d)"
+          npm exec --yes --package="$TARBALL" -- create-boba-app my-app
+          cd my-app
+          test -f .gitignore
+          npm ci
+          npm run typecheck
+          npm run lint
+          npm test
+          npm run e2e

@@ -31,5 +31,11 @@
     "tailwindcss": "^4.3.2",
     "typescript": "^7.0.2",
     "vite": "^8.1.6"
+  },
+  "license": "MIT",
+  "description": "Scaffold a Boba app: Web Components and TypeScript with no build step for the language",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sholtomaud/boba.git"
   }
 }

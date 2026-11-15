@@ -1,0 +1,17 @@
+node_modules/
+dist/
+
+# Test output
+playwright-report/
+test-results/
+
+# Local configuration
+.env
+.env.*
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

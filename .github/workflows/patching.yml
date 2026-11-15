@@ -78,18 +78,6 @@ jobs:
           cd template
           npm audit --audit-level=high
 
-      # --- AUTO-INCREMENT & COMMIT STEPS ---
-
-      - name: Increment package patch version
-        id: bump_version
-        run: |
-          # Increment patch version in package.json without tagging
-          # 'npm version patch' automatically strips any 'v' prefix for package.json
-          NEW_VERSION_RAW=$(npm version patch --no-git-tag-version)
-          # NEW_VERSION_RAW output looks like "v1.0.1", strip leading 'v' if present for clean string parsing
-          NEW_VERSION=${NEW_VERSION_RAW#v}
-          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-
       - name: Install GitHub CLI
         run: |
           apt-get update && apt-get install -y gh
@@ -104,20 +92,21 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Stage package locks and package manifests
+          # Stage package locks and package manifests. The version is not
+          # touched here: it changes only when a release is cut.
           git add package.json package-lock.json template/package.json template/package-lock.json
-          
-          # Only commit and create PR if dependencies or files actually changed
+
+          # Only commit and create PR if dependencies actually changed
           if ! git diff --cached --quiet; then
-            BRANCH_NAME="patch/deps-v${{ env.NEW_VERSION }}"
+            BRANCH_NAME="patch/deps-$(date +%F)"
             git checkout -b "$BRANCH_NAME"
-            git commit -m "chore(patch): automated dependency patching and bump to v${{ env.NEW_VERSION }} [skip ci]"
+            git commit -m "chore(patch): automated dependency patching"
             git push --force origin "$BRANCH_NAME"
             gh pr create \
-              --title "chore(patch): automated dependency patching and bump to v${{ env.NEW_VERSION }}" \
-              --body "Automated dependency update and version bump to v${{ env.NEW_VERSION }}." \
+              --title "chore(patch): automated dependency patching ($(date +%F))" \
+              --body "Automated dependency update. Tests passed on the updated lockfiles." \
               --head "$BRANCH_NAME" \
               --base "${{ github.ref_name }}" || true
           else
-            echo "No dependency updates or changes found. Skipping commit."
+            echo "No dependency updates found. Skipping commit."
           fi

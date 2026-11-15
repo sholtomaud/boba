@@ -27,7 +27,10 @@ describe('boba CLI', () => {
       recursive: true,
     });
     fs.writeFileSync(path.join(root, 'src/main.ts'), MAIN);
-    fs.writeFileSync(path.join(root, 'package.json'), '{"name":"demo"}');
+    fs.writeFileSync(
+      path.join(root, 'package.json'),
+      '{"name":"demo","version":"2.3.4"}'
+    );
   });
 
   afterEach(() => fs.rmSync(root, { recursive: true, force: true }));
@@ -77,6 +80,7 @@ describe('boba CLI', () => {
     generateService(root, 'cart-service');
     assert.deepStrictEqual(manifest(root), {
       name: 'demo',
+      version: '2.3.4',
       components: [
         { tag: 'home-page', path: 'src/components/home-page/home-page.ts' },
       ],
@@ -95,6 +99,7 @@ describe('boba CLI', () => {
     assert.deepStrictEqual(call('initialize').result.capabilities, {
       tools: {},
     });
+    assert.strictEqual(call('initialize').result.serverInfo.version, '2.3.4');
     assert.strictEqual(call('tools/list').result.tools.length, 4);
     assert.strictEqual(
       handleMcp(root, { method: 'notifications/initialized' }),

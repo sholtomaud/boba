@@ -35,18 +35,42 @@ export class BaseComponent extends HTMLElement {
     this.template.innerHTML = `<style>${scopedCss}</style>${htmlContent}`;
   }
 
-  /** Custom Elements lifecycle: renders the template, then calls `init()`. */
+  /** Set once the template is rendered and `init()` has run. */
+  #rendered = false;
+
+  /**
+   * Custom Elements lifecycle. The first time the element is connected, it
+   * renders the template and calls `init()`; on every connection it then
+   * calls `connected()`. Moving the element (appending it elsewhere)
+   * disconnects and reconnects it: it keeps its markup and state, `init()`
+   * doesn't run again, and `connected()` restores what
+   * `disconnectedCallback()` removed.
+   */
   connectedCallback() {
-    this.replaceChildren(this.template.content.cloneNode(true));
-    this.init();
+    if (!this.#rendered) {
+      this.#rendered = true;
+      this.replaceChildren(this.template.content.cloneNode(true));
+      this.init();
+    }
+    this.connected();
   }
 
   /**
-   * Called once the markup is in the DOM. Override it to query elements and
+   * Called once, when the markup is first in the DOM. Override it to query
+   * elements and
    * attach listeners. Properties set by the router (route params, `params`,
    * `query`) are available here.
    */
   init() {}
+
+  /**
+   * Called on every connection, after `init()` the first time. Subscribe
+   * here to objects that outlive the component (a shared store, the router,
+   * `window`), and unsubscribe in `disconnectedCallback()`, so a component
+   * that is removed leaves nothing behind and one that is moved keeps
+   * working.
+   */
+  connected() {}
 
   /**
    * Listens for an event on the component and calls `handler` when it comes

@@ -1,0 +1,27 @@
+name: Dashboard
+on:
+  push:
+    branches: [main] # redeploy on every merge
+  schedule:
+    - cron: '17 */6 * * *' # and every 6 hours; the dashboard shows this schedule
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write # deploy to GitHub Pages
+  id-token: write # deploy to GitHub Pages
+  issues: read
+  pull-requests: read
+  actions: read # CI health
+  deployments: read # delivery metrics
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.dashboard.outputs.url }}
+    steps:
+      - id: dashboard
+        uses: sholtomaud/repo-sre-dashboard@v1

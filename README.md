@@ -206,7 +206,17 @@ this.addEventListener('user-selected', (e) => {
 this.delegate('click', '.delete', (event, button) => this.remove(button.dataset.id));
 ```
 
-Remove listeners you add to long-lived objects (a shared store, the router, `window`) in `disconnectedCallback()` if the component can be removed from the page.
+A component renders its template and runs `init()` once, the first time it is connected. Moving it (appending it to another parent) keeps its markup and state. Subscribe to long-lived objects (a shared store, the router, `window`) in `connected()`, which runs on every connection, and remove those listeners in `disconnectedCallback()`. A removed component then leaves nothing behind, and a moved one keeps working. [`app-nav`](template/src/components/nav-page/nav-page.ts) does this with the router:
+
+```typescript
+#onNavigate = (event: Event) => { /* mark the current link */ };
+connected() {
+  Router.getInstance().addEventListener('navigate', this.#onNavigate);
+}
+disconnectedCallback() {
+  Router.getInstance().removeEventListener('navigate', this.#onNavigate);
+}
+```
 
 ## Services, Forms and API Calls
 

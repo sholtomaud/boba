@@ -10,18 +10,26 @@ export class NavComponent extends BaseComponent {
     super(template, style);
   }
 
-  init() {
-    // Mark the link of the current page; see the aria-current rule in the CSS.
-    Router.getInstance().addEventListener('navigate', (event) => {
-      const { path } = (event as CustomEvent<RouteLocation>).detail;
-      this.querySelectorAll('[data-nav] a').forEach((link) => {
-        if (link.getAttribute('href') === path) {
-          link.setAttribute('aria-current', 'page');
-        } else {
-          link.removeAttribute('aria-current');
-        }
-      });
+  // Mark the link of the current page; see the aria-current rule in the CSS.
+  #onNavigate = (event: Event) => {
+    const { path } = (event as CustomEvent<RouteLocation>).detail;
+    this.querySelectorAll('[data-nav] a').forEach((link) => {
+      if (link.getAttribute('href') === path) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     });
+  };
+
+  // The router outlives the nav: subscribe on every connect, unsubscribe on
+  // disconnect, so a removed nav leaves nothing behind.
+  connected() {
+    Router.getInstance().addEventListener('navigate', this.#onNavigate);
+  }
+
+  disconnectedCallback() {
+    Router.getInstance().removeEventListener('navigate', this.#onNavigate);
   }
 }
 

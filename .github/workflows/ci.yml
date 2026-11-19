@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   get-playwright-version:
     runs-on: ubuntu-26.04
@@ -13,7 +16,9 @@ jobs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Get Playwright version from package.json
         id: get-version
@@ -31,16 +36,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Node.js v26
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 26.x
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
+
+      # Every installed package must carry a valid npm registry signature.
+      - name: Verify package signatures
+        run: npm audit signatures
 
       - name: Type-check
         run: npm run typecheck
@@ -68,6 +79,7 @@ jobs:
           npm exec --yes --package="$TARBALL" -- create-boba-app my-app
           cd my-app
           test -f .gitignore
+          grep -qx 'ignore-scripts=true' .npmrc
           npm ci
           npm run typecheck
           npm run lint
@@ -85,10 +97,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Node.js v26
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 26.x
           cache: 'npm'
@@ -98,3 +112,15 @@ jobs:
 
       - name: Unit Tests
         run: npm test
+
+  # Flags new or changed packages with known vulnerabilities before merge.
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high

@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: read
+
 jobs:
   get-playwright-version:
     runs-on: ubuntu-26.04
@@ -12,7 +15,9 @@ jobs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Get Playwright version from package.json
         id: get-version
@@ -22,6 +27,8 @@ jobs:
 
   build-and-release:
     needs: get-playwright-version
+    permissions:
+      contents: write # create the release
     runs-on: ubuntu-26.04
     container: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}-noble
     env:
@@ -29,10 +36,12 @@ jobs:
       HOME: /root
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 26.x
           cache: 'npm'
@@ -47,7 +56,7 @@ jobs:
         run: npx playwright test
 
       - name: Create Release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
         with:
           generate_release_notes: true
         env:

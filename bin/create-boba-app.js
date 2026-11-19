@@ -44,12 +44,14 @@ async function main() {
       filter: (source) => !SKIP.includes(path.basename(source)),
     });
 
-    // npm leaves files named .gitignore out of packages, so the template
-    // stores its one under another name.
-    await fs.promises.rename(
-      path.join(projectPath, 'gitignore'),
-      path.join(projectPath, '.gitignore')
-    );
+    // npm leaves files named .gitignore and .npmrc out of packages, so the
+    // template stores them under other names.
+    for (const name of ['gitignore', 'npmrc']) {
+      await fs.promises.rename(
+        path.join(projectPath, name),
+        path.join(projectPath, `.${name}`)
+      );
+    }
 
     const packageJsonPath = path.join(projectPath, 'package.json');
     const packageJson = JSON.parse(

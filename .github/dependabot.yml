@@ -1,0 +1,38 @@
+# Dependency updates, in place of the old scheduled patching workflow, which
+# installed the newest versions and ran them with a token that could push.
+#
+# cooldown holds back any version for a week after it is published. Most
+# malicious releases on npm are found and pulled within days, so this keeps
+# them out of the lockfiles. A security update for a known vulnerability is
+# not held back. Pull requests from Dependabot run CI with a read-only token
+# and no secrets, and wait for a person to merge them.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  # The template's lockfile is what new apps install.
+  - package-ecosystem: npm
+    directory: /template
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]

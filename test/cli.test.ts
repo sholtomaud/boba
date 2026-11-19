@@ -56,6 +56,15 @@ describe('create-boba-app CLI', () => {
     assert.ok(!fs.existsSync(appFile('gitignore')));
   });
 
+  it("turns off packages' install scripts in the new app", () => {
+    // npm never packs .npmrc, so the template keeps it under another name.
+    assert.match(
+      fs.readFileSync(appFile('.npmrc'), 'utf-8'),
+      /^ignore-scripts=true$/m
+    );
+    assert.ok(!fs.existsSync(appFile('npmrc')));
+  });
+
   it('leaves out local installs and build output', () => {
     for (const dir of ['node_modules', 'dist', 'test-results']) {
       assert.ok(!fs.existsSync(appFile(dir)), `${dir} was copied`);

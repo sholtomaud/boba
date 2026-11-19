@@ -24,4 +24,4 @@ jobs:
       url: ${{ steps.dashboard.outputs.url }}
     steps:
       - id: dashboard
-        uses: sholtomaud/repo-sre-dashboard@v1
+        uses: sholtomaud/repo-sre-dashboard@7ff36590bb149b183d68bb58dd8a2b347b5c88ff # main, pre-v1

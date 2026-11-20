@@ -7,18 +7,20 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write # deploy to GitHub Pages
-  id-token: write # deploy to GitHub Pages
-  issues: write # open, update, and close audit finding issues
-  pull-requests: read
-  actions: read # CI health
-  deployments: read # delivery metrics
-concurrency:
-  group: pages
-  cancel-in-progress: false
 jobs:
   publish:
     runs-on: ubuntu-latest
+    concurrency:
+      group: 'pages'
+      cancel-in-progress: false
+    permissions:
+      contents: write # update /dashboard on gh-pages while preserving the Boba site
+      pages: write # deploy to GitHub Pages
+      id-token: write # deploy to GitHub Pages
+      issues: write # open, update, and close audit finding issues
+      pull-requests: read
+      actions: read # CI health
+      deployments: read # delivery metrics
     environment:
       name: github-pages
       url: ${{ steps.dashboard.outputs.url }}
@@ -26,5 +28,20 @@ jobs:
       - id: dashboard
         uses: sholtomaud/repo-sre-dashboard@7ad1d14585915aee027b390ba3ddf44474a66c23 # v1.2.1
         with:
+          publish-to: branch
+          branch: gh-pages
           audit-issues: true
           audit-issues-impact: low
+
+      # Strip .git (which holds the temporary auth header) before packaging for Pages.
+      - name: Strip git metadata before Pages upload
+        run: rm -rf "${{ runner.temp }}/sre-pages/.git"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/sre-pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws:;"
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <!-- The path the app is served from, set at build time (vite build
+         --base). Relative URLs in the app, such as data/users.json, resolve
+         from here whatever page is open. -->
+    <base href="/boba/" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Boba App</title>
+    <script type="module" crossorigin src="/boba/assets/index-DNLe-7X8.js"></script>
+    <link rel="stylesheet" crossorigin href="/boba/assets/index-DLiMjaN-.css">
+  </head>
+  <body>
+    <app-nav></app-nav>
+    <div id="router-outlet"></div>
+  </body>
+</html>

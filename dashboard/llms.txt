@@ -1,0 +1,18 @@
+# sholtomaud/boba
+
+> Repo SRE Dashboard for sholtomaud/boba: issues and pull requests by AI agents and people, DORA delivery metrics and CI health, and a best-practice audit with fixes. The dashboard page needs JavaScript; the same data is in the files below, rewritten on every run of the Action. Counts and rates only, never issue text.
+
+The audit is in status.json under audit.checks. Each check has a stable id, an impact (high, medium, low) and a status: pass (meets the practice), improve (partly), missing (does not) or waiting (not enough history yet). evidence says what was found, recommendation what to do, and fixes holds files to add or commands to run. status.json's updated_at says when the data was made and run_url links the run that made it.
+
+## Data
+
+- [status.json](https://sholtomaud.github.io/boba/dashboard/data/status.json): the audit, issue and pull request breakdowns, CI and delivery metrics, and the repository's profile.
+- [Schema](https://sholtomaud.github.io/boba/dashboard/schema/status-v1.json): the JSON Schema for status.json; status.json's schema_version says which version it follows.
+- [config.json](https://sholtomaud.github.io/boba/dashboard/data/config.json): the repository, the dashboard's title, and the time limits for issues, in days.
+- [data.csv](https://sholtomaud.github.io/boba/dashboard/data/data.csv): daily running totals of issues, by who closed them and how.
+- [pulls.csv](https://sholtomaud.github.io/boba/dashboard/data/pulls.csv): daily running totals of pull requests, by origin (agent, assisted, human).
+
+## Docs
+
+- [Methodology](https://sholtomaud.github.io/boba/dashboard/methodology/): how each figure and audit check is worked out.
+- [Dashboard](https://sholtomaud.github.io/boba/dashboard/): the page for people.

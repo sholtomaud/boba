@@ -1,0 +1,14 @@
+{
+  "repository": "sholtomaud/boba",
+  "repository_url": "https://github.com/sholtomaud/boba",
+  "issues_url": "https://github.com/sholtomaud/boba/issues",
+  "title": "sholtomaud/boba",
+  "queue": null,
+  "limits_days": {
+    "security": 7,
+    "bug": 30,
+    "other": 180
+  },
+  "cost": null,
+  "why": null
+}

@@ -1,0 +1,45 @@
+<!-- repo-sre-dashboard -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws:;"
+    />
+    <meta name="theme-color" content="#1a1a19" />
+    <meta name="description" content="Repository health: issues and pull requests, AI agents and people, delivery (DORA) and CI, a simulated outlook, and a best-practice audit with fixes." />
+    <!-- The path the app is served from, set at build time (vite build
+         --base). Relative URLs in the app, such as data/data.csv, resolve
+         from here whatever page is open. -->
+    <base href="/boba/dashboard/" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <!-- The data the page is drawn from, for agents and other tools that do
+         not run it: see llms.txt. -->
+    <link rel="alternate" type="application/json" href="data/status.json" title="Dashboard data" />
+    <link rel="alternate" type="text/plain" href="llms.txt" title="Data files, for agents" />
+    <title>Repo SRE Dashboard</title>
+    <script type="module" crossorigin src="./assets/index-mWtkDaPn.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-XKyaHtl9.js">
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-DclECHGd.js">
+    <link rel="modulepreload" crossorigin href="./assets/metrics-DrWwOoaN.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-DugFJrGS.css">
+  </head>
+  <body>
+    <app-nav></app-nav>
+    <div id="router-outlet"></div>
+    <noscript>
+      <p>
+        This dashboard needs JavaScript. Its data is in plain files:
+        <a href="data/status.json">status.json</a> (the audit and metrics;
+        <a href="schema/status-v1.json">schema</a>),
+        <a href="data/data.csv">data.csv</a>,
+        <a href="data/pulls.csv">pulls.csv</a> and
+        <a href="data/config.json">config.json</a>.
+        <a href="llms.txt">llms.txt</a> describes them.
+      </p>
+    </noscript>
+  </body>
+</html>

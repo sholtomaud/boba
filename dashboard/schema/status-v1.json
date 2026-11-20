@@ -1,0 +1,426 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Repo SRE Dashboard status.json, version 1",
+  "description": "Everything the dashboard shows besides the daily CSVs: when it was updated, the schedule, issue and pull request breakdowns, the repository's profile, CI and delivery metrics, and the best-practice audit. Written by the Action's tracker on every run. Counts and rates only: no issue or pull request text. The top level and audit checks list every field; other blocks may gain fields within version 1, but never lose or retype one.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "updated_at",
+    "run_url",
+    "schedule",
+    "issues",
+    "responses",
+    "classes",
+    "agents",
+    "pulls",
+    "repo",
+    "ci",
+    "delivery",
+    "audit"
+  ],
+  "properties": {
+    "schema_version": {
+      "description": "The version of this shape. A new version means a breaking change.",
+      "const": 1
+    },
+    "updated_at": {
+      "description": "When the tracker ran, UTC, to the second.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "run_url": {
+      "description": "The GitHub Actions run that wrote this file; null when run outside Actions.",
+      "type": ["string", "null"]
+    },
+    "schedule": {
+      "description": "How often the workflow running the Action is scheduled.",
+      "type": "object",
+      "required": [
+        "cron",
+        "runs_per_day",
+        "interval_hours",
+        "description",
+        "run_times_utc"
+      ],
+      "properties": {
+        "cron": { "type": "string" },
+        "runs_per_day": { "type": "number" },
+        "interval_hours": { "type": ["number", "null"] },
+        "description": { "type": "string" },
+        "run_times_utc": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "issues": {
+      "description": "All the repository's issues, leaving out the audit's own (labelled repo-sre-audit). Kinds: behavior (bugs and security), feature, other.",
+      "type": "object",
+      "required": [
+        "total",
+        "open",
+        "open_labelled",
+        "labelled",
+        "open_by_kind",
+        "by_kind",
+        "ever_closed",
+        "reopened",
+        "closed_by_evidence"
+      ],
+      "properties": {
+        "total": { "$ref": "#/$defs/count" },
+        "open": { "$ref": "#/$defs/count" },
+        "open_labelled": { "$ref": "#/$defs/count" },
+        "labelled": { "$ref": "#/$defs/count" },
+        "open_by_kind": { "$ref": "#/$defs/byKind" },
+        "by_kind": { "$ref": "#/$defs/byKind" },
+        "ever_closed": { "$ref": "#/$defs/count" },
+        "reopened": { "$ref": "#/$defs/count" },
+        "closed_by_evidence": {
+          "description": "Closed issues by what closed them: a referenced fix, nothing, or a not-planned, withdrawn or duplicate close.",
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/count" }
+        }
+      }
+    },
+    "responses": {
+      "description": "Issues opened in the window: time to first response and to resolution, in hours.",
+      "type": "object",
+      "required": [
+        "windowDays",
+        "firstResponse",
+        "resolution",
+        "awaitingResponse"
+      ],
+      "properties": {
+        "windowDays": { "type": "number" },
+        "firstResponse": { "$ref": "#/$defs/timing" },
+        "resolution": { "$ref": "#/$defs/timing" },
+        "awaitingResponse": { "$ref": "#/$defs/count" }
+      }
+    },
+    "classes": {
+      "description": "Issues by class, each against its time limit in days.",
+      "type": "object",
+      "required": ["security", "bug", "other"],
+      "properties": {
+        "security": { "$ref": "#/$defs/issueClass" },
+        "bug": { "$ref": "#/$defs/issueClass" },
+        "other": { "$ref": "#/$defs/issueClass" }
+      }
+    },
+    "agents": {
+      "description": "Issues opened and resolved by AI agents.",
+      "type": "object",
+      "required": [
+        "opened",
+        "opened_still_open",
+        "resolved",
+        "resolved_with_fix",
+        "resolved_reopened"
+      ],
+      "properties": {
+        "opened": { "$ref": "#/$defs/count" },
+        "opened_still_open": { "$ref": "#/$defs/count" },
+        "resolved": { "$ref": "#/$defs/count" },
+        "resolved_with_fix": { "$ref": "#/$defs/count" },
+        "resolved_reopened": { "$ref": "#/$defs/count" }
+      }
+    },
+    "pulls": {
+      "description": "Pull requests opened in the window, by origin: an AI agent, a person assisted by one, or a person.",
+      "type": "object",
+      "required": ["window_days", "total", "by_origin", "agents"],
+      "properties": {
+        "window_days": { "type": "number" },
+        "total": { "$ref": "#/$defs/count" },
+        "by_origin": {
+          "type": "object",
+          "required": ["agent", "assisted", "human"],
+          "properties": {
+            "agent": { "$ref": "#/$defs/pullOrigin" },
+            "assisted": { "$ref": "#/$defs/pullOrigin" },
+            "human": { "$ref": "#/$defs/pullOrigin" }
+          }
+        },
+        "agents": {
+          "description": "Pull requests by agent name.",
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/count" }
+        }
+      }
+    },
+    "repo": {
+      "description": "The repository's profile: languages, files, workflows and settings. denied lists what the token could not read, and the permission that would let it.",
+      "type": "object",
+      "required": [
+        "description",
+        "default_branch",
+        "visibility",
+        "archived",
+        "license",
+        "languages",
+        "files",
+        "test_files",
+        "key_files",
+        "ecosystems",
+        "workflows",
+        "branch",
+        "denied"
+      ],
+      "properties": {
+        "description": { "type": ["string", "null"] },
+        "default_branch": { "type": "string" },
+        "visibility": { "type": "string" },
+        "archived": { "type": "boolean" },
+        "license": { "type": ["string", "null"] },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "share"],
+            "properties": {
+              "name": { "type": "string" },
+              "share": { "type": "number" }
+            }
+          }
+        },
+        "files": { "$ref": "#/$defs/count" },
+        "test_files": { "$ref": "#/$defs/count" },
+        "key_files": {
+          "description": "The path of each well-known file, or null if there is none.",
+          "type": "object",
+          "additionalProperties": { "type": ["string", "null"] }
+        },
+        "ecosystems": { "type": "array", "items": { "type": "string" } },
+        "workflows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "path"],
+            "properties": {
+              "name": { "type": "string" },
+              "path": { "type": "string" }
+            }
+          }
+        },
+        "branch": {
+          "description": "Default branch protection; null where the token could not read it.",
+          "type": "object",
+          "additionalProperties": { "type": ["boolean", "null"] }
+        },
+        "denied": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["what", "permission"],
+            "properties": {
+              "what": { "type": "string" },
+              "permission": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "ci": {
+      "description": "CI runs on the default branch in the window, leaving out the dashboard's own workflow.",
+      "type": "object",
+      "required": [
+        "window_days",
+        "runs",
+        "failed",
+        "success_rate",
+        "median_minutes",
+        "median_hours_to_green",
+        "failing_now"
+      ],
+      "properties": {
+        "window_days": { "type": "number" },
+        "runs": { "$ref": "#/$defs/count" },
+        "failed": { "$ref": "#/$defs/count" },
+        "success_rate": { "$ref": "#/$defs/rate" },
+        "median_minutes": { "$ref": "#/$defs/maybeNumber" },
+        "median_hours_to_green": { "$ref": "#/$defs/maybeNumber" },
+        "failing_now": {
+          "description": "Workflows whose latest run failed.",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "delivery": {
+      "description": "The four DORA metrics, each banded elite, high, medium or low. source says what counted as a delivery.",
+      "type": "object",
+      "required": [
+        "window_days",
+        "source",
+        "deployment_frequency",
+        "lead_time_hours",
+        "change_failure_rate",
+        "time_to_restore_hours",
+        "incidents_labelled"
+      ],
+      "properties": {
+        "window_days": { "type": "number" },
+        "source": { "enum": ["deployments", "releases", "merges"] },
+        "deployment_frequency": { "$ref": "#/$defs/doraMetric" },
+        "lead_time_hours": { "$ref": "#/$defs/doraMetric" },
+        "change_failure_rate": { "$ref": "#/$defs/doraMetric" },
+        "time_to_restore_hours": { "$ref": "#/$defs/doraMetric" },
+        "incidents_labelled": { "$ref": "#/$defs/count" }
+      }
+    },
+    "audit": {
+      "description": "The best-practice audit. score is 0 to 100, weighted by impact, over the checks that could be judged; null if none could.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "passed", "judged", "waiting", "checks"],
+      "properties": {
+        "score": { "type": ["integer", "null"], "minimum": 0, "maximum": 100 },
+        "passed": { "$ref": "#/$defs/count" },
+        "judged": { "$ref": "#/$defs/count" },
+        "waiting": { "$ref": "#/$defs/count" },
+        "checks": { "type": "array", "items": { "$ref": "#/$defs/check" } }
+      }
+    }
+  },
+  "$defs": {
+    "count": { "type": "integer", "minimum": 0 },
+    "maybeNumber": { "type": ["number", "null"] },
+    "rate": {
+      "description": "A share from 0 to 1; null when there is nothing to divide by.",
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "byKind": {
+      "type": "object",
+      "required": ["behavior", "feature", "other"],
+      "properties": {
+        "behavior": { "$ref": "#/$defs/count" },
+        "feature": { "$ref": "#/$defs/count" },
+        "other": { "$ref": "#/$defs/count" }
+      }
+    },
+    "timing": {
+      "type": "object",
+      "required": ["count", "medianHours", "p90Hours"],
+      "properties": {
+        "count": { "$ref": "#/$defs/count" },
+        "medianHours": { "$ref": "#/$defs/maybeNumber" },
+        "p90Hours": { "$ref": "#/$defs/maybeNumber" }
+      }
+    },
+    "issueClass": {
+      "type": "object",
+      "required": [
+        "total",
+        "open",
+        "oldest_open_days",
+        "over_limit",
+        "limit_days",
+        "window_days",
+        "median_days_to_resolve",
+        "resolved_within_limit",
+        "resolved_recent"
+      ],
+      "properties": {
+        "total": { "$ref": "#/$defs/count" },
+        "open": { "$ref": "#/$defs/count" },
+        "oldest_open_days": { "$ref": "#/$defs/maybeNumber" },
+        "over_limit": { "$ref": "#/$defs/count" },
+        "limit_days": { "type": "number" },
+        "window_days": { "type": "number" },
+        "median_days_to_resolve": { "$ref": "#/$defs/maybeNumber" },
+        "resolved_within_limit": { "$ref": "#/$defs/count" },
+        "resolved_recent": { "$ref": "#/$defs/count" }
+      }
+    },
+    "pullOrigin": {
+      "type": "object",
+      "required": [
+        "opened",
+        "merged",
+        "closed_unmerged",
+        "still_open",
+        "merge_rate",
+        "median_hours_to_merge"
+      ],
+      "properties": {
+        "opened": { "$ref": "#/$defs/count" },
+        "merged": { "$ref": "#/$defs/count" },
+        "closed_unmerged": { "$ref": "#/$defs/count" },
+        "still_open": { "$ref": "#/$defs/count" },
+        "merge_rate": { "$ref": "#/$defs/rate" },
+        "median_hours_to_merge": { "$ref": "#/$defs/maybeNumber" }
+      }
+    },
+    "doraMetric": {
+      "type": "object",
+      "required": ["value", "band", "count", "basis"],
+      "properties": {
+        "value": { "$ref": "#/$defs/maybeNumber" },
+        "band": { "enum": ["elite", "high", "medium", "low", null] },
+        "count": { "$ref": "#/$defs/count" },
+        "basis": { "type": "string" }
+      }
+    },
+    "check": {
+      "description": "One audit check. id is stable across runs; use it to follow a finding over time.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "group",
+        "title",
+        "kind",
+        "impact",
+        "status",
+        "evidence",
+        "why",
+        "recommendation",
+        "fixes",
+        "docs"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "group": { "type": "string" },
+        "title": { "type": "string" },
+        "kind": {
+          "description": "setup: judged from the repository as it is now. habit: judged from history, so it waits until there is enough.",
+          "enum": ["setup", "habit"]
+        },
+        "impact": { "enum": ["high", "medium", "low"] },
+        "status": {
+          "description": "pass: meets the practice. improve: partly. missing: does not. waiting: not enough history to judge yet.",
+          "enum": ["pass", "improve", "missing", "waiting"]
+        },
+        "evidence": {
+          "description": "What the audit found.",
+          "type": "string"
+        },
+        "why": {
+          "description": "What passing gives the project.",
+          "type": "string"
+        },
+        "recommendation": {
+          "description": "What to do; empty when the check passes.",
+          "type": "string"
+        },
+        "fixes": {
+          "description": "Files to add (path set) or commands to run (path empty).",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "language", "content"],
+            "properties": {
+              "path": { "type": "string" },
+              "language": { "type": "string" },
+              "content": { "type": "string" }
+            }
+          }
+        },
+        "docs": { "description": "A link to read more.", "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+# sholtomaud/boba
+
+> This site publishes the Repo SRE Dashboard for sholtomaud/boba.
+
+## Data
+
+- [Repo SRE Dashboard](https://sholtomaud.github.io/boba/dashboard/llms.txt): its data files, their schema, and how to read them.
+
+<!-- repo-sre-dashboard -->

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-20T11:37:30Z",
-  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44729099296",
+  "updated_at": "2026-11-20T20:23:59Z",
+  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44810970005",
   "schedule": {
     "cron": "17 */6 * * *",
     "runs_per_day": 4,
@@ -147,7 +147,7 @@
     "description": null,
     "default_branch": "main",
     "created_at": "2025-01-27T03:59:59Z",
-    "pushed_at": "2026-11-20T11:37:17Z",
+    "pushed_at": "2026-11-20T11:39:48Z",
     "visibility": "public",
     "stars": 1,
     "forks": 0,
@@ -271,7 +271,7 @@
     "branch": {
       "protected": true,
       "requires_review": false,
-      "requires_checks": false
+      "requires_checks": true
     },
     "labels": 13,
     "agent_docs": [
@@ -286,10 +286,10 @@
   },
   "ci": {
     "window_days": 30,
-    "runs": 33,
+    "runs": 36,
     "failed": 0,
     "success_rate": 1,
-    "median_minutes": 2.283333333333333,
+    "median_minutes": 2.341666666666667,
     "median_hours_to_green": null,
     "failing_now": []
   },
@@ -323,8 +323,8 @@
     "incidents_labelled": 0
   },
   "audit": {
-    "score": 75,
-    "passed": 16,
+    "score": 78,
+    "passed": 17,
     "judged": 30,
     "waiting": 0,
     "checks": [
@@ -360,17 +360,11 @@
         "title": "The default branch is protected",
         "kind": "setup",
         "impact": "high",
-        "status": "improve",
-        "evidence": "main is protected, without required status checks",
+        "status": "pass",
+        "evidence": "main is protected, with required status checks",
         "why": "Nothing reaches the default branch without passing CI. It also makes auto-merging dependency updates safe, since they merge only once checks pass.",
-        "recommendation": "Add a ruleset on the default branch that requires a pull request and your CI checks, and blocks force-pushes.",
-        "fixes": [
-          {
-            "path": "",
-            "language": "shell",
-            "content": "# Requires the GitHub CLI and admin rights on the repository.\ngh api repos/sholtomaud/boba/rulesets --method POST --input - <<'JSON'\n{\n  \"name\": \"Protect main\",\n  \"target\": \"branch\",\n  \"enforcement\": \"active\",\n  \"conditions\": { \"ref_name\": { \"include\": [\"~DEFAULT_BRANCH\"], \"exclude\": [] } },\n  \"rules\": [\n    { \"type\": \"deletion\" },\n    { \"type\": \"non_fast_forward\" },\n    { \"type\": \"pull_request\", \"parameters\": {\n        \"required_approving_review_count\": 0,\n        \"dismiss_stale_reviews_on_push\": true,\n        \"require_code_owner_review\": false,\n        \"require_last_push_approval\": false,\n        \"required_review_thread_resolution\": false } },\n    { \"type\": \"required_status_checks\", \"parameters\": {\n        \"strict_required_status_checks_policy\": false,\n        \"required_status_checks\": [{ \"context\": \"test\" }] } }\n  ]\n}\nJSON"
-          }
-        ],
+        "recommendation": "",
+        "fixes": [],
         "docs": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets"
       },
       {
@@ -380,7 +374,7 @@
         "kind": "habit",
         "impact": "medium",
         "status": "pass",
-        "evidence": "100% of 33 runs passed in 30 days",
+        "evidence": "100% of 36 runs passed in 30 days",
         "why": "A default branch that is often red hides new breakages, and every agent or person branching from it starts from broken code.",
         "recommendation": "",
         "fixes": [],

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-20T11:23:00Z",
-  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44727092684",
+  "updated_at": "2026-11-20T11:37:30Z",
+  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44729099296",
   "schedule": {
     "cron": "17 */6 * * *",
     "runs_per_day": 4,
@@ -112,7 +112,7 @@
   },
   "pulls": {
     "window_days": 30,
-    "total": 82,
+    "total": 83,
     "by_origin": {
       "agent": {
         "opened": 0,
@@ -131,8 +131,8 @@
         "median_hours_to_merge": 0.18055555555555555
       },
       "human": {
-        "opened": 6,
-        "merged": 6,
+        "opened": 7,
+        "merged": 7,
         "closed_unmerged": 0,
         "still_open": 0,
         "merge_rate": 1,
@@ -147,7 +147,7 @@
     "description": null,
     "default_branch": "main",
     "created_at": "2025-01-27T03:59:59Z",
-    "pushed_at": "2026-11-20T11:22:38Z",
+    "pushed_at": "2026-11-20T11:37:17Z",
     "visibility": "public",
     "stars": 1,
     "forks": 0,
@@ -180,7 +180,7 @@
         "share": 0.002883526623390324
       }
     ],
-    "files": 86,
+    "files": 88,
     "test_files": 10,
     "files_truncated": false,
     "key_files": {
@@ -191,7 +191,7 @@
       "codeowners": null,
       "dependencyUpdates": ".github/dependabot.yml",
       "pullTemplate": null,
-      "socket": null,
+      "socket": "socket.yml",
       "agentInstructions": "AGENTS.md"
     },
     "lockfiles": 2,
@@ -208,6 +208,19 @@
           "actions/checkout",
           "actions/setup-node",
           "actions/dependency-review-action"
+        ],
+        "unpinned": 0,
+        "permissions": true
+      },
+      {
+        "name": "CodeQL",
+        "path": ".github/workflows/codeql.yml",
+        "on_pull_request": true,
+        "runs_tests": false,
+        "uses": [
+          "actions/checkout",
+          "github/codeql-action/init",
+          "github/codeql-action/analyze"
         ],
         "unpinned": 0,
         "permissions": true
@@ -273,7 +286,7 @@
   },
   "ci": {
     "window_days": 30,
-    "runs": 31,
+    "runs": 33,
     "failed": 0,
     "success_rate": 1,
     "median_minutes": 2.283333333333333,
@@ -284,21 +297,21 @@
     "window_days": 30,
     "source": "merges",
     "deployment_frequency": {
-      "value": 0.4666666666666667,
+      "value": 0.5,
       "band": "high",
-      "count": 14,
+      "count": 15,
       "basis": "pull requests merged to the default branch"
     },
     "lead_time_hours": {
-      "value": 0.13416666666666666,
+      "value": 0.1411111111111111,
       "band": "elite",
-      "count": 14,
+      "count": 15,
       "basis": "pull request opened to merged"
     },
     "change_failure_rate": {
       "value": 0,
       "band": "elite",
-      "count": 14,
+      "count": 15,
       "basis": "merged changes that are reverts or hotfixes"
     },
     "time_to_restore_hours": {
@@ -310,8 +323,8 @@
     "incidents_labelled": 0
   },
   "audit": {
-    "score": 65,
-    "passed": 14,
+    "score": 75,
+    "passed": 16,
     "judged": 30,
     "waiting": 0,
     "checks": [
@@ -322,7 +335,7 @@
         "kind": "setup",
         "impact": "high",
         "status": "pass",
-        "evidence": "1 workflow run on pull requests: CI Pipeline",
+        "evidence": "2 workflows run on pull requests: CI Pipeline, CodeQL",
         "why": "Changes are built and tested before they merge, by people and agents alike. Agents need this most: CI is how their work gets checked.",
         "recommendation": "",
         "fixes": [],
@@ -335,7 +348,7 @@
         "kind": "setup",
         "impact": "high",
         "status": "pass",
-        "evidence": "10 test files among 86 files (12%); tests run in CI Pipeline, Deploy to GitHub Pages, Release",
+        "evidence": "10 test files among 88 files (11%); tests run in CI Pipeline, Deploy to GitHub Pages, Release",
         "why": "Tests turn \"it builds\" into \"it works\". Without them, a green check says little, and agents cannot tell whether a fix fixed anything.",
         "recommendation": "",
         "fixes": [],
@@ -367,7 +380,7 @@
         "kind": "habit",
         "impact": "medium",
         "status": "pass",
-        "evidence": "100% of 31 runs passed in 30 days",
+        "evidence": "100% of 33 runs passed in 30 days",
         "why": "A default branch that is often red hides new breakages, and every agent or person branching from it starts from broken code.",
         "recommendation": "",
         "fixes": [],
@@ -424,17 +437,11 @@
         "title": "New dependencies are screened for malware",
         "kind": "setup",
         "impact": "high",
-        "status": "missing",
-        "evidence": "No supply-chain scanner on pull requests",
+        "status": "pass",
+        "evidence": "Socket is configured",
         "why": "Vulnerability databases only know about published CVEs. Supply-chain scanners like Socket read what a new package actually does (install scripts, network access, obfuscated code, typosquats) before it is merged. This matters more now that agents add dependencies.",
-        "recommendation": "Install the Socket GitHub App (free for open source) so it comments on pull requests that add risky packages, and add a socket.yml to tune it. Or run the Socket CLI in CI with an API token stored as a repository secret.",
-        "fixes": [
-          {
-            "path": "socket.yml",
-            "language": "yaml",
-            "content": "version: 2\n# Comment on pull requests that add or change dependencies.\ngithubApp:\n  enabled: true\n  dependencyOverviewEnabled: true\n"
-          }
-        ],
+        "recommendation": "",
+        "fixes": [],
         "docs": "https://docs.socket.dev/docs/socket-for-github"
       },
       {
@@ -456,17 +463,11 @@
         "title": "Code is scanned for vulnerabilities",
         "kind": "setup",
         "impact": "high",
-        "status": "missing",
-        "evidence": "No code scanning workflow (CodeQL supports javascript-typescript)",
+        "status": "pass",
+        "evidence": "CodeQL runs in a workflow",
         "why": "Finds injection, path traversal and other flaws in your own code, on every pull request. AI tools now find exploitable bugs quickly, so assume attackers do too.",
-        "recommendation": "Turn on CodeQL default setup in Settings → Code security, or add the workflow for more control.",
-        "fixes": [
-          {
-            "path": ".github/workflows/codeql.yml",
-            "language": "yaml",
-            "content": "name: CodeQL\non:\n  pull_request:\n  push:\n    branches: [main]\n  schedule:\n    - cron: '23 4 * * 1'\npermissions:\n  contents: read\n  security-events: write\njobs:\n  analyze:\n    runs-on: ubuntu-latest\n    strategy:\n      matrix:\n        language: [javascript-typescript]\n    steps:\n      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1\n      - uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3\n        with:\n          languages: ${{ matrix.language }}\n          build-mode: none\n      - uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3\n"
-          }
-        ],
+        "recommendation": "",
+        "fixes": [],
         "docs": "https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql"
       },
       {
@@ -722,7 +723,7 @@
         "kind": "habit",
         "impact": "medium",
         "status": "pass",
-        "evidence": "8 of 14 pull requests in 30 days show an agent's work",
+        "evidence": "8 of 15 pull requests in 30 days show an agent's work",
         "why": "Agent work through people's accounts looks human unless it is attributed. Without that, the dashboard undercounts what agents contribute.",
         "recommendation": "",
         "fixes": [],

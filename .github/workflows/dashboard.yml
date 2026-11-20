@@ -9,7 +9,7 @@ permissions:
   contents: read
   pages: write # deploy to GitHub Pages
   id-token: write # deploy to GitHub Pages
-  issues: read
+  issues: write # open, update, and close audit finding issues
   pull-requests: read
   actions: read # CI health
   deployments: read # delivery metrics
@@ -24,4 +24,7 @@ jobs:
       url: ${{ steps.dashboard.outputs.url }}
     steps:
       - id: dashboard
-        uses: sholtomaud/repo-sre-dashboard@7ff36590bb149b183d68bb58dd8a2b347b5c88ff # main, pre-v1
+        uses: sholtomaud/repo-sre-dashboard@7ad1d14585915aee027b390ba3ddf44474a66c23 # v1.2.1
+        with:
+          audit-issues: true
+          audit-issues-impact: low

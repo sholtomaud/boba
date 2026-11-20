@@ -1,0 +1,5 @@
+version: 2
+# Comment on pull requests that add or change dependencies.
+githubApp:
+  enabled: true
+  dependencyOverviewEnabled: true

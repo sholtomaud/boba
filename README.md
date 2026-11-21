@@ -5,7 +5,6 @@
 ### 🔴 [Website →](https://sholtomaud.github.io/boba/)
 
 [![CI](https://github.com/sholtomaud/boba/actions/workflows/ci.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/ci.yml)
-[![Deploy to GitHub Pages](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml/badge.svg)](https://github.com/sholtomaud/boba/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
 [![Node](https://img.shields.io/badge/node-%3E%3D26-brightgreen)](https://nodejs.org)
 
@@ -295,7 +294,7 @@ npm run build -- --base /my-app/
 
 That one setting is used for the asset URLs, the router, and the relative URLs the app requests (through the `<base>` element in `index.html`).
 
-For **GitHub Pages** project sites the sub-path is the repository name. Build with `--base /<repository>/`, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`deploy.yml`](.github/workflows/deploy.yml) in this repository does that for the Boba website and is a working example to adapt.
+For **GitHub Pages** project sites the sub-path is the repository name. Build with `--base /<repository>/`, copy `dist/index.html` to `dist/404.html` (Pages serves it for unknown paths) and publish `dist/`. [`ci.yml`](.github/workflows/ci.yml) in this repository does that for the Boba website and is a working example to adapt.
 
 ### Content Security Policy
 

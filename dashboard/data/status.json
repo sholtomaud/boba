@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-21T00:56:25Z",
-  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44847065417",
+  "updated_at": "2026-11-21T02:49:47Z",
+  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44857965002",
   "schedule": {
     "cron": "17 */6 * * *",
     "runs_per_day": 4,
@@ -147,7 +147,7 @@
     "description": null,
     "default_branch": "main",
     "created_at": "2025-01-27T03:59:59Z",
-    "pushed_at": "2026-11-21T00:56:18Z",
+    "pushed_at": "2026-11-21T02:49:48Z",
     "visibility": "public",
     "stars": 1,
     "forks": 0,
@@ -320,7 +320,7 @@
       "requires_review": false,
       "requires_checks": true
     },
-    "labels": 13,
+    "labels": 15,
     "agent_docs": [
       {
         "path": "AGENTS.md",
@@ -346,27 +346,27 @@
   },
   "ci": {
     "window_days": 30,
-    "runs": 36,
+    "runs": 41,
     "failed": 0,
     "success_rate": 1,
-    "median_minutes": 2.341666666666667,
+    "median_minutes": 2.35,
     "median_hours_to_green": null,
     "failing_now": []
   },
   "delivery": {
     "window_days": 30,
-    "source": "merges",
+    "source": "releases",
     "deployment_frequency": {
-      "value": 0.5333333333333333,
-      "band": "high",
-      "count": 16,
-      "basis": "pull requests merged to the default branch"
+      "value": 0.03333333333333333,
+      "band": "medium",
+      "count": 1,
+      "basis": "releases"
     },
     "lead_time_hours": {
-      "value": 0.14125,
-      "band": "elite",
+      "value": 50.736805555555556,
+      "band": "high",
       "count": 16,
-      "basis": "pull request opened to merged"
+      "basis": "pull request opened to the next release"
     },
     "change_failure_rate": {
       "value": 0,
@@ -383,8 +383,8 @@
     "incidents_labelled": 0
   },
   "audit": {
-    "score": 96,
-    "passed": 27,
+    "score": 97,
+    "passed": 28,
     "judged": 30,
     "waiting": 0,
     "checks": [
@@ -434,7 +434,7 @@
         "kind": "habit",
         "impact": "medium",
         "status": "pass",
-        "evidence": "100% of 36 runs passed in 30 days",
+        "evidence": "100% of 41 runs passed in 30 days",
         "why": "A default branch that is often red hides new breakages, and every agent or person branching from it starts from broken code.",
         "recommendation": "",
         "fixes": [],
@@ -641,22 +641,11 @@
         "title": "Deliveries are recorded",
         "kind": "setup",
         "impact": "medium",
-        "status": "improve",
-        "evidence": "No releases or deployments: delivery metrics fall back to merges",
+        "status": "pass",
+        "evidence": "1 release published",
         "why": "Deployment frequency and lead time measure delivery to users, not merges. Releases or GitHub deployments give the dashboard the real dates.",
-        "recommendation": "Publish releases (release-please automates them from your commit messages), or give your deploy job an environment so GitHub records each deployment.",
-        "fixes": [
-          {
-            "path": ".github/workflows/release-please.yml",
-            "language": "yaml",
-            "content": "name: Release\non:\n  push:\n    branches: [main]\npermissions:\n  contents: write\n  pull-requests: write\njobs:\n  release:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0\n        with:\n          release-type: simple\n"
-          },
-          {
-            "path": "",
-            "language": "yaml",
-            "content": "# In your deploy workflow: GitHub records a deployment per run.\njobs:\n  deploy:\n    environment: production\n"
-          }
-        ],
+        "recommendation": "",
+        "fixes": [],
         "docs": "https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment"
       },
       {

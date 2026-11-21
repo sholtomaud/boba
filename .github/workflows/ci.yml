@@ -5,9 +5,14 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   get-playwright-version:
@@ -66,6 +71,7 @@ jobs:
         run: npx playwright test
 
       # The Boba website: the template plus the pages in site/overlay.
+      # Assembling it here also records this commit and run for the home page.
       - name: Site checks
         run: npm run site:check
 
@@ -85,6 +91,25 @@ jobs:
           npm run lint
           npm test
           npm run e2e
+
+      # GitHub Pages serves this site from /<repository>/.
+      - name: Build site for GitHub Pages
+        if: github.event_name != 'pull_request'
+        run: npm --prefix .site run build -- --base "/${{ github.event.repository.name }}/"
+
+      # GitHub Pages serves 404.html for unknown paths, which lets the router
+      # handle deep links such as /boba/docs.
+      - name: Prepare 404 page for SPA
+        if: github.event_name != 'pull_request'
+        run: cp .site/dist/index.html .site/dist/404.html
+
+      - name: Upload built site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-dist
+          path: .site/dist
+          retention-days: 1
 
   # Everything that runs in Node (the scaffolder, the app's CLI and unit
   # tests) on the other platforms developers use.
@@ -124,3 +149,93 @@ jobs:
       - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
         with:
           fail-on-severity: high
+
+  merge-pages:
+    if: github.event_name != 'pull_request'
+    needs: [test, cross-platform]
+    runs-on: ubuntu-26.04
+    concurrency:
+      group: 'pages-branch'
+      cancel-in-progress: false
+    permissions:
+      contents: write # update gh-pages while preserving /dashboard
+    steps:
+      - name: Download built site
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: site-dist
+          path: ${{ runner.temp }}/site-dist
+
+      - name: Merge site into gh-pages (preserving /dashboard)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          dir="${{ runner.temp }}/pages-site"
+          dist="${{ runner.temp }}/site-dist"
+          remote="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+          auth="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')"
+
+          rm -rf "$dir"
+          git init --quiet "$dir"
+          cd "$dir"
+          git config http."${GITHUB_SERVER_URL}/".extraheader "$auth"
+          git remote add origin "$remote"
+          if git fetch --quiet --depth 1 origin gh-pages 2>/dev/null; then
+            git checkout --quiet -b gh-pages FETCH_HEAD
+          else
+            git checkout --quiet --orphan gh-pages
+          fi
+
+          # Replace everything at the root except .git, /dashboard and root llms.txt.
+          find "$dir" -mindepth 1 -maxdepth 1 ! -name .git ! -name dashboard ! -name llms.txt -exec rm -rf {} +
+          cp -R "$dist/." "$dir/"
+          touch "$dir/.nojekyll"
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit --quiet -m "Deploy Boba site (${GITHUB_SHA:0:7})"
+            git push --quiet origin HEAD:gh-pages
+          fi
+
+          # Strip .git (which holds the temporary auth header) before packaging for Pages.
+          rm -rf "$dir/.git"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/pages-site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: merge-pages
+    runs-on: ubuntu-26.04
+    concurrency:
+      group: 'pages'
+      cancel-in-progress: false
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  # Keeps a release pull request open from Conventional Commit titles on main.
+  release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [test, cross-platform]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Run Release Please
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          release-type: node

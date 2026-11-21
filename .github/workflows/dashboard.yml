@@ -1,28 +1,28 @@
 name: Dashboard
+
 on:
   push:
     branches: [main] # redeploy on every merge
   schedule:
     - cron: '17 */6 * * *' # and every 6 hours; the dashboard shows this schedule
   workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     concurrency:
-      group: 'pages'
+      group: 'pages-branch'
       cancel-in-progress: false
     permissions:
       contents: write # update /dashboard on gh-pages while preserving the Boba site
-      pages: write # deploy to GitHub Pages
-      id-token: write # deploy to GitHub Pages
       issues: write # open, update, and close audit finding issues
       pull-requests: read
       actions: read # CI health
       deployments: read # delivery metrics
-    environment:
-      name: github-pages
+    outputs:
       url: ${{ steps.dashboard.outputs.url }}
     steps:
       - id: dashboard
@@ -42,6 +42,19 @@ jobs:
         with:
           path: ${{ runner.temp }}/sre-pages
 
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    concurrency:
+      group: 'pages'
+      cancel-in-progress: false
+    permissions:
+      pages: write # deploy to GitHub Pages
+      id-token: write # deploy to GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ needs.publish.outputs.url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

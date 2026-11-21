@@ -1,0 +1,5 @@
+# Default owner for everything.
+*       @sholtomaud
+
+# Workflows and security settings.
+/.github/  @sholtomaud

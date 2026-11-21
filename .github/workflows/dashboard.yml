@@ -30,6 +30,12 @@ jobs:
           branch: gh-pages
           audit-issues: true
           audit-issues-impact: low
+          agent-cost-per-issue: '1.50' # API spend ÷ issues agents resolved
+          human-hourly-rate: '95'
+          human-hours-per-issue: '2'
+          monthly-human-budget: '5000' # people's time
+          monthly-agentic-budget: '50' # agents' API and CI spend
+          currency: USD
 
       # Strip .git (which holds the temporary auth header) before packaging for Pages.
       - name: Strip git metadata before Pages upload

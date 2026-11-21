@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-21T02:49:47Z",
-  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44857965002",
+  "updated_at": "2026-11-21T07:11:47Z",
+  "run_url": "https://github.com/sholtomaud/boba/actions/runs/44879089520",
   "schedule": {
     "cron": "17 */6 * * *",
     "runs_per_day": 4,
@@ -112,7 +112,7 @@
   },
   "pulls": {
     "window_days": 30,
-    "total": 84,
+    "total": 86,
     "by_origin": {
       "agent": {
         "opened": 0,
@@ -131,12 +131,12 @@
         "median_hours_to_merge": 0.18055555555555555
       },
       "human": {
-        "opened": 8,
-        "merged": 8,
+        "opened": 10,
+        "merged": 10,
         "closed_unmerged": 0,
         "still_open": 0,
         "merge_rate": 1,
-        "median_hours_to_merge": 0.12694444444444444
+        "median_hours_to_merge": 0.1275
       }
     },
     "agents": {
@@ -147,7 +147,7 @@
     "description": null,
     "default_branch": "main",
     "created_at": "2025-01-27T03:59:59Z",
-    "pushed_at": "2026-11-21T02:49:48Z",
+    "pushed_at": "2026-11-21T06:57:28Z",
     "visibility": "public",
     "stars": 1,
     "forks": 0,
@@ -180,7 +180,7 @@
         "share": 0.002883526623390324
       }
     ],
-    "files": 99,
+    "files": 95,
     "test_files": 10,
     "files_truncated": false,
     "key_files": {
@@ -219,20 +219,12 @@
         "uses": [
           "actions/checkout",
           "actions/setup-node",
-          "actions/dependency-review-action"
-        ],
-        "unpinned": 0,
-        "permissions": true
-      },
-      {
-        "name": "CodeQL",
-        "path": ".github/workflows/codeql.yml",
-        "on_pull_request": true,
-        "runs_tests": false,
-        "uses": [
-          "actions/checkout",
-          "github/codeql-action/init",
-          "github/codeql-action/analyze"
+          "actions/upload-artifact",
+          "actions/dependency-review-action",
+          "actions/download-artifact",
+          "actions/upload-pages-artifact",
+          "actions/deploy-pages",
+          "googleapis/release-please-action"
         ],
         "unpinned": 0,
         "permissions": true
@@ -262,52 +254,14 @@
         "permissions": true
       },
       {
-        "name": "Deploy to GitHub Pages",
-        "path": ".github/workflows/deploy.yml",
-        "on_pull_request": false,
-        "runs_tests": true,
-        "uses": [
-          "actions/checkout",
-          "actions/setup-node",
-          "actions/upload-artifact",
-          "actions/download-artifact",
-          "actions/upload-pages-artifact",
-          "actions/deploy-pages"
-        ],
-        "unpinned": 0,
-        "permissions": true
-      },
-      {
-        "name": "Release Please",
-        "path": ".github/workflows/release-please.yml",
-        "on_pull_request": false,
-        "runs_tests": false,
-        "uses": [
-          "googleapis/release-please-action"
-        ],
-        "unpinned": 0,
-        "permissions": true
-      },
-      {
-        "name": "Release",
-        "path": ".github/workflows/release.yml",
-        "on_pull_request": false,
-        "runs_tests": true,
-        "uses": [
-          "actions/checkout",
-          "actions/setup-node",
-          "softprops/action-gh-release"
-        ],
-        "unpinned": 0,
-        "permissions": true
-      },
-      {
-        "name": "Scorecard",
-        "path": ".github/workflows/scorecard.yml",
-        "on_pull_request": false,
+        "name": "Security",
+        "path": ".github/workflows/security.yml",
+        "on_pull_request": true,
         "runs_tests": false,
         "uses": [
           "actions/checkout",
+          "github/codeql-action/init",
+          "github/codeql-action/analyze",
           "ossf/scorecard-action",
           "github/codeql-action/upload-sarif"
         ],
@@ -320,7 +274,7 @@
       "requires_review": false,
       "requires_checks": true
     },
-    "labels": 15,
+    "labels": 17,
     "agent_docs": [
       {
         "path": "AGENTS.md",
@@ -346,10 +300,10 @@
   },
   "ci": {
     "window_days": 30,
-    "runs": 41,
+    "runs": 48,
     "failed": 0,
     "success_rate": 1,
-    "median_minutes": 2.35,
+    "median_minutes": 2.375,
     "median_hours_to_green": null,
     "failing_now": []
   },
@@ -371,7 +325,7 @@
     "change_failure_rate": {
       "value": 0,
       "band": "elite",
-      "count": 16,
+      "count": 18,
       "basis": "merged changes that are reverts or hotfixes"
     },
     "time_to_restore_hours": {
@@ -383,8 +337,8 @@
     "incidents_labelled": 0
   },
   "audit": {
-    "score": 97,
-    "passed": 28,
+    "score": 100,
+    "passed": 30,
     "judged": 30,
     "waiting": 0,
     "checks": [
@@ -395,7 +349,7 @@
         "kind": "setup",
         "impact": "high",
         "status": "pass",
-        "evidence": "3 workflows run on pull requests: CI Pipeline, CodeQL, Dependabot auto-merge",
+        "evidence": "3 workflows run on pull requests: CI Pipeline, Dependabot auto-merge, Security",
         "why": "Changes are built and tested before they merge, by people and agents alike. Agents need this most: CI is how their work gets checked.",
         "recommendation": "",
         "fixes": [],
@@ -408,7 +362,7 @@
         "kind": "setup",
         "impact": "high",
         "status": "pass",
-        "evidence": "10 test files among 99 files (10%); tests run in CI Pipeline, Deploy to GitHub Pages, Release",
+        "evidence": "10 test files among 95 files (11%); tests run in CI Pipeline",
         "why": "Tests turn \"it builds\" into \"it works\". Without them, a green check says little, and agents cannot tell whether a fix fixed anything.",
         "recommendation": "",
         "fixes": [],
@@ -434,7 +388,7 @@
         "kind": "habit",
         "impact": "medium",
         "status": "pass",
-        "evidence": "100% of 41 runs passed in 30 days",
+        "evidence": "100% of 48 runs passed in 30 days",
         "why": "A default branch that is often red hides new breakages, and every agent or person branching from it starts from broken code.",
         "recommendation": "",
         "fixes": [],
@@ -654,17 +608,11 @@
         "title": "Incidents are labelled",
         "kind": "setup",
         "impact": "medium",
-        "status": "improve",
-        "evidence": "No incident, outage or regression label",
+        "status": "pass",
+        "evidence": "The incident label is ready for the next incident",
         "why": "Time to restore service is measured from incident issues. Without the label it cannot be measured at all.",
-        "recommendation": "Create incident and regression labels, and open an issue with one whenever production breaks. Close it when service is restored.",
-        "fixes": [
-          {
-            "path": "",
-            "language": "shell",
-            "content": "gh label create incident --color B60205 --description \"Production is broken\" --repo sholtomaud/boba\ngh label create regression --color D93F0B --description \"Worked before, broken now\" --repo sholtomaud/boba"
-          }
-        ],
+        "recommendation": "",
+        "fixes": [],
         "docs": "https://dora.dev/guides/dora-metrics-four-keys/"
       },
       {
@@ -713,7 +661,7 @@
         "kind": "habit",
         "impact": "medium",
         "status": "pass",
-        "evidence": "8 of 16 pull requests in 30 days show an agent's work",
+        "evidence": "8 of 18 pull requests in 30 days show an agent's work",
         "why": "Agent work through people's accounts looks human unless it is attributed. Without that, the dashboard undercounts what agents contribute.",
         "recommendation": "",
         "fixes": [],
@@ -764,17 +712,11 @@
         "title": "Costs are set",
         "kind": "setup",
         "impact": "low",
-        "status": "improve",
-        "evidence": "No prices set, so the outlook has no cost figures",
+        "status": "pass",
+        "evidence": "Cost inputs are set, so the outlook forecasts spending",
         "why": "With prices set, the outlook shows what resolving issues costs a month, people against agents, and when keeping pace would exceed people's budget or agents' budget.",
-        "recommendation": "Set what an agent costs per resolved issue (your API spend divided by the issues agents resolved), a person's hourly rate, and a monthly budget each for people and for agents.",
-        "fixes": [
-          {
-            "path": "",
-            "language": "yaml",
-            "content": "- uses: sholtomaud/repo-sre-dashboard@65dcc5485c27beb4241db9427fc9707b026307de # v1.2.0\n  with:\n    agent-cost-per-issue: '1.50'   # API spend ÷ issues agents resolved\n    human-hourly-rate: '95'\n    human-hours-per-issue: '2'\n    monthly-human-budget: '5000'   # people's time\n    monthly-agentic-budget: '50'   # agents' API and CI spend\n    currency: USD\n"
-          }
-        ],
+        "recommendation": "",
+        "fixes": [],
         "docs": "https://github.com/sholtomaud/repo-sre-dashboard#inputs"
       },
       {

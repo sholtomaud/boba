@@ -9,6 +9,13 @@
     "bug": 30,
     "other": 180
   },
-  "cost": null,
+  "cost": {
+    "currency": "USD",
+    "agent_per_issue": 1.5,
+    "human_hourly_rate": 95,
+    "human_hours_per_issue": 2,
+    "monthly_human_budget": 5000,
+    "monthly_agentic_budget": 50
+  },
   "why": null
 }

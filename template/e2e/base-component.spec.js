@@ -55,3 +55,34 @@ test('a moved component re-subscribes in connected(): app-nav still follows the 
   await expect(page).toHaveURL('/users');
   await expect(link).toHaveAttribute('aria-current', 'page');
 });
+
+// delegate() must ignore events whose target is not an Element (such as a Text
+// node) rather than throwing when calling closest().
+test('delegate() ignores events whose target is not an Element', async ({
+  page,
+}) => {
+  const errors = [];
+  page.on('pageerror', (err) => errors.push(err.message));
+
+  await page.goto('/');
+  await expect(page.locator('app-nav')).toBeVisible();
+
+  const hits = await page.evaluate(() => {
+    let count = 0;
+    const nav = document.querySelector('app-nav');
+    nav.delegate('x-delegate-test', 'button', () => {
+      count += 1;
+    });
+
+    const text = document.createTextNode('plain text');
+    const button = document.createElement('button');
+    nav.append(text, button);
+
+    text.dispatchEvent(new CustomEvent('x-delegate-test', { bubbles: true }));
+    button.dispatchEvent(new CustomEvent('x-delegate-test', { bubbles: true }));
+    return count;
+  });
+
+  expect(errors).toEqual([]);
+  expect(hits).toBe(1);
+});

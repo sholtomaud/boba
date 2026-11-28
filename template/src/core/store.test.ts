@@ -23,8 +23,10 @@ describe('Store', () => {
 
   test('should emit change event on setState', (t, done) => {
     const store = new Store({ count: 0 });
-    store.addEventListener('change', (event: any) => {
-      assert.deepStrictEqual(event.detail, { count: 1 });
+    store.addEventListener('change', (event) => {
+      assert.deepStrictEqual((event as CustomEvent<{ count: number }>).detail, {
+        count: 1,
+      });
       done();
     });
     store.setState({ count: 1 });

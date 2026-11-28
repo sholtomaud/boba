@@ -1,4 +1,4 @@
-import{t as e}from"./index-DNLe-7X8.js";var t=`<div
+import{t as e}from"./index-Bes7zO6-.js";var t=`<div
   class="min-h-screen bg-[var(--boba-bg)] text-slate-900 dark:text-slate-100 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200"
 >
   <div class="max-w-5xl mx-auto">

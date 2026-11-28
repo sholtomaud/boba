@@ -1,4 +1,4 @@
-import{t as e}from"./index-DNLe-7X8.js";var t=`<div
+import{t as e}from"./index-Bes7zO6-.js";var t=`<div
   class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 transition-colors duration-200"
 >
   <div class="flex flex-col lg:flex-row gap-10">

@@ -1,4 +1,4 @@
-import{t as e}from"./index-DNLe-7X8.js";var t=class extends EventTarget{state;constructor(e){super(),this.state={...e}}getState(){return{...this.state}}setState(e){this.state={...this.state,...e},this.dispatchEvent(new CustomEvent(`change`,{detail:this.getState()}))}},n=`<div class="min-h-[calc(100vh-4rem)] bg-[var(--boba-bg)] text-slate-900 dark:text-slate-100 py-12 px-4 sm:px-6 transition-colors duration-200">
+import{t as e}from"./index-Bes7zO6-.js";var t=class extends EventTarget{state;constructor(e){super(),this.state={...e}}getState(){return{...this.state}}setState(e){this.state={...this.state,...e},this.dispatchEvent(new CustomEvent(`change`,{detail:this.getState()}))}},n=`<div class="min-h-[calc(100vh-4rem)] bg-[var(--boba-bg)] text-slate-900 dark:text-slate-100 py-12 px-4 sm:px-6 transition-colors duration-200">
   <div class="max-w-2xl mx-auto">
 
     <!-- Heading -->

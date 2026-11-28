@@ -1,4 +1,4 @@
-import{t as e}from"./index-DNLe-7X8.js";var t=`<div class="min-h-[calc(100vh-4rem)] bg-[var(--boba-bg)] flex items-center justify-center px-4 text-center">
+import{t as e}from"./index-Bes7zO6-.js";var t=`<div class="min-h-[calc(100vh-4rem)] bg-[var(--boba-bg)] flex items-center justify-center px-4 text-center">
   <div>
     <p class="text-7xl font-extrabold font-mono text-slate-900 dark:text-slate-50 mb-4">404</p>
     <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Page Not Found</h1>

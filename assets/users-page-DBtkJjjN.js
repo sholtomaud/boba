@@ -1,4 +1,4 @@
-import{t as e}from"./index-DNLe-7X8.js";async function t(e=fetch){let t=await e(`data/users.json`);if(!t.ok)throw Error(`Could not load users (HTTP ${t.status})`);return t.json()}function n(e,t){return t.some(t=>t.name.toLowerCase()===e.name.toLowerCase())?`${e.name} is already in the list.`:``}var r=`<div class="min-h-[calc(100vh-4rem)] bg-[var(--boba-bg)] text-slate-900 dark:text-slate-100 py-12 px-4 sm:px-6 transition-colors duration-200">
+import{t as e}from"./index-Bes7zO6-.js";async function t(e=fetch){let t=await e(`data/users.json`);if(!t.ok)throw Error(`Could not load users (HTTP ${t.status})`);return t.json()}function n(e,t){return t.some(t=>t.name.toLowerCase()===e.name.toLowerCase())?`${e.name} is already in the list.`:``}var r=`<div class="min-h-[calc(100vh-4rem)] bg-[var(--boba-bg)] text-slate-900 dark:text-slate-100 py-12 px-4 sm:px-6 transition-colors duration-200">
   <div class="max-w-2xl mx-auto">
 
     <div class="text-center mb-10">

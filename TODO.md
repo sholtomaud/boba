@@ -1,21 +1,9 @@
-# TODO: Road to 1.0.0
+# TODO
 
-What must be true before tagging `v1.0.0`. The supported install path is `npx github:sholtomaud/boba <app>`; publishing to npm is not planned, so a release is a git tag plus a GitHub Release (created by `release.yml`).
+`v1.0.0` is released. The supported install path is `npx github:sholtomaud/boba <app>`; publishing to npm is not planned, so releases are git tags and GitHub Releases managed by Release Please in `.github/workflows/ci.yml`.
 
-## Blockers
+## Housekeeping
 
-- `[ ]` **Delete the stray `v1.0.1` tag.** It exists on GitHub with no release behind it, and would sit above `v1.0.0` in version order. Remove it before tagging the release.
-
-- `[ ]` **Decide whether a real no-build mode lands before 1.0.** "Zero-build" was the headline and is not true today: the browser code goes through Vite. The site and README now say what is true instead. Making the original claim true means no bundler and no transpiler, with Node's built-in type stripping as the only transform:
-  - a small dev server (`node:http`) that serves `.ts` files with types stripped (`module.stripTypeScriptTypes`), and a "build" that only copies files and strips types;
-  - component markup and styles loaded natively instead of Vite's `?raw` imports (CSS module scripts, `fetch` for templates, `@scope` for style scoping);
-  - Tailwind out of the starter (see Roadmap), since it needs a compiler.
-
-  This changes how every component is written, so it is a breaking change if it comes after 1.0. Recommendation: do it before tagging.
-
-## Nice to have
-
-- `[ ]` **Harden `BaseComponent`.** It has no unit tests, and re-attaching an element runs `init()` again, which duplicates listeners added with `delegate()`.
 - `[ ]` **Retire or update `docs/`.** The two dated review documents describe an earlier layout of the repository.
 
 ## Roadmap (after 1.0)
@@ -28,7 +16,18 @@ What must be true before tagging `v1.0.0`. The supported install path is `npx gi
   - a `data-bind` convention that wires elements to a `Store`, so components stop updating the DOM by hand;
   - attribute/property reflection (`observedAttributes`) so components can be configured from markup and from code;
   - `<template>` and `<slot>`-style children, so a parent can pass content to a child.
+- `[ ]` **Evaluate a real no-build mode (2.0 / breaking).** `1.0.0` shipped with Vite serving and bundling browser code and Node's built-in type stripping for unit tests and the CLI. Removing the bundler and transpiler altogether would mean:
+  - a small dev server (`node:http`) that serves `.ts` files with types stripped (`module.stripTypeScriptTypes`), and a "build" that only copies files and strips types;
+  - component markup and styles loaded natively instead of Vite's `?raw` imports (CSS module scripts, `fetch` for templates, `@scope` for style scoping);
+  - Tailwind moved out of the starter into an extension, since it needs a compiler.
+
+  Because this changes how every component is written, it would be a breaking change for a future major release.
+
+## Completed for 1.0.0
+
+- `[x]` Removed the stray `v1.0.1` tag and released `v1.0.0`.
+- `[x]` Hardened `BaseComponent`: `init()` runs once, `connected()` handles re-subscriptions on reconnect, `delegate()` guards `event.target instanceof Element`, and lifecycle/delegation behaviour is covered by Playwright tests in `template/e2e/base-component.spec.js`.
 
 ## Releasing
 
-Once the blockers are closed: set the version in `package.json` and `template/package.json`, update the changelog, merge to `main`, then tag `v1.0.0`. The tag triggers `release.yml`, which runs the tests and creates the GitHub Release.
+Use Conventional Commit titles (`feat:`, `fix:`, `chore:`, etc.) on pull requests merged to `main`. The `release` job in `.github/workflows/ci.yml` runs Release Please to keep a release pull request open; merging it bumps versions, updates `CHANGELOG.md`, tags the release, and creates the GitHub Release.

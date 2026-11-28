@@ -88,7 +88,8 @@ export class BaseComponent extends HTMLElement {
     handler: (event: Event, element: HTMLElement) => void
   ) {
     this.addEventListener(eventType, (event) => {
-      const element = (event.target as Element).closest<HTMLElement>(selector);
+      if (!(event.target instanceof Element)) return;
+      const element = event.target.closest<HTMLElement>(selector);
       if (element && this.contains(element)) {
         handler.call(this, event, element);
       }

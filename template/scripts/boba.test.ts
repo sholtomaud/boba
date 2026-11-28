@@ -90,31 +90,43 @@ describe('boba CLI', () => {
   });
 
   test('mcp serves the tools over JSON-RPC', () => {
-    const call = (method: string, params?: object) =>
-      handleMcp(root, { id: 1, method, params }) as {
-        result: Record<string, any>;
+    interface ToolResult {
+      isError: boolean;
+      content: Array<{ type: string; text: string }>;
+    }
+    const call = <T = Record<string, unknown>>(
+      method: string,
+      params?: object
+    ) =>
+      handleMcp(root, { id: 1, method, params }) as unknown as {
+        result: T;
         error?: { code: number };
       };
 
-    assert.deepStrictEqual(call('initialize').result.capabilities, {
-      tools: {},
-    });
-    assert.strictEqual(call('initialize').result.serverInfo.version, '2.3.4');
-    assert.strictEqual(call('tools/list').result.tools.length, 4);
+    const init = call<{
+      capabilities: { tools: Record<string, never> };
+      serverInfo: { version: string };
+    }>('initialize').result;
+    assert.deepStrictEqual(init.capabilities, { tools: {} });
+    assert.strictEqual(init.serverInfo.version, '2.3.4');
+    assert.strictEqual(
+      call<{ tools: unknown[] }>('tools/list').result.tools.length,
+      4
+    );
     assert.strictEqual(
       handleMcp(root, { method: 'notifications/initialized' }),
       undefined
     );
     assert.strictEqual(call('nope').error?.code, -32601);
 
-    const created = call('tools/call', {
+    const created = call<ToolResult>('tools/call', {
       name: 'generate_component',
       arguments: { name: 'user-card' },
     }).result;
     assert.strictEqual(created.isError, false);
     assert.ok(fs.existsSync(path.join(root, 'src/components/user-card')));
 
-    const failed = call('tools/call', {
+    const failed = call<ToolResult>('tools/call', {
       name: 'add_route',
       arguments: { path: '/x', component: 'no-such' },
     }).result;
